@@ -27,10 +27,11 @@ public static class SoundManager {
 		return null;
 	}
 
-	public static void PlaySound(AudioClip clip, Vector3 position, float pitch = 1.0f) {
+	public static void PlaySound(AudioClip clip, Vector3 position, float pitch = 1.0f, float volume = 1.0f) {
 		AudioSource source = GetFreeAudioSource();
 		source.pitch = pitch;
 		source.transform.position = position;
+		source.volume = volume;
 		source.PlayOneShot(clip);
 	}
 }

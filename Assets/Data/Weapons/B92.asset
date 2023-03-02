@@ -10,19 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 744ab951e062c804884fab903b506f07, type: 3}
-  m_Name: Pistol
+  m_Name: B92
   m_EditorClassIdentifier: 
-  displayName: Pistol
+  displayName: B92
   fireMode: 1
-  fireTriggerValue: 0.3
+  fireTriggerValue: 0.2
   force: 100
   shootHapticFeedbackIntensity: 0.69
   shootHapticFeedbackDuration: 0.2
   minTriggerRotation: -70.983
   maxTriggerRotation: -57.31
-  shootSound: {fileID: 8300000, guid: 7238d0a3250d79c4cbf5c11887a925bd, type: 3}
+  shootSound: {fileID: 8300000, guid: 9bd4bd0d8c64b9d4384d4216fa607ba2, type: 3}
   prefab: {fileID: 4191568506017560695, guid: ddd64e55836a07849b08b79411acf650, type: 3}
-  bulletPrefab: {fileID: 2886901612498879078, guid: d5a7416c10f92934581dee79e2aff771,
-    type: 3}
+  bullet: {fileID: 11400000, guid: 91622ac69047347459f9645ba0cfeb8f, type: 2}
   compatibleMagazines:
   - {fileID: 11400000, guid: d4a9b70f5e82f1c4dbc074a75e8f5d48, type: 2}

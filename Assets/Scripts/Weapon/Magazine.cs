@@ -5,8 +5,18 @@ public class Magazine : XRGrabInteractable {
 	[Space]
 	[Header("Magazine")]
 	[SerializeField] private MagazineData m_data;
+	[SerializeField] private GameObject m_bulletObject;
 
-	[HideInInspector] public uint bulletCount;
+	private uint _m_bulletCount;
+	[HideInInspector]
+	public uint bulletCount {
+		get => _m_bulletCount;
+		set {
+			_m_bulletCount = value;
+			if (m_bulletObject != null)
+				m_bulletObject.SetActive(value > 0);
+		}
+	}
 	private Rigidbody m_rb;
 
 	public MagazineData Data => m_data;

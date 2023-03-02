@@ -21,6 +21,9 @@ public class Bullet : MonoBehaviour {
 
 	private void OnCollisionEnter(Collision collision) {
 		PseudoDestroy();
+
+		IHIttable hittable = collision.collider.GetComponent<IHIttable>();
+		hittable?.OnHit(collision);
 	}
 
 	public void ApplyForce(Vector3 direction, float force) {

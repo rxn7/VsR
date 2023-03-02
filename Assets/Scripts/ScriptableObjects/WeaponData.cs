@@ -34,6 +34,6 @@ public class WeaponData : ScriptableObject {
 	[Space]
 	[Header("Referenes")]
 	public Weapon prefab;
-	public Bullet bulletPrefab;
+	public BulletData bullet;
 	public MagazineData[] compatibleMagazines;
 }

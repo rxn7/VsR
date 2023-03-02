@@ -9,6 +9,7 @@ public class Weapon : XRGrabInteractable {
 	[SerializeField] private MagazineSlot m_magSlot;
 	[SerializeField] private Transform m_triggerTransform;
 	[SerializeField] private Transform m_bulletSpawnPoint;
+	[SerializeField] private Transform m_bulletCaseEjectPoint;
 
 	private Animator m_animator;
 	private Hand m_hand = null;
@@ -49,8 +50,8 @@ public class Weapon : XRGrabInteractable {
 		m_cocked = false;
 
 		SpawnBullet();
+		EjectBulletCase();
 
-		// Visual/Audio/Haptic Feedback
 		m_animator.SetTrigger("Shoot");
 		m_hand.xrController.SendHapticImpulse(m_data.shootHapticFeedbackIntensity, m_data.shootHapticFeedbackDuration);
 		SoundManager.PlaySound(m_data.shootSound, transform.position, Random.Range(0.9f, 1.1f));
@@ -71,9 +72,14 @@ public class Weapon : XRGrabInteractable {
 	}
 
 	private void SpawnBullet() {
-		Bullet bullet = GameObject.Instantiate<Bullet>(m_data.bulletPrefab);
+		Bullet bullet = GameObject.Instantiate<Bullet>(m_data.bullet.bulletPrefab);
 		bullet.transform.position = m_bulletSpawnPoint.position;
 		bullet.ApplyForce(m_bulletSpawnPoint.forward, m_data.force);
+	}
+
+	private void EjectBulletCase() {
+		BulletCase bulletCase = Instantiate(Data.bullet.bulletCasePrefab, m_bulletCaseEjectPoint.position, m_bulletCaseEjectPoint.rotation);
+		bulletCase.Eject();
 	}
 
 	private void Cock() {
@@ -114,7 +120,7 @@ public class Weapon : XRGrabInteractable {
 				break;
 
 			case WeaponData.FireMode.SemiAutomatic:
-				m_triggerReset = normalizedTriggerValue <= m_data.fireTriggerValue * 0.9;
+				m_triggerReset = normalizedTriggerValue < m_data.fireTriggerValue;
 				break;
 
 			case WeaponData.FireMode.Manual:
@@ -122,6 +128,7 @@ public class Weapon : XRGrabInteractable {
 				break;
 		}
 	}
+
 
 	private void ReleaseMagazine(InputAction.CallbackContext context) {
 		m_magSlot.ReleaseMagazine();

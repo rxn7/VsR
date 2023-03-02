@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8830601961d52de41ad2e0e29acdd658, type: 3}
-  m_Name: Pistol Magazine
+  m_Name: 9mm Luger Magazine
   m_EditorClassIdentifier: 
   capacity: 8
   prefab: {fileID: 5032140468343636255, guid: 7a081bb507938e6429a067a7cbe26174, type: 3}

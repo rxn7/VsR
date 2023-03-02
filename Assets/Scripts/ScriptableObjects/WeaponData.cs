@@ -30,6 +30,9 @@ public class WeaponData : ScriptableObject {
 	[Space]
 	[Header("Audio")]
 	public AudioClip shootSound;
+	public AudioClip cockSound;
+	public AudioClip cockBackSound;
+	public AudioClip dryFireSound;
 
 	[Space]
 	[Header("Referenes")]

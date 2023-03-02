@@ -287,6 +287,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Slide Release",
+                    "type": "Button",
+                    "id": "96489ba8-61b4-4f51-8581-260fe6f09c43",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -386,6 +395,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mag Release",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c2b3643b-8949-4c6e-b239-a16ec69e42b3",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slide Release",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -797,6 +817,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Slide Release",
+                    "type": "Button",
+                    "id": "3803275b-091b-443c-a6c9-3e8b375c37a6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -896,6 +925,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mag Release",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fdd6c5ec-a691-4c53-be36-c138362ed21f",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slide Release",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

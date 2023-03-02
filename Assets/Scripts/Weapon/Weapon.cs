@@ -7,16 +7,16 @@ public class Weapon : XRGrabInteractable {
 	[Header("Weapon")]
 	[SerializeField] private WeaponData m_data;
 	[SerializeField] private MagazineSlot m_magSlot;
+	[SerializeField] private WeaponSlide m_slide;
 	[SerializeField] private Transform m_triggerTransform;
 	[SerializeField] private Transform m_bulletSpawnPoint;
 	[SerializeField] private Transform m_bulletCaseEjectPoint;
 
-	private Animator m_animator;
-	private Hand m_hand = null;
-	private bool m_triggerReset = true;
+	public Animator Animator { get; private set; }
+	public Hand GripHand { get; private set; } = null;
+	private bool m_triggerReleased = true;
 	private bool m_cocked = false;
 
-	private bool CanFire => m_triggerReset && m_cocked;
 	public WeaponData Data => m_data;
 
 	protected override void Awake() {
@@ -24,17 +24,17 @@ public class Weapon : XRGrabInteractable {
 
 		if (m_data == null) {
 			Destroy(gameObject);
-			throw new UnassignedReferenceException($"m_data is not assigned on {nameof(Weapon)}!");
+			throw new UnassignedReferenceException($"m_data is not assigned!");
 		}
 
 		if (m_magSlot == null) {
 			Destroy(gameObject);
-			throw new UnassignedReferenceException($"m_magSlot is not assigned on {nameof(Weapon)}!");
+			throw new UnassignedReferenceException($"m_magSlot is not assigned!");
 		}
 
 		m_magSlot.weapon = this;
 
-		m_animator = GetComponent<Animator>();
+		Animator = GetComponent<Animator>();
 
 		SetTriggerValue(0);
 	}
@@ -49,11 +49,8 @@ public class Weapon : XRGrabInteractable {
 	private void Fire() {
 		m_cocked = false;
 
-		SpawnBullet();
-		EjectBulletCase();
-
-		m_animator.SetTrigger("Shoot");
-		m_hand.xrController.SendHapticImpulse(m_data.shootHapticFeedbackIntensity, m_data.shootHapticFeedbackDuration);
+		Animator.SetTrigger("Shoot");
+		GripHand.xrController.SendHapticImpulse(m_data.shootHapticFeedbackIntensity, m_data.shootHapticFeedbackDuration);
 		SoundManager.PlaySound(m_data.shootSound, transform.position, Random.Range(0.9f, 1.1f));
 
 		switch (m_data.fireMode) {
@@ -65,40 +62,75 @@ public class Weapon : XRGrabInteractable {
 			default:
 				break;
 		}
+
+		if (!m_cocked)
+			Animator.SetBool("SlideStop", true);
 	}
 
-	public void OnMagazineEntered(Magazine mag) {
-		Cock(); // TODO: delete this later
+	private void DryFire() {
+		SoundManager.PlaySound(m_data.dryFireSound, transform.position, Random.Range(0.9f, 1.1f));
 	}
 
-	private void SpawnBullet() {
+	// This should be triggered from animation
+	private void FireBullet() {
 		Bullet bullet = GameObject.Instantiate<Bullet>(m_data.bullet.bulletPrefab);
 		bullet.transform.position = m_bulletSpawnPoint.position;
 		bullet.ApplyForce(m_bulletSpawnPoint.forward, m_data.force);
 	}
 
+	// This should be triggered from animation
 	private void EjectBulletCase() {
 		BulletCase bulletCase = Instantiate(Data.bullet.bulletCasePrefab, m_bulletCaseEjectPoint.position, m_bulletCaseEjectPoint.rotation);
 		bulletCase.Eject();
 	}
 
-	private void Cock() {
-		// TODO: Eject bullet if is already cocked
-		if (m_cocked)
-			return;
+	private bool CanFire() {
+		switch (m_data.fireMode) {
+			case WeaponData.FireMode.Automatic:
+				// TODO:
+				break;
 
-		if (m_magSlot.Mag.bulletCount < 1)
+			case WeaponData.FireMode.SemiAutomatic:
+				if (!m_triggerReleased)
+					return false;
+				break;
+
+			case WeaponData.FireMode.Manual:
+				// TODO:
+				break;
+		}
+
+		if (m_slide != null && m_slide.isSelected)
+			return false;
+
+		if (!m_cocked) {
+			DryFire();
+			return false;
+		}
+
+
+		return true;
+	}
+
+	public void Cock() {
+		if (m_cocked) {
+			EjectBulletCase(); // TODO: Eject full round instead of just case
+			m_cocked = false;
+		}
+
+		if (m_magSlot.Mag == null || m_magSlot.Mag.bulletCount == 0)
 			return;
 
 		m_magSlot.Mag.bulletCount--;
 		m_cocked = true;
+		Animator.SetBool("SlideStop", false);
 	}
 
 	private void UpdateTrigger() {
-		if (m_hand == null)
+		if (GripHand == null)
 			return;
 
-		SetTriggerValue(m_hand.TriggerAction.ReadValue<float>());
+		SetTriggerValue(GripHand.TriggerAction.ReadValue<float>());
 	}
 
 	private void SetTriggerValue(float normalizedTriggerValue) {
@@ -107,7 +139,7 @@ public class Weapon : XRGrabInteractable {
 		if (m_triggerTransform != null)
 			m_triggerTransform.localEulerAngles = new Vector3(triggerRotation, 0, 0);
 
-		if (CanFire && normalizedTriggerValue >= m_data.fireTriggerValue)
+		if (normalizedTriggerValue >= m_data.fireTriggerValue && CanFire())
 			Fire();
 
 		UpdateTriggerReset(normalizedTriggerValue);
@@ -116,29 +148,36 @@ public class Weapon : XRGrabInteractable {
 	private void UpdateTriggerReset(float normalizedTriggerValue) {
 		switch (m_data.fireMode) {
 			case WeaponData.FireMode.Automatic:
-				m_triggerReset = true;
+				m_triggerReleased = true;
 				break;
 
 			case WeaponData.FireMode.SemiAutomatic:
-				m_triggerReset = normalizedTriggerValue < m_data.fireTriggerValue;
+				m_triggerReleased = normalizedTriggerValue < m_data.fireTriggerValue;
 				break;
 
 			case WeaponData.FireMode.Manual:
-				m_triggerReset = false;
+				m_triggerReleased = false;
 				break;
 		}
 	}
 
-
 	private void ReleaseMagazine(InputAction.CallbackContext context) {
 		m_magSlot.ReleaseMagazine();
+	}
+
+	private void ReleaseSlide(InputAction.CallbackContext context) {
+		if (Animator.GetBool("SlideStop")) {
+			SoundManager.PlaySound(Data.cockBackSound, transform.position, Random.Range(0.9f, 1.1f));
+			Animator.SetBool("SlideStop", false);
+			Cock();
+		}
 	}
 
 	public override bool IsSelectableBy(IXRSelectInteractor interactor) {
 		if (interactor is not Hand)
 			return false;
 
-		if (m_hand != null && (IXRSelectInteractor)m_hand != interactor)
+		if (GripHand != null && (IXRSelectInteractor)GripHand != interactor)
 			return false;
 
 		return base.IsSelectableBy(interactor);
@@ -146,14 +185,16 @@ public class Weapon : XRGrabInteractable {
 
 	protected override void OnSelectEntering(SelectEnterEventArgs args) {
 		base.OnSelectEntering(args);
-		m_hand = (Hand)args.interactorObject;
-		m_hand.MagReleaseAction.performed += ReleaseMagazine;
+		GripHand = (Hand)args.interactorObject;
+		GripHand.MagReleaseAction.performed += ReleaseMagazine;
+		GripHand.SlideReleaseAction.performed += ReleaseSlide;
 	}
 
 	protected override void OnSelectExited(SelectExitEventArgs args) {
 		base.OnSelectExited(args);
 		SetTriggerValue(0);
-		m_hand.MagReleaseAction.performed -= ReleaseMagazine;
-		m_hand = null;
+		GripHand.MagReleaseAction.performed -= ReleaseMagazine;
+		GripHand.SlideReleaseAction.performed -= ReleaseSlide;
+		GripHand = null;
 	}
 }

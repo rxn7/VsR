@@ -24,10 +24,13 @@ public static class SoundManager {
 				return source;
 		}
 
-		return null;
+		return s_sources[s_sources.Length - 1];
 	}
 
 	public static void PlaySound(AudioClip clip, Vector3 position, float pitch = 1.0f, float volume = 1.0f) {
+		if (clip == null)
+			return;
+
 		AudioSource source = GetFreeAudioSource();
 		source.pitch = pitch;
 		source.transform.position = position;

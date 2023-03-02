@@ -45,16 +45,20 @@ public class MagazineSlot : XRSocketInteractor {
 
 	private void OnMagazineSelected(Magazine mag) {
 		m_magazine = mag;
-		mag.EnterWeapon();
-		weapon.OnMagazineEntered(mag);
+
+		SoundManager.PlaySound(m_magazine.Data.slideInClip, transform.position, Random.Range(0.95f, 1.05f));
+
+		mag.SlideIn();
 	}
 
 	public void ReleaseMagazine() {
 		if (!m_magazine)
 			return;
 
+		SoundManager.PlaySound(m_magazine.Data.slideOutClip, transform.position, Random.Range(0.95f, 1.05f));
+
 		interactionManager.SelectExit(this, (IXRSelectInteractable)m_magazine);
-		m_magazine.Release();
+		m_magazine.SlideOut();
 
 		m_magazine = null;
 	}

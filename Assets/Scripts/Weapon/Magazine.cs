@@ -42,14 +42,14 @@ public class Magazine : XRGrabInteractable {
 		return base.IsSelectableBy(interactor);
 	}
 
-	public void EnterWeapon() {
+	public void SlideIn() {
 		m_rb.isKinematic = true;
 		m_rb.detectCollisions = false;
 	}
 
-	public void Release() {
+	public void SlideOut() {
 		m_rb.isKinematic = false;
 		m_rb.detectCollisions = true;
-		m_rb.AddForce(-transform.up * 1, ForceMode.Impulse);
+		m_rb.AddForce(-transform.up, ForceMode.Impulse);
 	}
 }

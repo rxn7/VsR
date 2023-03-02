@@ -16,6 +16,7 @@ public class Hand : XRDirectInteractor {
 	public InputAction TriggerAction { get; private set; }
 	public InputAction GripAction { get; private set; }
 	public InputAction MagReleaseAction { get; private set; }
+	public InputAction SlideReleaseAction { get; private set; }
 
 	protected override void Awake() {
 		base.Awake();
@@ -29,5 +30,6 @@ public class Hand : XRDirectInteractor {
 		TriggerAction = inputActionMap["Activate Value"];
 		GripAction = inputActionMap["Select Value"];
 		MagReleaseAction = inputActionMap["Mag Release"];
+		SlideReleaseAction = inputActionMap["Slide Release"];
 	}
 }

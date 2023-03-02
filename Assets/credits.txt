@@ -1,5 +1,6 @@
 Models:
-- Oculus Hand Models by Meta (https://developer.oculus.com/downloads/package/oculus-hand-models/) licensed by Creative Commons Attribution 4.0
+- "Oculus Hand Models" by Meta (https://developer.oculus.com/downloads/package/oculus-hand-models/) licensed by Creative Commons Attribution 4.0
 
 Sound:
-- Pistol Walther P-38 9mm WW2 German by Lubini https://freesound.org/people/Lubini/sounds/338045/ licensed by Creative Commons Attribution 3.0
+- "Pistol Walther P-38 9mm WW2 German" by Lubini https://freesound.org/people/Lubini/sounds/338045/ licensed by Creative Commons Attribution 3.0
+

@@ -16,10 +16,11 @@ MonoBehaviour:
   type: 1
   fireTriggerValue: 0.3
   force: 100
+  ammoPerMag: 10
   shootHapticFeedbackIntensity: 0.69
   shootHapticFeedbackDuration: 0.2
-  minTriggerRotation: -90
-  maxTriggerRotation: -120
+  minTriggerRotation: -70.983
+  maxTriggerRotation: -57.31
   shootSound: {fileID: 8300000, guid: 7238d0a3250d79c4cbf5c11887a925bd, type: 3}
   prefab: {fileID: 3488656155505292568, guid: ddd64e55836a07849b08b79411acf650, type: 3}
   bulletPrefab: {fileID: 2886901612498879078, guid: d5a7416c10f92934581dee79e2aff771,

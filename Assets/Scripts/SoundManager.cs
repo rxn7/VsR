@@ -20,9 +20,12 @@ public class SoundManager : MonoBehaviour {
 	private void Awake() {
 		s_sources = new AudioSource[SOUND_QUEUE_CAPACITY];
 		for (uint i = 0; i < SOUND_QUEUE_CAPACITY; ++i) {
-			s_sources[i] = new GameObject("Sound").AddComponent<AudioSource>();
-			s_sources[i].playOnAwake = false;
-			s_sources[i].loop = false;
+			AudioSource source = new GameObject("Sound").AddComponent<AudioSource>();
+			source.playOnAwake = false;
+			source.loop = false;
+			source.rolloffMode = AudioRolloffMode.Logarithmic;
+			source.spatialBlend = 1.0f; // 3D effect
+			s_sources[i] = source;
 		}
 	}
 
@@ -39,7 +42,6 @@ public class SoundManager : MonoBehaviour {
 		AudioSource source = GetFreeAudioSource();
 		source.pitch = pitch;
 		source.transform.position = position;
-		source.rolloffMode = AudioRolloffMode.Logarithmic;
 		source.PlayOneShot(clip);
 	}
 }

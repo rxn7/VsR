@@ -43,7 +43,7 @@ namespace VsR {
 			source.transform.position = position;
 			source.PlayOneShot(clip, volume);
 
-			SingletonManager.Instance.Invoke("EnqueueFreeAudioSource", clip.length / pitch);
+			Invoke("EnqueueFreeAudioSource", clip.length / pitch);
 		}
 
 		private void EnqueueFreeAudioSource(AudioSource source) {

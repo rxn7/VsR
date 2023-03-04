@@ -17,3 +17,4 @@ MonoBehaviour:
   slideInSound: {fileID: 8300000, guid: 600a3ce212392034eb1047bbaff00d5f, type: 3}
   slideOutSound: {fileID: 8300000, guid: 744814ac9b04b9d48981d151882587c2, type: 3}
   prefab: {fileID: 5032140468343636255, guid: 51fd05e212b6696448988c19ee5a2778, type: 3}
+  cartridgeData: {fileID: 11400000, guid: 7f0410c85b53736488f523cb2f4d59a3, type: 2}

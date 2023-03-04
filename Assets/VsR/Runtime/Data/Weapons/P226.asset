@@ -16,15 +16,16 @@ MonoBehaviour:
   shootType: 1
   weaponType: 0
   shootingPhysicsType: 0
+  roundsPerMinute: 100
+  muzzleVelocity: 600
   fireTriggerValue: 0.2
   resetTriggerValue: 0.195
+  triggerRotationRange:
+    min: -90
+    max: -120
   fireHapticFeedback:
     intensity: 0.3
     duration: 0.05
-  roundsPerMinute: 1
-  muzzleVelocity: 600
-  minTriggerRotation: -90
-  maxTriggerRotation: -120
   shootSound: {fileID: 8300000, guid: 9bd4bd0d8c64b9d4384d4216fa607ba2, type: 3}
   cockSound: {fileID: 8300000, guid: 6530995307174e1488607341642b466b, type: 3}
   cockBackSound: {fileID: 8300000, guid: def3cf0aca184b64cb8ab6f333f751f6, type: 3}

@@ -15,5 +15,6 @@ namespace VsR {
 
 		[Header("References")]
 		public Magazine prefab;
+		public CartridgeData cartridgeData;
 	}
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using VsR.Math;
 
 namespace VsR {
 	public class WeaponSlide : XRBaseInteractable {
@@ -9,7 +10,7 @@ namespace VsR {
 
 		private float m_slideDistance;
 		private float m_startHandLocalY;
-		private float yMin, yMax;
+		private FloatRange m_slideRange;
 
 		private bool m_cocked = false;
 		private Hand m_hand;
@@ -18,8 +19,9 @@ namespace VsR {
 			base.Awake();
 			m_slideStart = transform.localPosition;
 			m_slideDistance = Vector3.Distance(m_slideStart, m_slideEnd);
-			yMin = Mathf.Min(m_slideStart.y, m_slideEnd.y);
-			yMax = Mathf.Max(m_slideStart.y, m_slideEnd.y);
+
+			m_slideRange.min = Mathf.Min(m_slideStart.y, m_slideEnd.y);
+			m_slideRange.max = Mathf.Max(m_slideStart.y, m_slideEnd.y);
 		}
 
 		private void UpdateSlideMovement() {
@@ -27,10 +29,10 @@ namespace VsR {
 			float handDiff = Mathf.Abs(handLocalY - m_startHandLocalY);
 			Vector3 localPosition = transform.localPosition;
 
-			if (yMax == m_slideStart.y)
+			if (m_slideRange.min == m_slideStart.y)
 				handDiff *= -1;
 
-			localPosition.y = Mathf.Clamp(m_slideStart.y + handDiff, yMin, yMax);
+			localPosition.y = Mathf.Clamp(m_slideStart.y + handDiff, m_slideRange.min, m_slideRange.max);
 			transform.localPosition = localPosition;
 
 			float slidePercentage = (m_slideDistance - Vector3.Distance(m_slideEnd, localPosition)) / m_slideDistance;

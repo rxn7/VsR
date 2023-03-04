@@ -1,4 +1,5 @@
 using UnityEngine;
+using VsR.Math;
 
 namespace VsR {
 	[CreateAssetMenu(menuName = "VsR/WeaponData", fileName = "weapon")]
@@ -25,17 +26,14 @@ namespace VsR {
 		public ShootType shootType;
 		public WeaponType weaponType;
 		public ShootingPhysicsType shootingPhysicsType;
+		public ushort roundsPerMinute = 100;
+		[Tooltip("Muzzle velocity in m/s")] public float muzzleVelocity = 600;
 		[Range(0.0f, 1.0f)] public float fireTriggerValue = 0.3f;
 		[Range(0.0f, 1.0f)] public float resetTriggerValue = 0.28f;
+
+		[Header("Feedback")]
+		public FloatRange triggerRotationRange;
 		public HapticFeedback fireHapticFeedback;
-
-		[Header("Statistics")]
-		public ushort roundsPerMinute = 1;
-		[Tooltip("Muzzle velocity in m/s")] public float muzzleVelocity = 600;
-
-		[Header("Visual")]
-		public float minTriggerRotation;
-		public float maxTriggerRotation;
 
 		[Header("Audio")]
 		public AudioClip shootSound;

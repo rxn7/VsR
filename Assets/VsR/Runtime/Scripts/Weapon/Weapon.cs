@@ -80,7 +80,7 @@ namespace VsR {
 			if (!BulletInChamber)
 				return false;
 
-			if (Data.shootType == WeaponData.ShootType.Automatic && m_fireRateTimer < 60.0f / Data.roundsPerMinute)
+			if (m_fireRateTimer < 60.0f / Data.roundsPerMinute)
 				return false;
 
 			return true;
@@ -122,7 +122,7 @@ namespace VsR {
 				m_triggerReset = true;
 
 			if (m_visualTriggerTransform != null) {
-				float visualTriggerRotation = Mathf.Lerp(m_data.minTriggerRotation, m_data.maxTriggerRotation, normalizedTriggerValue);
+				float visualTriggerRotation = Mathf.Lerp(m_data.triggerRotationRange.min, m_data.triggerRotationRange.max, normalizedTriggerValue);
 				m_visualTriggerTransform.localEulerAngles = new Vector3(visualTriggerRotation, 0, 0);
 			}
 		}

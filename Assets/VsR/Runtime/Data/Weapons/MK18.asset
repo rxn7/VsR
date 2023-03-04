@@ -23,6 +23,9 @@ MonoBehaviour:
     duration: 0.05
   roundsPerMinute: 800
   muzzleVelocity: 910
+  triggerRotationRange:
+    min: -89.98
+    max: -116.54
   minTriggerRotation: -89.98
   maxTriggerRotation: -116.54
   shootSound: {fileID: 8300000, guid: 9bd4bd0d8c64b9d4384d4216fa607ba2, type: 3}

@@ -14,25 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: MK18
   shootType: 0
-  weaponType: 1
   shootingPhysicsType: 0
-  fireTriggerValue: 0.2
-  resetTriggerValue: 0.195
-  fireHapticFeedback:
-    intensity: 0.5
-    duration: 0.05
   roundsPerMinute: 800
   muzzleVelocity: 910
+  fireTriggerValue: 0.2
+  resetTriggerValue: 0.195
   triggerRotationRange:
     min: -89.98
     max: -116.54
-  minTriggerRotation: -89.98
-  maxTriggerRotation: -116.54
-  shootSound: {fileID: 8300000, guid: 9bd4bd0d8c64b9d4384d4216fa607ba2, type: 3}
-  cockSound: {fileID: 8300000, guid: 6530995307174e1488607341642b466b, type: 3}
-  cockBackSound: {fileID: 8300000, guid: def3cf0aca184b64cb8ab6f333f751f6, type: 3}
+  fireHapticFeedback:
+    intensity: 0.5
+    duration: 0.05
+  shootSound: {fileID: 8300000, guid: 09934114fc0b4e4409648ca4db01cf9e, type: 3}
+  rackSound: {fileID: 8300000, guid: da10a293ba9a9594da9706b929c11a84, type: 3}
+  rackBackSound: {fileID: 8300000, guid: 21f20758a488ed748867a3cb78fa800f, type: 3}
   dryFireSound: {fileID: 8300000, guid: 43004afb21f215347b7c5fe7b13df0d1, type: 3}
-  prefab: {fileID: 4191568506017560695, guid: afeefa7f6e03db745930cb9ea6fa6cb3, type: 3}
+  prefab: {fileID: 3488656155505292568, guid: afeefa7f6e03db745930cb9ea6fa6cb3, type: 3}
   cartridgeData: {fileID: 11400000, guid: 7f0410c85b53736488f523cb2f4d59a3, type: 2}
   compatibleMagazines:
   - {fileID: 11400000, guid: 27faa42994def4f49a37e590e90b6daa, type: 2}

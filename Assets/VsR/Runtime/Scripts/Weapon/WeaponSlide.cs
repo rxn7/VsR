@@ -5,46 +5,49 @@ using VsR.Math;
 namespace VsR {
 	public class WeaponSlide : XRBaseInteractable {
 		[HideInInspector] public Weapon weapon;
-		[SerializeField] private Vector3 m_slideEnd;
-		private Vector3 m_slideStart;
+		[SerializeField] private float m_maxSlide;
 
-		private float m_slideDistance;
-		private float m_startHandLocalY;
-		private FloatRange m_slideRange;
+		private Vector3 m_initPosition;
+		private Vector3 m_maxSlidePostiion;
 
-		private bool m_cocked = false;
+		private Vector3 m_startHandLocalPosition;
+
+		private bool m_racked = false;
 		private Hand m_hand;
+
+		private Vector3 getHandLocalPosition() => transform.InverseTransformPoint(m_hand.attachTransform.position);
 
 		protected override void Awake() {
 			base.Awake();
-			m_slideStart = transform.localPosition;
-			m_slideDistance = Vector3.Distance(m_slideStart, m_slideEnd);
+			m_initPosition = transform.localPosition;
+		}
 
-			m_slideRange.min = Mathf.Min(m_slideStart.y, m_slideEnd.y);
-			m_slideRange.max = Mathf.Max(m_slideStart.y, m_slideEnd.y);
+		private void Start() {
+			m_maxSlidePostiion = m_initPosition - transform.InverseTransformDirection(weapon.transform.forward) * m_maxSlide;
 		}
 
 		private void UpdateSlideMovement() {
-			float handLocalY = transform.InverseTransformPoint(m_hand.attachTransform.position).y;
-			float handDiff = Mathf.Abs(handLocalY - m_startHandLocalY);
-			Vector3 localPosition = transform.localPosition;
+			// TODO: There has to be a less fucked up way of doing this....
+			float slide = weapon.transform.InverseTransformDirection(transform.TransformDirection(m_startHandLocalPosition - getHandLocalPosition())).z;
+			float slidePercentage = Mathf.Clamp01(slide / m_maxSlide);
 
-			if (m_slideRange.min == m_slideStart.y)
-				handDiff *= -1;
+			transform.localPosition = Vector3.Lerp(m_initPosition, m_maxSlidePostiion, slidePercentage);
 
-			localPosition.y = Mathf.Clamp(m_slideStart.y + handDiff, m_slideRange.min, m_slideRange.max);
-			transform.localPosition = localPosition;
+			if (m_racked && slidePercentage < 0.6f)
+				RackBack();
+			else if (!m_racked && slidePercentage >= 0.99f)
+				Rack();
+		}
 
-			float slidePercentage = (m_slideDistance - Vector3.Distance(m_slideEnd, localPosition)) / m_slideDistance;
+		private void Rack() {
+			SoundManager.Instance.PlaySound(weapon.Data.rackSound, transform.position, Random.Range(0.9f, 1.1f));
+			weapon.TryToCock();
+			m_racked = true;
+		}
 
-			if (m_cocked && slidePercentage < 0.6f) {
-				SoundManager.Instance.PlaySound(weapon.Data.cockBackSound, transform.position, Random.Range(0.9f, 1.1f));
-				m_cocked = false;
-			} else if (!m_cocked && slidePercentage >= 0.99f) {
-				SoundManager.Instance.PlaySound(weapon.Data.cockSound, transform.position, Random.Range(0.9f, 1.1f));
-				weapon.TryToCock();
-				m_cocked = true;
-			}
+		private void RackBack() {
+			SoundManager.Instance.PlaySound(weapon.Data.rackBackSound, transform.position, Random.Range(0.9f, 1.1f));
+			m_racked = false;
 		}
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
@@ -54,6 +57,9 @@ namespace VsR {
 			if (!weapon.isSelected)
 				return false;
 
+			if (weapon is Pistol pistol && pistol.SlideStop)
+				return false;
+
 			return base.IsSelectableBy(interactor);
 		}
 
@@ -61,34 +67,23 @@ namespace VsR {
 			base.OnSelectEntered(args);
 			m_hand = (Hand)args.interactorObject;
 
-			// If slide is stopped, use end slide position as starting hand local position
-			if (weapon is Pistol && weapon.Animator.GetBool("SlideStop"))
-				m_startHandLocalY = m_slideEnd.y;
-			else
-				m_startHandLocalY = transform.InverseTransformPoint(m_hand.attachTransform.position).y;
+			m_startHandLocalPosition = getHandLocalPosition();
 		}
 
 		protected override void OnSelectExited(SelectExitEventArgs args) {
 			base.OnSelectExited(args);
 			m_hand = null;
 
-			Pistol pistol = weapon as Pistol;
+			transform.localPosition = m_initPosition;
 
-			Vector3 localPosition = transform.localPosition;
-			if (pistol && pistol.SlideStop)
-				localPosition.y = m_slideEnd.y;
-			else
-				localPosition.y = m_slideStart.y;
-			transform.localPosition = localPosition;
+			if (m_racked) {
+				SoundManager.Instance.PlaySound(weapon.Data.rackBackSound, transform.position, Random.Range(0.9f, 1.1f));
 
-			if (m_cocked) {
-				SoundManager.Instance.PlaySound(weapon.Data.cockBackSound, transform.position, Random.Range(0.9f, 1.1f));
-
-				if (pistol)
+				if (weapon is Pistol pistol)
 					pistol.SlideStop = false;
 			}
 
-			m_cocked = false;
+			m_racked = false;
 		}
 
 		public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase) {

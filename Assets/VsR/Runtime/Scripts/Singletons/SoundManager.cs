@@ -7,17 +7,16 @@ namespace VsR {
 		[RuntimeInitializeOnLoadMethod]
 		private static void Create() => CreateInstance();
 
-		public const uint SOUND_POOL_CAPACITY = 20;
-		private AudioSource[] m_sources;
-		private Queue<AudioSource> m_freeSources = new Queue<AudioSource>(20);
+		public const int SOUND_POOL_CAPACITY = 40;
+		private AudioSource[] m_sources = new AudioSource[SOUND_POOL_CAPACITY];
+		private Queue<AudioSource> m_freeSources = new Queue<AudioSource>(SOUND_POOL_CAPACITY);
 
 		protected override void Awake() {
 			base.Awake();
 
 			Transform parent = new GameObject("SoundManager").transform;
-			m_sources = new AudioSource[SOUND_POOL_CAPACITY];
-			for (uint i = 0; i < SOUND_POOL_CAPACITY; ++i) {
-				AudioSource source = new GameObject("Sound").AddComponent<AudioSource>();
+			for (int i = 0; i < SOUND_POOL_CAPACITY; ++i) {
+				AudioSource source = new GameObject($"AudioSource{i}").AddComponent<AudioSource>();
 				source.transform.parent = parent;
 				source.playOnAwake = false;
 				source.loop = false;

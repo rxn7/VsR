@@ -32,6 +32,7 @@ namespace VsR {
 
 			m_rb = GetComponent<Rigidbody>();
 			m_rb.interpolation = RigidbodyInterpolation.Interpolate;
+			m_rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
 			bulletCount = m_data.capacity;
 		}
@@ -51,7 +52,7 @@ namespace VsR {
 		public void SlideOut() {
 			m_rb.isKinematic = false;
 			m_rb.detectCollisions = true;
-			m_rb.AddForce(-transform.up, ForceMode.Impulse);
+			//m_rb.AddForce(-transform.up, ForceMode.Impulse);
 		}
 	}
 }

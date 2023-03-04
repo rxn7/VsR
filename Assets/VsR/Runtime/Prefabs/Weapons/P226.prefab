@@ -86,7 +86,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2481951896320401935}
   m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: -0.0000000148440265, y: -0.0263, z: -0.0037}
+  m_LocalPosition: {x: -0.0000000148440265, y: 0.04889, z: 0.0404}
   m_LocalScale: {x: 1, y: 1.0000001, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -224,7 +224,7 @@ Animator:
   m_GameObject: {fileID: 3488656155505292568}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 55ee33055a85c42418b79e777f9e1675, type: 2}
+  m_Controller: {fileID: 22100000, guid: 7fe92699939181d46a068f19e17c8e20, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -248,7 +248,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 2995507454822341450}
+  - {fileID: 9093607588650399127}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -324,7 +326,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 302309079236024132}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -472,6 +474,7 @@ GameObject:
   - component: {fileID: 6861124082596179096}
   - component: {fileID: 124195102308309038}
   - component: {fileID: 8623416916238325731}
+  - component: {fileID: 7600923876953267528}
   m_Layer: 7
   m_Name: MagazineSlot
   m_TagString: Untagged
@@ -487,7 +490,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4745406180758680171}
   m_LocalRotation: {x: 1, y: -0, z: -0, w: 0.0000032037497}
-  m_LocalPosition: {x: 0, y: -0.0753, z: -0.0443}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -571,7 +574,28 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.02, y: 0.017857961, z: 0.054853253}
-  m_Center: {x: -0, y: 0, z: 0}
+  m_Center: {x: -0, y: 0.09, z: 0.045}
+--- !u!95 &7600923876953267528
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4745406180758680171}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4cff1ff86aee4b6488274d069fd78c0c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7765895962521512404
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,4 +1236,4 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   weapon: {fileID: 0}
-  m_slideEnd: {x: 0, y: -0.001205, z: 0.000214}
+  m_maxSlide: 0.0004941584

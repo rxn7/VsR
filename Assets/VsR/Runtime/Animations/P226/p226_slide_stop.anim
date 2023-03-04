@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: idle
+  m_Name: p226_slide_stop
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0, y: 0.001214702, z: -0.00026}
+        value: {x: 0, y: -0.001205, z: 0.000214}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -30,7 +30,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: MK18/MK18Rig/Body/Charging Handle/Bolt
+    path: P226/P226Rig/Body/Slide
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -42,7 +42,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2045722860
+      path: 173021712
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -75,7 +75,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -86,7 +86,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: MK18/MK18Rig/Body/Charging Handle/Bolt
+    path: P226/P226Rig/Body/Slide
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -94,7 +94,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.001214702
+        value: -0.001205
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -105,7 +105,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: MK18/MK18Rig/Body/Charging Handle/Bolt
+    path: P226/P226Rig/Body/Slide
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -113,7 +113,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.00026
+        value: 0.000214
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -124,7 +124,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: MK18/MK18Rig/Body/Charging Handle/Bolt
+    path: P226/P226Rig/Body/Slide
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves: []

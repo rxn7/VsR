@@ -15,13 +15,11 @@ namespace VsR {
 		private void Awake() {
 			m_rb = GetComponent<Rigidbody>();
 			m_rb.isKinematic = true;
-
-			if (!m_collider || !m_rb)
-				throw new UnassignedReferenceException("Not all Bullet's references are assigned!");
+			m_rb.interpolation = RigidbodyInterpolation.None;
+			m_rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 		}
 
 		private void FixedUpdate() {
-			print($"Bullet velocity {m_rb.velocity.magnitude}");
 			transform.LookAt(transform.position + transform.forward);
 		}
 

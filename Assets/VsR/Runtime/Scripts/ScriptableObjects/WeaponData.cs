@@ -31,8 +31,8 @@ namespace VsR {
 
 		[Header("Audio")]
 		public AudioClip shootSound;
-		public AudioClip cockSound;
-		public AudioClip cockBackSound;
+		public AudioClip rackSound;
+		public AudioClip rackBackSound;
 		public AudioClip dryFireSound;
 
 		[Header("Referenes")]

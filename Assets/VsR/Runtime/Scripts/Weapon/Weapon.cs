@@ -77,7 +77,7 @@ namespace VsR {
 			if (!BulletInChamber)
 				return false;
 
-			if (m_fireRateTimer < 60.0f / Data.roundsPerMinute)
+			if (Data.shootType == WeaponData.ShootType.Automatic && m_fireRateTimer < 60.0f / Data.roundsPerMinute)
 				return false;
 
 			return true;

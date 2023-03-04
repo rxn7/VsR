@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 namespace VsR {
 	public class Pistol : Weapon {
 		public bool SlideStop {
-			get => Animator.GetBool("SlideBack");
-			set => Animator.SetBool("SlideBack", value);
+			get => Animator.GetBool("SlideStop");
+			set => Animator.SetBool("SlideStop", value);
 		}
 
 		protected override void Fire() {
@@ -23,7 +23,7 @@ namespace VsR {
 		protected override void OnSlideStopPressed(InputAction.CallbackContext context) {
 			base.OnSlideStopPressed(context);
 			if (SlideStop) {
-				SoundManager.Instance.PlaySound(Data.cockBackSound, transform.position, Random.Range(0.9f, 1.1f));
+				SoundManager.Instance.PlaySound(Data.rackBackSound, transform.position, Random.Range(0.9f, 1.1f));
 				SlideStop = false;
 				TryToCock();
 			}

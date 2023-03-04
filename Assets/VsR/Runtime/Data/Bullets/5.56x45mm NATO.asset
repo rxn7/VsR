@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88a2eba519e2ab40ace55482df837a3, type: 3}
+  m_Name: 5.56x45mm NATO
+  m_EditorClassIdentifier: 
+  displayName: 5.56x45mm NATO
+  caliberMm: 5.56
+  bulletPrefab: {fileID: 2886901612498879078, guid: a4a56dc90aa19e74c8691bdea460d2f7,
+    type: 3}
+  cartridgePrefab: {fileID: 8857820581307722909, guid: a65d9ea2d77208c4088c58b3bc257032,
+    type: 3}

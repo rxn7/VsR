@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88a2eba519e2ab40ace55482df837a3, type: 3}
+  m_Name: 9x19mm
+  m_EditorClassIdentifier: 
+  displayName: 9x19mm
+  caliberMm: 9
+  bulletPrefab: {fileID: 2886901612498879078, guid: d5a7416c10f92934581dee79e2aff771,
+    type: 3}
+  cartridgePrefab: {fileID: 8857820581307722909, guid: 6098d6abbc470404088425ef473d839c,
+    type: 3}

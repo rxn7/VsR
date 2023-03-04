@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744ab951e062c804884fab903b506f07, type: 3}
+  m_Name: B92
+  m_EditorClassIdentifier: 
+  displayName: B92
+  shootType: 1
+  weaponType: 0
+  bulletPhysics: 2
+  fireTriggerValue: 0.2
+  resetTriggerValue: 0.195
+  roundsPerMinute: 1
+  power: 381
+  shootHapticFeedbackIntensity: 0.69
+  shootHapticFeedbackDuration: 0.1
+  minTriggerRotation: -110
+  maxTriggerRotation: -90
+  shootSound: {fileID: 8300000, guid: 9bd4bd0d8c64b9d4384d4216fa607ba2, type: 3}
+  cockSound: {fileID: 8300000, guid: 6530995307174e1488607341642b466b, type: 3}
+  cockBackSound: {fileID: 8300000, guid: def3cf0aca184b64cb8ab6f333f751f6, type: 3}
+  dryFireSound: {fileID: 8300000, guid: 43004afb21f215347b7c5fe7b13df0d1, type: 3}
+  prefab: {fileID: 4191568506017560695, guid: ddd64e55836a07849b08b79411acf650, type: 3}
+  cartridgeData: {fileID: 11400000, guid: 91622ac69047347459f9645ba0cfeb8f, type: 2}
+  compatibleMagazines:
+  - {fileID: 11400000, guid: d4a9b70f5e82f1c4dbc074a75e8f5d48, type: 2}

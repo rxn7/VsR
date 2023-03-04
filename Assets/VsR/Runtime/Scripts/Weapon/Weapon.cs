@@ -39,19 +39,19 @@ namespace VsR {
 			BulletInChamber = false;
 		}
 
-		private void Update() {
+		protected virtual void Update() {
 			if (!isSelected)
 				return;
 
 			m_fireRateTimer += Time.deltaTime;
 		}
 
-		private void DryFire() {
+		protected virtual void DryFire() {
 			SoundManager.Instance.PlaySound(m_data.dryFireSound, transform.position, Random.Range(0.9f, 1.1f));
 			m_triggerReset = false;
 		}
 
-		private void Fire() {
+		protected virtual void Fire() {
 			BulletInChamber = false;
 			m_triggerReset = false;
 			m_fireRateTimer = 0.0f;
@@ -65,12 +65,9 @@ namespace VsR {
 			// Automatic & SemiAutomatic weapons' slide moves back from recoil
 			if (Data.shootType != WeaponData.ShootType.Manual)
 				TryToCock();
-
-			if (Data.weaponType == WeaponData.WeaponType.Pistol && !BulletInChamber)
-				Animator.SetBool("SlideStop", true);
 		}
 
-		private bool CanFire() {
+		protected virtual bool CanFire() {
 			if (Data.shootType != WeaponData.ShootType.Automatic && !m_triggerReset)
 				return false;
 
@@ -86,7 +83,7 @@ namespace VsR {
 			return true;
 		}
 
-		public void TryToCock() {
+		public virtual void TryToCock() {
 			if (BulletInChamber) {
 				EjectCartridge(true);
 				BulletInChamber = false;
@@ -98,20 +95,22 @@ namespace VsR {
 			m_magSlot.Mag.bulletCount--;
 			BulletInChamber = true;
 
-			if (Data.weaponType == WeaponData.WeaponType.Pistol)
-				Animator.SetBool("SlideStop", false);
+			OnCocked();
+		}
+
+		protected virtual void OnCocked() {
 		}
 
 		// This is triggered from animation
 		public void EjectEmptyCartridge() => EjectCartridge();
 
-		public void EjectCartridge(bool withBullet = false) {
+		public virtual void EjectCartridge(bool withBullet = false) {
 			Cartridge cartridge = Instantiate(Data.cartridgeData.cartridgePrefab, m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.rotation);
 			float force = Random.Range(0.7f, 1.4f);
 			cartridge.Eject(withBullet, force);
 		}
 
-		private void UpdateTriggerValue(float normalizedTriggerValue) {
+		protected virtual void UpdateTriggerValue(float normalizedTriggerValue) {
 			if (normalizedTriggerValue >= m_data.fireTriggerValue) {
 				if (CanFire())
 					Fire();
@@ -127,7 +126,7 @@ namespace VsR {
 			}
 		}
 
-		private void FireProjectile() {
+		protected virtual void FireProjectile() {
 			if (Data.shootingPhysicsType != WeaponData.ShootingPhysicsType.Projectile) {
 				Debug.LogWarning("Tried to fire projectile from a weapon that does not have projectile bullet physics");
 				return;
@@ -141,16 +140,11 @@ namespace VsR {
 			bullet.Fire(m_data);
 		}
 
-		private void OnReleaseMagPressed(InputAction.CallbackContext context) {
+		protected virtual void OnReleaseMagPressed(InputAction.CallbackContext context) {
 			m_magSlot.ReleaseMagazine();
 		}
 
-		private void OnSlideStopPressed(InputAction.CallbackContext context) {
-			if (Data.weaponType == WeaponData.WeaponType.Pistol && Animator.GetBool("SlideStop")) {
-				SoundManager.Instance.PlaySound(Data.cockBackSound, transform.position, Random.Range(0.9f, 1.1f));
-				Animator.SetBool("SlideStop", false);
-				TryToCock();
-			}
+		protected virtual void OnSlideStopPressed(InputAction.CallbackContext context) {
 		}
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {

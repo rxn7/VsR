@@ -33,8 +33,9 @@ namespace VsR.Editors {
 			}
 
 			if (anyNull) {
-				GUI.contentColor = Color.red;
-				EditorGUILayout.LabelField("All references need to be assigned!");
+				string message = "All references need to be assigned!";
+				EditorGUILayout.HelpBox(message, MessageType.Error);
+				Debug.LogError(message);
 			}
 
 			serializedObject.ApplyModifiedProperties();

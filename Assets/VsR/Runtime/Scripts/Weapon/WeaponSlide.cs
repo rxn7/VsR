@@ -62,7 +62,7 @@ namespace VsR {
 			m_hand = (Hand)args.interactorObject;
 
 			// If slide is stopped, use end slide position as starting hand local position
-			if (weapon.Data.weaponType == WeaponData.WeaponType.Pistol && weapon.Animator.GetBool("SlideStop"))
+			if (weapon is Pistol && weapon.Animator.GetBool("SlideStop"))
 				m_startHandLocalY = m_slideEnd.y;
 			else
 				m_startHandLocalY = transform.InverseTransformPoint(m_hand.attachTransform.position).y;
@@ -72,8 +72,10 @@ namespace VsR {
 			base.OnSelectExited(args);
 			m_hand = null;
 
+			Pistol pistol = weapon as Pistol;
+
 			Vector3 localPosition = transform.localPosition;
-			if (weapon.Data.weaponType == WeaponData.WeaponType.Pistol && weapon.Animator.GetBool("SlideStop"))
+			if (pistol && pistol.SlideStop)
 				localPosition.y = m_slideEnd.y;
 			else
 				localPosition.y = m_slideStart.y;
@@ -82,8 +84,8 @@ namespace VsR {
 			if (m_cocked) {
 				SoundManager.Instance.PlaySound(weapon.Data.cockBackSound, transform.position, Random.Range(0.9f, 1.1f));
 
-				if (weapon.Data.weaponType == WeaponData.WeaponType.Pistol)
-					weapon.Animator.SetBool("SlideStop", false);
+				if (pistol)
+					pistol.SlideStop = false;
 			}
 
 			m_cocked = false;

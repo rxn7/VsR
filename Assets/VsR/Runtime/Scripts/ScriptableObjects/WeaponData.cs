@@ -4,11 +4,6 @@ using VsR.Math;
 namespace VsR {
 	[CreateAssetMenu(menuName = "VsR/WeaponData", fileName = "weapon")]
 	public class WeaponData : ScriptableObject {
-		public enum WeaponType : byte {
-			Pistol,
-			Rifle,
-		}
-
 		public enum ShootType : byte {
 			Automatic,
 			SemiAutomatic,
@@ -24,7 +19,6 @@ namespace VsR {
 		[Header("General")]
 		public string displayName;
 		public ShootType shootType;
-		public WeaponType weaponType;
 		public ShootingPhysicsType shootingPhysicsType;
 		public ushort roundsPerMinute = 100;
 		[Tooltip("Muzzle velocity in m/s")] public float muzzleVelocity = 600;
@@ -42,7 +36,7 @@ namespace VsR {
 		public AudioClip dryFireSound;
 
 		[Header("Referenes")]
-		public Weapon prefab;
+		public GameObject prefab;
 		public CartridgeData cartridgeData;
 		public MagazineData[] compatibleMagazines;
 

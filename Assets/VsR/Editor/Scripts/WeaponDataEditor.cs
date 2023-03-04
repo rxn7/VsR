@@ -6,10 +6,13 @@ namespace VsR.Editors {
 	public class WeaponDataEditor : Editor {
 		private SerializedProperty m_compatibleMagazinesProp;
 		private SerializedProperty m_cartridgeDataProp;
+		private SerializedProperty m_fireTriggerValueProp, m_resetTriggerValueProp;
 
 		private void OnEnable() {
 			m_compatibleMagazinesProp = serializedObject.FindProperty("compatibleMagazines");
 			m_cartridgeDataProp = serializedObject.FindProperty("cartridgeData");
+			m_fireTriggerValueProp = serializedObject.FindProperty("fireTriggerValue");
+			m_resetTriggerValueProp = serializedObject.FindProperty("resetTriggerValue");
 		}
 
 		public override void OnInspectorGUI() {
@@ -23,8 +26,7 @@ namespace VsR.Editors {
 				if (m_compatibleMagazinesProp.GetArrayElementAtIndex(i).objectReferenceValue is MagazineData magData) {
 					if (magData.cartridgeData != weaponCartridgeData) {
 						string message = $"Magazine '{magData.name}' has different CartridgeData than this weapon";
-						GUI.contentColor = Color.red;
-						EditorGUILayout.LabelField(message);
+						EditorGUILayout.HelpBox(message, MessageType.Error);
 						Debug.LogError(message);
 					}
 				}

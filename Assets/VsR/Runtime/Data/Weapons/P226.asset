@@ -15,13 +15,14 @@ MonoBehaviour:
   displayName: P226
   shootType: 1
   weaponType: 0
-  bulletPhysics: 2
+  shootingPhysicsType: 0
   fireTriggerValue: 0.2
   resetTriggerValue: 0.195
+  fireHapticFeedback:
+    intensity: 0.3
+    duration: 0.05
   roundsPerMinute: 1
-  power: 371
-  shootHapticFeedbackIntensity: 0.6
-  shootHapticFeedbackDuration: 0.1
+  muzzleVelocity: 600
   minTriggerRotation: -90
   maxTriggerRotation: -120
   shootSound: {fileID: 8300000, guid: 9bd4bd0d8c64b9d4384d4216fa607ba2, type: 3}

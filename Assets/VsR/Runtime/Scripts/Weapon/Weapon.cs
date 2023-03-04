@@ -57,7 +57,7 @@ namespace VsR {
 			m_fireRateTimer = 0.0f;
 
 			Animator.SetTrigger("Shoot");
-			GripHand.xrController.SendHapticImpulse(m_data.shootHapticFeedbackIntensity, m_data.shootHapticFeedbackDuration);
+			GripHand.ApplyHapticFeedback(m_data.fireHapticFeedback);
 			SoundManager.Instance.PlaySound(m_data.shootSound, transform.position, Random.Range(0.9f, 1.1f));
 
 			FireProjectile();
@@ -128,7 +128,7 @@ namespace VsR {
 		}
 
 		private void FireProjectile() {
-			if (Data.bulletPhysics != WeaponData.BulletPhysics.PROJECTILE) {
+			if (Data.shootingPhysicsType != WeaponData.ShootingPhysicsType.Projectile) {
 				Debug.LogWarning("Tried to fire projectile from a weapon that does not have projectile bullet physics");
 				return;
 			}
@@ -138,7 +138,7 @@ namespace VsR {
 			foreach (Collider collider in colliders)
 				Physics.IgnoreCollision(collider, bullet.Collider);
 
-			bullet.ApplyForce(m_barrelEndPoint.forward, m_data.power);
+			bullet.Fire(m_data);
 		}
 
 		private void OnReleaseMagPressed(InputAction.CallbackContext context) {

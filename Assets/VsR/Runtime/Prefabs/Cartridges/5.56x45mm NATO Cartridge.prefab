@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 656758969588023429}
   - component: {fileID: 8857820581307722909}
   m_Layer: 10
-  m_Name: 5.56x45mm Cartridge
+  m_Name: 5.56x45mm NATO Cartridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -15,13 +15,14 @@ MonoBehaviour:
   displayName: MK18
   shootType: 0
   weaponType: 1
-  bulletPhysics: 2
+  shootingPhysicsType: 0
   fireTriggerValue: 0.2
   resetTriggerValue: 0.195
+  fireHapticFeedback:
+    intensity: 0.5
+    duration: 0.05
   roundsPerMinute: 800
-  power: 910
-  shootHapticFeedbackIntensity: 0.8
-  shootHapticFeedbackDuration: 0.1
+  muzzleVelocity: 910
   minTriggerRotation: -89.98
   maxTriggerRotation: -116.54
   shootSound: {fileID: 8300000, guid: 9bd4bd0d8c64b9d4384d4216fa607ba2, type: 3}

@@ -31,5 +31,9 @@ namespace VsR {
 			MagReleaseAction = InputActionManager.Instance.GetInteractionAction(m_handType, "Mag Release");
 			SlideReleaseAction = InputActionManager.Instance.GetInteractionAction(m_handType, "Slide Release");
 		}
+
+		public void ApplyHapticFeedback(HapticFeedback feedback) {
+			xrController.SendHapticImpulse(feedback.intensity, feedback.duration);
+		}
 	}
 }

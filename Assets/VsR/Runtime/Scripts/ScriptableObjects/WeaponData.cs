@@ -14,47 +14,40 @@ namespace VsR {
 			Manual,
 		}
 
-		public enum BulletPhysics : byte {
-			RAYCAST_PHYSICAL_BASED,
-			RAYCAST_LASER,
-			PROJECTILE,
+		public enum ShootingPhysicsType : byte {
+			Projectile,
+			RaycastPhysicalBased,
+			RaycastLaser,
 		}
 
 		[Header("General")]
 		public string displayName;
 		public ShootType shootType;
 		public WeaponType weaponType;
-		public BulletPhysics bulletPhysics;
+		public ShootingPhysicsType shootingPhysicsType;
 		[Range(0.0f, 1.0f)] public float fireTriggerValue = 0.3f;
 		[Range(0.0f, 1.0f)] public float resetTriggerValue = 0.28f;
+		public HapticFeedback fireHapticFeedback;
 
-		[Space]
 		[Header("Statistics")]
 		public ushort roundsPerMinute = 1;
-		public float SecondsPerRound => 60.0f / roundsPerMinute;
-		public float power = 100;
+		[Tooltip("Muzzle velocity in m/s")] public float muzzleVelocity = 600;
 
-		[Space]
-		[Header("Haptic Feedback")]
-		[Range(0.0f, 1.0f)] public float shootHapticFeedbackIntensity = 0.3f;
-		[Range(0.0f, 3.0f)] public float shootHapticFeedbackDuration = 0.2f;
-
-		[Space]
 		[Header("Visual")]
 		public float minTriggerRotation;
 		public float maxTriggerRotation;
 
-		[Space]
 		[Header("Audio")]
 		public AudioClip shootSound;
 		public AudioClip cockSound;
 		public AudioClip cockBackSound;
 		public AudioClip dryFireSound;
 
-		[Space]
 		[Header("Referenes")]
 		public Weapon prefab;
 		public CartridgeData cartridgeData;
 		public MagazineData[] compatibleMagazines;
+
+		public float SecondsPerRound => 60.0f / roundsPerMinute;
 	}
 }

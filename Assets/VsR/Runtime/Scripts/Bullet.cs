@@ -20,7 +20,7 @@ namespace VsR {
 		}
 
 		private void FixedUpdate() {
-			transform.LookAt(transform.position + transform.forward);
+			transform.rotation = Quaternion.LookRotation(m_rb.velocity);
 		}
 
 		private void OnCollisionEnter(Collision collision) {

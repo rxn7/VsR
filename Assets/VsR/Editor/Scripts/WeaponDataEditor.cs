@@ -6,22 +6,26 @@ namespace VsR.Editors {
 	public class WeaponDataEditor : Editor {
 		private SerializedProperty m_compatibleMagazinesProp;
 		private SerializedProperty m_cartridgeDataProp;
-		private SerializedProperty m_fireTriggerValueProp, m_resetTriggerValueProp;
 
 		private void OnEnable() {
-			m_compatibleMagazinesProp = serializedObject.FindProperty("compatibleMagazines");
-			m_cartridgeDataProp = serializedObject.FindProperty("cartridgeData");
-			m_fireTriggerValueProp = serializedObject.FindProperty("fireTriggerValue");
-			m_resetTriggerValueProp = serializedObject.FindProperty("resetTriggerValue");
+			if (serializedObject != null) {
+				m_compatibleMagazinesProp = serializedObject.FindProperty("compatibleMagazines");
+				m_cartridgeDataProp = serializedObject.FindProperty("cartridgeData");
+			}
 		}
 
 		public override void OnInspectorGUI() {
-			base.OnInspectorGUI();
-
 			serializedObject.Update();
 
-			CartridgeData weaponCartridgeData = (CartridgeData)m_cartridgeDataProp.objectReferenceValue;
+			DrawDefaultInspector();
 
+			ValidateCompatibleMagazines();
+
+			serializedObject.ApplyModifiedProperties();
+		}
+
+		private void ValidateCompatibleMagazines() {
+			CartridgeData weaponCartridgeData = (CartridgeData)m_cartridgeDataProp.objectReferenceValue;
 			for (ushort i = 0; i < m_compatibleMagazinesProp.arraySize; ++i) {
 				if (m_compatibleMagazinesProp.GetArrayElementAtIndex(i).objectReferenceValue is MagazineData magData) {
 					if (magData.cartridgeData != weaponCartridgeData) {
@@ -31,8 +35,6 @@ namespace VsR.Editors {
 					}
 				}
 			}
-
-			serializedObject.ApplyModifiedProperties();
 		}
 	}
 }

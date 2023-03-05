@@ -8,7 +8,7 @@ namespace VsR {
 
 		protected override void Awake() {
 			base.Awake();
-			m_text.text = m_magazineData.displayName + " Spawner";
+			m_text.text = m_magazineData.name + " Spawner";
 		}
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {

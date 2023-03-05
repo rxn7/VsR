@@ -17,7 +17,6 @@ namespace VsR {
 		}
 
 		[Header("General")]
-		public string displayName;
 		public ShootType shootType;
 		public ShootingPhysicsType shootingPhysicsType;
 		public ushort roundsPerMinute = 100;
@@ -28,10 +27,10 @@ namespace VsR {
 		[Range(0.0f, 1.0f)] public float fireTriggerValue = 0.5f;
 		[Range(0.0f, 1.0f)] public float resetTriggerValue = 0.495f;
 
-		[Tooltip("Empty cartridge will get ejected on firing after this delay")]
-		public float ejectCartridgeDelaySec = 0.05f;
 
 		[Header("Feedback")]
+		[Tooltip("Empty cartridge will get ejected on firing after this delay")]
+		public float ejectCartridgeDelaySec = 0.05f;
 		public FloatRange triggerRotationRange;
 		public HapticFeedback fireHapticFeedback = new HapticFeedback(0.75f, 0.05f);
 		public RecoilInfo recoilInfo;

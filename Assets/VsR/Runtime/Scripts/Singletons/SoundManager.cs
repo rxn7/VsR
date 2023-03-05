@@ -20,8 +20,7 @@ namespace VsR {
 				source.transform.parent = parent;
 				source.playOnAwake = false;
 				source.loop = false;
-				source.rolloffMode = AudioRolloffMode.Logarithmic;
-				source.spatialBlend = 1.0f; // 3D effect
+				source.rolloffMode = AudioRolloffMode.Linear;
 
 				m_sources[i] = source;
 				m_freeSources.Enqueue(source);
@@ -37,13 +36,14 @@ namespace VsR {
 			return m_freeSources.Dequeue();
 		}
 
-		public void PlaySound(AudioClip clip, Vector3 position, float pitch = 1.0f, float volume = 1.0f) {
+		public void PlaySound(AudioClip clip, Vector3 position, float pitch = 1.0f, float volume = 1.0f, float spatialBlend = 1.0f) {
 			if (!clip)
 				return;
 
 			AudioSource source = GetFreeAudioSource();
 			source.pitch = pitch;
 			source.transform.position = position;
+			source.spatialBlend = spatialBlend;
 			source.PlayOneShot(clip, volume);
 
 			StartCoroutine(EnqueueFreeAudioSource(source, clip.length / pitch));

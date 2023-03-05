@@ -110,7 +110,7 @@ namespace VsR {
 				BulletInChamber = false;
 			}
 
-			if (!m_magSlot.Mag || m_magSlot.Mag.bulletCount == 0)
+			if (!m_magSlot.Mag || m_magSlot.Mag.IsEmpty)
 				return;
 
 			m_magSlot.Mag.bulletCount--;

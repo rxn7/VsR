@@ -22,8 +22,8 @@ namespace VsR {
 		public ShootingPhysicsType shootingPhysicsType;
 		public ushort roundsPerMinute = 100;
 		[Tooltip("Muzzle velocity in m/s")] public float muzzleVelocity = 600;
-		[Range(0.0f, 1.0f)] public float fireTriggerValue = 0.3f;
-		[Range(0.0f, 1.0f)] public float resetTriggerValue = 0.28f;
+		[Range(0.0f, 1.0f)] public float fireTriggerValue = 0.1f;
+		[Range(0.0f, 1.0f)] public float resetTriggerValue = 0.095f;
 
 		[Header("Feedback")]
 		public FloatRange triggerRotationRange;

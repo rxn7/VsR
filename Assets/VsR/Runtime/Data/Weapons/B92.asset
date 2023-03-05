@@ -17,8 +17,8 @@ MonoBehaviour:
   shootingPhysicsType: 0
   roundsPerMinute: 0
   muzzleVelocity: 381
-  fireTriggerValue: 0.2
-  resetTriggerValue: 0.195
+  fireTriggerValue: 0.1
+  resetTriggerValue: 0.095
   triggerRotationRange:
     min: -110
     max: -90

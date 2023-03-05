@@ -46,6 +46,14 @@ namespace VsR {
 			m_fireRateTimer += Time.deltaTime;
 		}
 
+		private void OnDrawGizmos() {
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawSphere(m_barrelEndPoint.position, 0.01f);
+
+			Gizmos.color = Color.cyan;
+			Gizmos.DrawLine(m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.position + m_cartridgeEjectPoint.up * 0.1f);
+		}
+
 		protected virtual void DryFire() {
 			SoundManager.Instance.PlaySound(m_data.dryFireSound, transform.position, Random.Range(0.9f, 1.1f));
 			m_triggerReset = false;

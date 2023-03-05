@@ -8,7 +8,7 @@ namespace VsR {
 		[SerializeField] private float m_maxSlide;
 
 		private Vector3 m_initPosition;
-		private Vector3 m_maxSlidePostiion;
+		private Vector3 m_maxSlidePosition;
 
 		private Vector3 m_startHandLocalPosition;
 
@@ -23,15 +23,17 @@ namespace VsR {
 		}
 
 		private void Start() {
-			m_maxSlidePostiion = m_initPosition - transform.InverseTransformDirection(weapon.transform.forward) * m_maxSlide;
+			m_maxSlidePosition = m_initPosition - transform.InverseTransformDirection(weapon.transform.forward) * m_maxSlide;
 		}
 
 		private void UpdateSlideMovement() {
+			transform.localPosition = m_initPosition;
+
 			// TODO: There has to be a less fucked up way of doing this....
 			float slide = weapon.transform.InverseTransformDirection(transform.TransformDirection(m_startHandLocalPosition - getHandLocalPosition())).z;
 			float slidePercentage = Mathf.Clamp01(slide / m_maxSlide);
 
-			transform.localPosition = Vector3.Lerp(m_initPosition, m_maxSlidePostiion, slidePercentage);
+			transform.localPosition = Vector3.Lerp(m_initPosition, m_maxSlidePosition, slidePercentage);
 
 			if (m_racked && slidePercentage < 0.6f)
 				RackBack();

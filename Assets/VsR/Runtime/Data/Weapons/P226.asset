@@ -17,14 +17,18 @@ MonoBehaviour:
   shootingPhysicsType: 0
   roundsPerMinute: 0
   muzzleVelocity: 315
-  fireTriggerValue: 0.1
-  resetTriggerValue: 0.095
+  fireTriggerValue: 0.5
+  resetTriggerValue: 0.495
+  ejectCartridgeDelaySec: 0.05
   triggerRotationRange:
     min: -90
     max: -120
   fireHapticFeedback:
-    intensity: 0.3
+    intensity: 0.75
     duration: 0.05
+  recoilInfo:
+    angularForce: {x: -20, y: 0, z: 0}
+    linearForce: {x: 0, y: 0.012, z: -0.1}
   shootSound: {fileID: 8300000, guid: 349f0b83bf2b6284b9e2a5add7a35648, type: 3}
   rackSound: {fileID: 8300000, guid: da10a293ba9a9594da9706b929c11a84, type: 3}
   rackBackSound: {fileID: 8300000, guid: 21f20758a488ed748867a3cb78fa800f, type: 3}

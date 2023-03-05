@@ -6,7 +6,7 @@ namespace VsR {
 
 		private void Update() {
 			float triggerValue = m_hand.TriggerAction.ReadValue<float>();
-			float gripValue = m_hand.GripAction.ReadValue<float>();
+			float gripValue = m_hand.GrabAction.ReadValue<float>();
 
 			m_hand.Animator.SetFloat("Trigger", triggerValue);
 			m_hand.Animator.SetFloat("Grip", gripValue);

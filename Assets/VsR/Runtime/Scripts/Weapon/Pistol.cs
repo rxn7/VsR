@@ -2,22 +2,22 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace VsR {
-	public class Pistol : Weapon {
+	public class Pistol : SingleHandedWeapon {
 		public bool SlideStop {
-			get => Animator.GetBool("SlideStop");
-			set => Animator.SetBool("SlideStop", value);
+			get => m_animator.GetBool("SlideStop");
+			set => m_animator.SetBool("SlideStop", value);
 		}
 
 		protected override void Fire() {
 			base.Fire();
 
 			if (!BulletInChamber)
-				Animator.SetBool("SlideStop", true);
+				m_animator.SetBool("SlideStop", true);
 		}
 
 		protected override void OnCocked() {
 			base.OnCocked();
-			Animator.SetBool("SlideStop", false);
+			m_animator.SetBool("SlideStop", false);
 		}
 
 		protected override void OnSlideStopPressed(InputAction.CallbackContext context) {

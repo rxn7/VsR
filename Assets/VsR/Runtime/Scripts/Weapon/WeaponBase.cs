@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
-	public class Weapon : XRGrabInteractable {
+	public abstract class WeaponBase : XRGrabInteractable {
 		[SerializeField] private WeaponData m_data;
 		[SerializeField] private MagazineSlot m_magSlot;
 		[SerializeField] private WeaponSlide m_slide;
@@ -12,8 +12,9 @@ namespace VsR {
 		[SerializeField] private Transform m_barrelEndPoint;
 		[SerializeField] private Transform m_cartridgeEjectPoint;
 
-		public Animator Animator { get; private set; }
-		public Hand GripHand { get; private set; } = null;
+		protected Animator m_animator;
+		protected Hand m_gripHand = null;
+		protected Rigidbody m_rb;
 		private float m_fireRateTimer = 0.0f;
 		private bool m_triggerReset = true;
 		private bool _m_bulletInChamber;
@@ -26,16 +27,20 @@ namespace VsR {
 		}
 
 		public WeaponData Data => m_data;
+		public Animator Animator => m_animator;
+		public Hand GripHand => m_gripHand;
 
 		protected override void Awake() {
 			base.Awake();
 
+			movementType = MovementType.Instantaneous;
 			m_magSlot.weapon = this;
 			m_slide.weapon = this;
 
-			Animator = GetComponent<Animator>();
+			m_animator = GetComponent<Animator>();
+			m_rb = GetComponent<Rigidbody>();
 
-			UpdateTriggerValue(0);
+			SetTriggerValue(0);
 			BulletInChamber = false;
 		}
 
@@ -46,13 +51,19 @@ namespace VsR {
 			m_fireRateTimer += Time.deltaTime;
 		}
 
-		private void OnDrawGizmos() {
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawSphere(m_barrelEndPoint.position, 0.01f);
+#if UNITY_EDITOR
+		protected virtual void OnDrawGizmos() {
+			if (m_barrelEndPoint != null) {
+				Gizmos.color = Color.yellow;
+				Gizmos.DrawSphere(m_barrelEndPoint.position, 0.01f);
+			}
 
-			Gizmos.color = Color.cyan;
-			Gizmos.DrawLine(m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.position + m_cartridgeEjectPoint.up * 0.1f);
+			if (m_cartridgeEjectPoint != null) {
+				Gizmos.color = Color.cyan;
+				Gizmos.DrawLine(m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.position + m_cartridgeEjectPoint.up * 0.1f);
+			}
 		}
+#endif
 
 		protected virtual void DryFire() {
 			SoundManager.Instance.PlaySound(m_data.dryFireSound, transform.position, Random.Range(0.9f, 1.1f));
@@ -64,19 +75,21 @@ namespace VsR {
 			m_triggerReset = false;
 			m_fireRateTimer = 0.0f;
 
-			Animator.SetTrigger("Shoot");
-			GripHand.ApplyHapticFeedback(m_data.fireHapticFeedback);
+			m_animator.SetTrigger("Shoot");
+			m_gripHand.ApplyHapticFeedback(m_data.fireHapticFeedback);
+			m_gripHand.Recoil.AddRecoil(m_data.recoilInfo);
 			SoundManager.Instance.PlaySound(m_data.shootSound, transform.position, Random.Range(0.9f, 1.1f));
+			Invoke("EjectEmptyCartridge", m_data.ejectCartridgeDelaySec);
 
 			FireProjectile();
 
 			// Automatic & SemiAutomatic weapons' slide moves back from recoil
-			if (Data.shootType != WeaponData.ShootType.Manual)
+			if (m_data.shootType != WeaponData.ShootType.Manual)
 				TryToCock();
 		}
 
 		protected virtual bool CanFire() {
-			if (Data.shootType != WeaponData.ShootType.Automatic && !m_triggerReset)
+			if (m_data.shootType != WeaponData.ShootType.Automatic && !m_triggerReset)
 				return false;
 
 			if (m_slide != null && m_slide.isSelected)
@@ -85,7 +98,7 @@ namespace VsR {
 			if (!BulletInChamber)
 				return false;
 
-			if (Data.shootType == WeaponData.ShootType.Automatic && m_fireRateTimer < 60.0f / Data.roundsPerMinute)
+			if (m_data.shootType == WeaponData.ShootType.Automatic && m_fireRateTimer < m_data.SecondsPerRound)
 				return false;
 
 			return true;
@@ -109,16 +122,14 @@ namespace VsR {
 		protected virtual void OnCocked() {
 		}
 
-		// This is triggered from animation
-		public void EjectEmptyCartridge() => EjectCartridge();
-
-		public virtual void EjectCartridge(bool withBullet = false) {
-			Cartridge cartridge = Instantiate(Data.cartridgeData.cartridgePrefab, m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.rotation);
+		protected void EjectEmptyCartridge() => EjectCartridge(false);
+		protected virtual void EjectCartridge(bool withBullet = false) {
+			Cartridge cartridge = Instantiate(m_data.cartridgeData.cartridgePrefab, m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.rotation);
 			float force = Random.Range(0.7f, 1.4f);
 			cartridge.Eject(withBullet, force);
 		}
 
-		protected virtual void UpdateTriggerValue(float normalizedTriggerValue) {
+		protected virtual void SetTriggerValue(float normalizedTriggerValue) {
 			if (normalizedTriggerValue >= m_data.fireTriggerValue) {
 				if (CanFire())
 					Fire();
@@ -135,7 +146,7 @@ namespace VsR {
 		}
 
 		protected virtual void FireProjectile() {
-			if (Data.shootingPhysicsType != WeaponData.ShootingPhysicsType.Projectile) {
+			if (m_data.shootingPhysicsType != WeaponData.ShootingPhysicsType.Projectile) {
 				Debug.LogWarning("Tried to fire projectile from a weapon that does not have projectile bullet physics");
 				return;
 			}
@@ -148,6 +159,22 @@ namespace VsR {
 			bullet.Fire(m_data);
 		}
 
+		protected virtual void OnGripHandAttached(Hand hand) {
+			m_gripHand = hand;
+			m_gripHand.MagReleaseAction.performed += OnReleaseMagPressed;
+			m_gripHand.SlideReleaseAction.performed += OnSlideStopPressed;
+			m_fireRateTimer = m_data.SecondsPerRound;
+		}
+
+		protected virtual void OnGripHandDetached() {
+			SetTriggerValue(0);
+			if (m_gripHand != null) {
+				m_gripHand.MagReleaseAction.performed -= OnReleaseMagPressed;
+				m_gripHand.SlideReleaseAction.performed -= OnSlideStopPressed;
+			}
+			m_gripHand = null;
+		}
+
 		protected virtual void OnReleaseMagPressed(InputAction.CallbackContext context) {
 			m_magSlot.ReleaseMagazine();
 		}
@@ -155,37 +182,36 @@ namespace VsR {
 		protected virtual void OnSlideStopPressed(InputAction.CallbackContext context) {
 		}
 
+		protected virtual void UpdateTrigger() {
+			SetTriggerValue(m_gripHand.TriggerAction.ReadValue<float>());
+		}
+
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
 			if (interactor is not Hand)
 				return false;
 
-			if (GripHand != null && (IXRSelectInteractor)GripHand != interactor)
+			if (isSelected && !IsSelected(interactor))
 				return false;
 
 			return base.IsSelectableBy(interactor);
 		}
 
+		public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase) {
+			base.ProcessInteractable(updatePhase);
+
+			if (isSelected && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic) {
+				UpdateTrigger();
+			}
+		}
+
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
 			base.OnSelectEntered(args);
-			GripHand = (Hand)args.interactorObject;
-			GripHand.MagReleaseAction.performed += OnReleaseMagPressed;
-			GripHand.SlideReleaseAction.performed += OnSlideStopPressed;
-			m_fireRateTimer = 60.0f / Data.roundsPerMinute;
+			OnGripHandAttached(args.interactorObject as Hand);
 		}
 
 		protected override void OnSelectExited(SelectExitEventArgs args) {
 			base.OnSelectExited(args);
-			UpdateTriggerValue(0);
-			GripHand.MagReleaseAction.performed -= OnReleaseMagPressed;
-			GripHand.SlideReleaseAction.performed -= OnSlideStopPressed;
-			GripHand = null;
-		}
-
-		public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase) {
-			base.ProcessInteractable(updatePhase);
-
-			if (GripHand != null && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Late)
-				UpdateTriggerValue(GripHand.TriggerAction.ReadValue<float>());
+			OnGripHandDetached();
 		}
 	}
 }

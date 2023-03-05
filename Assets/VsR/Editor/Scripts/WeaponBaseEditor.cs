@@ -1,11 +1,11 @@
-using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
 
 namespace VsR.Editors {
-	[CustomEditor(typeof(Weapon), true)]
-	public class WeaponEditor : ExposedPropertiesEditor {
-		private void OnEnable() {
-			m_exposedProperties = new SerializedProperty[] {
+	[CustomEditor(typeof(WeaponBase), true)]
+	public class WeaponBaseEditor : ExposedPropertiesEditor {
+		protected virtual void OnEnable() {
+			m_exposedProperties = new List<SerializedProperty> {
 				serializedObject.FindProperty("m_data"),
 				serializedObject.FindProperty("m_magSlot"),
 				serializedObject.FindProperty("m_slide"),

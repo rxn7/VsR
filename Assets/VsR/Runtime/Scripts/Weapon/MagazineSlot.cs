@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
 	public class MagazineSlot : XRSocketInteractor {
-		[HideInInspector] public Weapon weapon;
+		[HideInInspector] public WeaponBase weapon;
 		private Magazine m_magazine;
 
 		public Magazine Mag => m_magazine;

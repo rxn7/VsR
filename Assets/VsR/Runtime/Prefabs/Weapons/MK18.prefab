@@ -156,7 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6745959369024340039}
   - component: {fileID: 4859675326844741718}
-  - component: {fileID: 4191568506017560695}
+  - component: {fileID: 59810330313829379}
   - component: {fileID: 5244570876246238788}
   m_Layer: 7
   m_Name: MK18
@@ -181,6 +181,7 @@ Transform:
   - {fileID: 1756125109043812376}
   - {fileID: 6861124082596179096}
   - {fileID: 302309079236024132}
+  - {fileID: 801087966873379627}
   - {fileID: 7540738984634596226}
   - {fileID: 4742726370600017148}
   - {fileID: 979996424755357940}
@@ -214,7 +215,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4191568506017560695
+--- !u!114 &59810330313829379
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,13 +224,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3488656155505292568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e088c99948a2c43842e0996f7d9065, type: 3}
+  m_Script: {fileID: 11500000, guid: cd827c04d6f0e9a48bf2ce039ca63d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders:
-  - {fileID: 2995507454822341450}
-  - {fileID: 9093607588650399127}
+  m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -327,7 +326,7 @@ MonoBehaviour:
   m_SmoothRotationAmount: 5
   m_TightenRotation: 0.5
   m_ThrowOnDetach: 1
-  m_ThrowSmoothingDuration: 0.1
+  m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
     m_Curve:
@@ -358,6 +357,7 @@ MonoBehaviour:
   m_cartridgeInChamber: {fileID: 7765895962521512404}
   m_barrelEndPoint: {fileID: 7540738984634596226}
   m_cartridgeEjectPoint: {fileID: 4742726370600017148}
+  m_guardHold: {fileID: 5589056955933311621}
 --- !u!95 &5244570876246238788
 Animator:
   serializedVersion: 5
@@ -389,7 +389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 302309079236024132}
   m_Layer: 7
-  m_Name: AttachPoint
+  m_Name: GripHold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -410,6 +410,151 @@ Transform:
   m_Father: {fileID: 6745959369024340039}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4449039845279846474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 801087966873379627}
+  - component: {fileID: 5589056955933311621}
+  - component: {fileID: 7342253050556579243}
+  m_Layer: 7
+  m_Name: GuardHold
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &801087966873379627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4449039845279846474}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.0009, z: 0.1461}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6745959369024340039}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5589056955933311621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4449039845279846474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ffa08423b8cf344a9dfd21a21e3e662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders:
+  - {fileID: 7342253050556579243}
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  weapon: {fileID: 59810330313829379}
+--- !u!65 &7342253050556579243
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4449039845279846474}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.13245001, y: 0.043389946, z: 0.20463571}
+  m_Center: {x: 0, y: 0.003474309, z: 0.022665799}
 --- !u!1 &4501767080689246969
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 979996424755357940}
   m_Layer: 7
-  m_Name: CartridgeSlot
+  m_Name: CartridgeInChamber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

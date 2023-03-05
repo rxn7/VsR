@@ -4,7 +4,7 @@ using VsR.Math;
 
 namespace VsR {
 	public class WeaponSlide : XRBaseInteractable {
-		[HideInInspector] public Weapon weapon;
+		[HideInInspector] public WeaponBase weapon;
 		[SerializeField] private float m_maxSlide;
 
 		private Vector3 m_initPosition;

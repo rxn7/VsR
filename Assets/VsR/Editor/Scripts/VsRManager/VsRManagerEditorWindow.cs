@@ -9,10 +9,23 @@ namespace VsR.Editors {
 			new VsRManagerWeaponsTab(),
 			new VsRManagerMagazinesTab(),
 			new VsRManagerCartridgesTab(),
-			new VsRManagerSettingsTab(),
+			// new VsRManagerSettingsTab(),
 		};
 
 		private int m_selectedTabIdx;
+
+		private void OnEnable() {
+			titleContent = new GUIContent("VsR Manager");
+		}
+
+		private void OnGUI() {
+			string[] tabNames = m_tabs.Select(t => t.Name).ToArray();
+			m_selectedTabIdx = GUILayout.Toolbar(m_selectedTabIdx, tabNames);
+
+			EditorGUILayout.Separator();
+
+			m_tabs[m_selectedTabIdx].Draw();
+		}
 
 		[MenuItem("VsR/Manager")]
 		public static VsRManagerEditorWindow OpenWindow() {
@@ -32,6 +45,10 @@ namespace VsR.Editors {
 			VsRManagerEditorWindow window = EditorWindow.GetWindow<VsRManagerEditorWindow>();
 
 			Object obj = EditorUtility.InstanceIDToObject(instanceId);
+			if (!obj) {
+				Debug.LogError($"Cannot open object in VsR Manager: obj is null");
+				return false;
+			}
 
 			int i = 0;
 			foreach (VsRManagerTab tab in window.m_tabs) {
@@ -47,17 +64,5 @@ namespace VsR.Editors {
 			return false;
 		}
 
-		private void OnEnable() {
-			titleContent = new GUIContent("VsR Manager");
-		}
-
-		private void OnGUI() {
-			string[] tabNames = m_tabs.Select(t => t.Name).ToArray();
-			m_selectedTabIdx = GUILayout.Toolbar(m_selectedTabIdx, tabNames);
-
-			EditorGUILayout.Separator();
-
-			m_tabs[m_selectedTabIdx].Draw();
-		}
 	}
 }

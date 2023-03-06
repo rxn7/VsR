@@ -9,22 +9,27 @@ namespace VsR.Editors {
 
 	public abstract class VsRManagerScriptableObjectEditorTab<T> : VsRManagerScriptableObjectEditorTabBase where T : ScriptableObject {
 		public const string ROOT_DATA_PATH = "Assets/VsR/Data";
-		protected Vector2 m_scrollPos;
-		private SerializedObject m_serializedObject;
-		private T _m_selectedObject;
-
+		protected Vector2 m_listScrollPos;
+		private SerializedObject m_serializedObject = null;
+		private T _m_selectedObject = null;
 
 		protected T SelectedObject {
 			get => _m_selectedObject;
 			set {
 				_m_selectedObject = value;
-				m_serializedObject = value != null ? new SerializedObject(value) : null;
+				if (value != null) {
+					m_serializedObject = new SerializedObject(value);
+					OnObjectSelected();
+				} else {
+					m_serializedObject = null;
+				}
 			}
 		}
 
-
 		public override System.Type DataType => typeof(T);
 		protected abstract Object GetPrefab();
+		protected virtual void OnObjectSelected() { }
+		protected Vector2 m_inspectorScrollPos;
 
 		public override void Draw() {
 			EditorGUILayout.BeginHorizontal();
@@ -33,24 +38,30 @@ namespace VsR.Editors {
 
 			EditorGUILayout.Separator();
 
-			if (m_serializedObject != null) {
+			if (SelectedObject) {
 				m_serializedObject.Update();
 				EditorGUILayout.BeginVertical();
 
 				BeforeDrawInspector();
 				GUILayout.Space(20);
 
+				m_inspectorScrollPos = EditorGUILayout.BeginScrollView(m_inspectorScrollPos);
+
 				Editor editor = Editor.CreateEditor(SelectedObject);
 				editor.DrawDefaultInspector();
 
+				m_serializedObject.ApplyModifiedProperties();
+
+				EditorGUILayout.EndScrollView();
+
+				bool deleted = false;
 				GUILayout.Space(20);
-				if (GUILayout.Button("Delete") && EditorUtility.DisplayDialog($"Delete ${SelectedObject.name}", $"Are you sure you want to delete ${SelectedObject.name}?", "Yes", "No"))
+				if (deleted = GUILayout.Button("Delete") && EditorUtility.DisplayDialog($"Delete ${SelectedObject.name}", $"Are you sure you want to delete ${SelectedObject.name}?", "Yes", "No"))
 					DeleteSelectedObject();
 
 				EditorGUILayout.EndVertical();
-				m_serializedObject.ApplyModifiedProperties();
 			} else {
-				GUILayout.Label("Select an object from the list");
+				EditorGUILayout.HelpBox("Select an object from the list", MessageType.Info);
 			}
 
 			EditorGUILayout.EndHorizontal();
@@ -74,7 +85,7 @@ namespace VsR.Editors {
 			EditorGUILayout.Separator();
 
 			T[] objects = Resources.FindObjectsOfTypeAll<T>();
-			m_scrollPos = EditorGUILayout.BeginScrollView(m_scrollPos, false, false);
+			m_listScrollPos = EditorGUILayout.BeginScrollView(m_listScrollPos, false, false);
 
 			foreach (T obj in objects) {
 				GUI.enabled = obj != SelectedObject;
@@ -94,18 +105,8 @@ namespace VsR.Editors {
 			T instance = (T)ScriptableObject.CreateInstance(DataType);
 			instance.name = name;
 
-			if (!AssetDatabase.IsValidFolder("Assets/VsR"))
-				AssetDatabase.CreateFolder("Assets", "VsR");
-
-			if (!AssetDatabase.IsValidFolder("Assets/VsR/Data"))
-				AssetDatabase.CreateFolder("Assets/VsR", "Data");
-
-			if (!AssetDatabase.IsValidFolder($"Assets/VsR/Data/{Name}"))
-				AssetDatabase.CreateFolder("Assets/VsR/Data", Name);
-
-			string path = AssetDatabase.GenerateUniqueAssetPath($"Assets/VsR/Data/{Name}/{name}.asset");
-			AssetDatabase.CreateAsset(instance, path);
-			AssetDatabase.SaveAssets();
+			string path = $"Assets/VsR/Data/{Name}/{name}.asset";
+			EditorHelper.CreateAssetSafe(instance, path);
 		}
 
 		protected virtual void DeleteSelectedObject() {

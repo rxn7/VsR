@@ -3,7 +3,6 @@ using UnityEditor;
 using UnityEngine;
 
 namespace VsR.Editors {
-
 	public class EditorInputDialog : EditorWindow {
 		private string m_description;
 		private string m_inputText;

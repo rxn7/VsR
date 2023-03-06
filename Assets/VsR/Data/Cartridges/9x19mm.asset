@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88a2eba519e2ab40ace55482df837a3, type: 3}
   m_Name: 9x19mm
   m_EditorClassIdentifier: 
-  displayName: 9x19mm
-  caliberMm: 9
-  bulletPrefab: {fileID: 2886901612498879078, guid: d5a7416c10f92934581dee79e2aff771,
+  bulletMassGrams: 7
+  bulletDiameterMm: 9
+  bulletLengthMm: 7.5
+  bulletMesh: {fileID: -7204647971529134275, guid: 79629c522763043409ab40aa28590c84,
     type: 3}
   cartridgePrefab: {fileID: 8857820581307722909, guid: 6098d6abbc470404088425ef473d839c,
     type: 3}

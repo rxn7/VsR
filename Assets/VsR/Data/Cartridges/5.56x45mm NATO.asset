@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88a2eba519e2ab40ace55482df837a3, type: 3}
   m_Name: 5.56x45mm NATO
   m_EditorClassIdentifier: 
-  displayName: 5.56x45mm NATO
-  caliberMm: 5.56
-  bulletPrefab: {fileID: 2886901612498879078, guid: a4a56dc90aa19e74c8691bdea460d2f7,
+  bulletMassGrams: 4
+  bulletDiameterMm: 5.56
+  bulletLengthMm: 9
+  bulletMesh: {fileID: 7926377822291610317, guid: b8fbb4f474d49e841bee33f2f1fd9d47,
     type: 3}
   cartridgePrefab: {fileID: 8857820581307722909, guid: a65d9ea2d77208c4088c58b3bc257032,
     type: 3}

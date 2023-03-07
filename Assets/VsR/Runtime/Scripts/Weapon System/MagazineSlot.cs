@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
 	public class MagazineSlot : XRSocketInteractor {
-		[HideInInspector] public WeaponBase weapon;
+		[SerializeField] private WeaponBase m_weapon;
 		private Magazine m_magazine;
 
 		public Magazine Mag => m_magazine;
@@ -19,7 +19,7 @@ namespace VsR {
 		public override bool CanSelect(IXRSelectInteractable interactable) {
 			bool isSelecting = IsSelecting(interactable);
 
-			if (!weapon.isSelected && !isSelecting)
+			if (!m_weapon.isSelected && !isSelecting)
 				return false;
 
 			if (hasSelection && !isSelecting)
@@ -31,7 +31,7 @@ namespace VsR {
 			if (interactable is not Magazine mag)
 				return false;
 
-			if (!weapon.Data.compatibleMagazines.Contains(mag.Data))
+			if (!m_weapon.Data.compatibleMagazines.Contains(mag.Data))
 				return false;
 
 			return base.CanHover((IXRHoverInteractable)interactable);

@@ -4,11 +4,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
 	public abstract class WeaponBase : XRGrabInteractable {
+		public delegate void OnFire();
+		public event OnFire onFire;
+
 		[SerializeField] protected WeaponData m_data;
 		[SerializeField] protected MagazineSlot m_magSlot;
-		[SerializeField] protected WeaponSlide m_slide;
 		[SerializeField] protected WeaponTrigger m_trigger;
-		[SerializeField] protected WeaponHammer m_hammer;
 		[SerializeField] protected GameObject m_cartridgeInChamberObject;
 		[SerializeField] protected Transform m_barrelEndPoint;
 		[SerializeField] protected Transform m_cartridgeEjectPoint;
@@ -17,27 +18,22 @@ namespace VsR {
 		protected Rigidbody m_rb;
 		private float m_fireRateTimer = 0.0f;
 		private bool m_triggerReset = true;
-		private bool _m_bulletInChamber;
+		private bool _m_cartridgeInChamber;
+
 		public bool CartridgeInChamber {
-			get => _m_bulletInChamber;
-			private set {
-				_m_bulletInChamber = value;
+			get => _m_cartridgeInChamber;
+			set {
+				_m_cartridgeInChamber = value;
 				m_cartridgeInChamberObject.SetActive(value);
 			}
 		}
-
 		public WeaponData Data => m_data;
 		public Hand GripHand => m_gripHand;
-
-		public delegate void OnFire();
-		public event OnFire onFire;
 
 		protected override void Awake() {
 			base.Awake();
 
 			movementType = MovementType.Instantaneous;
-			m_magSlot.weapon = this;
-			m_slide.weapon = this;
 			m_rb = GetComponent<Rigidbody>();
 
 			SetTriggerValue(0);
@@ -90,8 +86,9 @@ namespace VsR {
 			if (m_data.shootType != WeaponData.ShootType.Automatic && !m_triggerReset)
 				return false;
 
-			if (m_slide && (m_slide.isSelected || m_slide.Locked))
-				return false;
+			// TODO:
+			// if (m_slide && m_slide.isSelected)
+			// 	return false;
 
 			if (!CartridgeInChamber)
 				return false;
@@ -141,9 +138,6 @@ namespace VsR {
 			}
 
 			m_trigger.UpdateRotation(normalizedTriggerValue);
-
-			if (m_hammer)
-				m_hammer.UpdateRotation(normalizedTriggerValue, m_data, m_triggerReset);
 		}
 
 		protected virtual void FireProjectile() {

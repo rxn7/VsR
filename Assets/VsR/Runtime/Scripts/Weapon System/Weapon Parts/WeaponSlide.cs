@@ -3,52 +3,30 @@ using UnityEngine.XR.Interaction.Toolkit;
 using System.Collections;
 
 namespace VsR {
-	public class WeaponSlide : XRBaseInteractable {
-		[HideInInspector] public WeaponBase weapon;
-		[SerializeField] protected float m_maxSlideOffset;
-		[SerializeField] protected float m_releaseAnimationSpeed = 0.002f;
-
-		public delegate void LockEvent();
-		public event LockEvent onLocked;
-		public event LockEvent onUnlocked;
+	public class WeaponSlide : WeaponPart {
+		[SerializeField] protected Vector3 m_maxSlidePosition;
+		[SerializeField] protected float m_releaseAnimationSpeed = 0.03f;
 
 		protected Vector3 m_initPosition;
-		protected Vector3 m_maxSlidePosition;
 		protected Vector3 m_startHandLocalPosition;
+		protected float m_initToMaxSlideDistance;
 		protected bool m_racked = false;
 		protected Hand m_hand;
 
-		private bool _m_locked = false;
-		public bool Locked {
-			get => _m_locked;
-			set {
-				_m_locked = value;
-				if (_m_locked)
-					onLocked?.Invoke();
-				else
-					onUnlocked?.Invoke();
-			}
-		}
-
+		protected virtual bool CanRelease => true;
 		public bool Racked => m_racked;
 		protected Vector3 getHandLocalPosition() => transform.InverseTransformPoint(m_hand.attachTransform.position);
 
 		protected override void Awake() {
 			base.Awake();
 			m_initPosition = transform.localPosition;
-		}
-
-		protected virtual void Start() {
-			m_maxSlidePosition = m_initPosition - transform.InverseTransformDirection(weapon.transform.forward) * m_maxSlideOffset;
+			m_initToMaxSlideDistance = Vector3.Distance(m_initPosition, m_maxSlidePosition);
 		}
 
 		protected virtual void UpdateSlideMovement() {
-			if (Locked)
-				return;
-
 			transform.localPosition = m_initPosition;
-			float slide = weapon.transform.InverseTransformDirection(transform.TransformDirection(m_startHandLocalPosition - getHandLocalPosition())).z;
-			float slidePercentage = Mathf.Clamp01(slide / m_maxSlideOffset);
+			float handDifference = m_weapon.transform.InverseTransformDirection(transform.TransformDirection(m_startHandLocalPosition - getHandLocalPosition())).z;
+			float slidePercentage = Mathf.Clamp01(handDifference / m_initToMaxSlideDistance);
 
 			transform.localPosition = Vector3.Lerp(m_initPosition, m_maxSlidePosition, slidePercentage);
 
@@ -59,13 +37,13 @@ namespace VsR {
 		}
 
 		protected void Rack() {
-			SoundPoolManager.Instance.PlaySound(weapon.Data.rackSound, transform.position, Random.Range(0.9f, 1.1f));
-			weapon.TryToCock();
+			SoundPoolManager.Instance.PlaySound(m_weapon.Data.rackSound, transform.position, Random.Range(0.9f, 1.1f));
+			m_weapon.TryToCock();
 			m_racked = true;
 		}
 
 		protected void RackBack() {
-			SoundPoolManager.Instance.PlaySound(weapon.Data.rackBackSound, transform.position, Random.Range(0.9f, 1.1f));
+			SoundPoolManager.Instance.PlaySound(m_weapon.Data.rackBackSound, transform.position, Random.Range(0.9f, 1.1f));
 			m_racked = false;
 		}
 
@@ -87,10 +65,7 @@ namespace VsR {
 			if (interactor is not Hand)
 				return false;
 
-			if (!weapon.isSelected)
-				return false;
-
-			if (Locked)
+			if (!m_weapon.isSelected)
 				return false;
 
 			return base.IsSelectableBy(interactor);
@@ -105,11 +80,10 @@ namespace VsR {
 
 		protected override void OnSelectExiting(SelectExitEventArgs args) {
 			base.OnSelectExiting(args);
-
-			if (!Locked)
-				OnRelease();
-
 			m_hand = null;
+
+			if (CanRelease)
+				OnRelease();
 		}
 
 		public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase) {

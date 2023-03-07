@@ -11,7 +11,7 @@ namespace VsR {
 		protected override void Awake() {
 			base.Awake();
 			m_prefab = (GameObject)Resources.Load("Prefabs/Bullet");
-			m_pool = new ObjectPool<Bullet>(CreatePooledBullet, (Bullet b) => b.Enable(), (Bullet b) => b.Disable(), (Bullet b) => Destroy(b), false, 30, 60);
+			m_pool = new ObjectPool<Bullet>(CreatePooledBullet, (Bullet b) => b.Enable(), (Bullet b) => b.Disable(), (Bullet b) => Destroy(b), true, 30, 60);
 		}
 
 		private Bullet CreatePooledBullet() {

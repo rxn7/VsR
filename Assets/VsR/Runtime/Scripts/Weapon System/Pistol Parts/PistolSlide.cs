@@ -4,11 +4,29 @@ using UnityEngine;
 namespace VsR {
 	public class PistolSlide : WeaponSlide {
 		[SerializeField] private float m_shootSlideBackAnimationDuration;
-		[SerializeField] private Transform m_slideLockTransform;
+		[SerializeField] protected Vector3 m_lockedSlidePosition;
 
-		protected override void Start() {
-			base.Start();
-			weapon.onFire += OnWeaponFire;
+		public delegate void LockEvent();
+		public event LockEvent onLocked;
+		public event LockEvent onUnlocked;
+
+		private bool _m_locked = false;
+		public bool Locked {
+			get => _m_locked;
+			set {
+				_m_locked = value;
+				if (_m_locked)
+					onLocked?.Invoke();
+				else
+					onUnlocked?.Invoke();
+			}
+		}
+
+		protected override bool CanRelease => base.CanRelease && !Locked;
+
+		protected virtual void Start() {
+			m_weapon.onFire += OnWeaponFire;
+			onLocked += () => transform.localPosition = m_lockedSlidePosition;
 		}
 
 		private IEnumerator SlideBackAnimation() {
@@ -24,11 +42,10 @@ namespace VsR {
 			StartCoroutine(SlideBackAnimation());
 
 			yield return new WaitForSeconds(m_shootSlideBackAnimationDuration);
-			weapon.EjectCartridge(false);
+			m_weapon.EjectCartridge(false);
 
-			if (!weapon.CartridgeInChamber) {
+			if (!m_weapon.CartridgeInChamber) {
 				Locked = true;
-				transform.localPosition = m_maxSlidePosition;
 			} else {
 				StartCoroutine(ReleaseAnimation());
 			}

@@ -293,12 +293,11 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   m_data: {fileID: 11400000, guid: aae04f44057af6b48af595afb8bd64df, type: 2}
   m_magSlot: {fileID: 124195102308309038}
-  m_slide: {fileID: 1125306453289076226}
   m_trigger: {fileID: 781649081476272430}
-  m_hammer: {fileID: 781439486242158261}
   m_cartridgeInChamberObject: {fileID: 7765895962521512404}
   m_barrelEndPoint: {fileID: 7540738984634596226}
   m_cartridgeEjectPoint: {fileID: 4742726370600017148}
+  m_slide: {fileID: 1125306453289076226}
 --- !u!54 &4859675326844741718
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -473,7 +472,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4745406180758680171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4726ae29a4b5c2145b253eb4ee45acf0, type: 3}
+  m_Script: {fileID: 11500000, guid: 7de956812e8aa504198d5aa538c8b177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -519,7 +518,7 @@ MonoBehaviour:
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 0.2
-  weapon: {fileID: 0}
+  m_weapon: {fileID: 7037321874965094105}
 --- !u!65 &8623416916238325731
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1047,9 +1046,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2b32769c867ee44b8b00ec018aef73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_range:
-    min: 34.904
-    max: 85
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 1
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_weapon: {fileID: 7037321874965094105}
+  m_maxRotation: {x: 87.44205, y: 0.00008954055, z: 0.0000771313}
 --- !u!1 &3989379684285619608 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8546118158167826676, guid: 57773467936ad024ab0809d3a75191e3,
@@ -1194,8 +1269,8 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  weapon: {fileID: 0}
-  m_maxSlideOffset: 0.0006411165
-  m_releaseAnimationSpeed: 0.01
+  m_weapon: {fileID: 7037321874965094105}
+  m_maxSlidePosition: {x: 0, y: -0.0002642, z: 0.000133}
+  m_releaseAnimationSpeed: 0.035
   m_shootSlideBackAnimationDuration: 0.05
-  m_slideLockTransform: {fileID: 0}
+  m_lockedSlidePosition: {x: 0, y: -0.000299, z: 0.000133}

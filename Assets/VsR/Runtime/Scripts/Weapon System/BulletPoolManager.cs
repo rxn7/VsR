@@ -6,12 +6,12 @@ namespace VsR {
 		[RuntimeInitializeOnLoadMethod] private static void _CreateInstance() => CreateInstance();
 
 		private GameObject m_prefab;
-		private ObjectPool<Bullet> m_pool;
+		public ObjectPool<Bullet> Pool { get; private set; }
 
 		protected override void Awake() {
 			base.Awake();
 			m_prefab = (GameObject)Resources.Load("Prefabs/Bullet");
-			m_pool = new ObjectPool<Bullet>(CreatePooledBullet, (Bullet b) => b.Enable(), (Bullet b) => b.Disable(), (Bullet b) => Destroy(b), true, 30, 60);
+			Pool = new ObjectPool<Bullet>(CreatePooledBullet, (Bullet b) => b.Enable(), (Bullet b) => b.Disable(), (Bullet b) => Destroy(b), true, 30, 60);
 		}
 
 		private Bullet CreatePooledBullet() {
@@ -19,8 +19,5 @@ namespace VsR {
 			b.gameObject.SetActive(false);
 			return b;
 		}
-
-		public void ReleaseBullet(Bullet b) => m_pool.Release(b);
-		public Bullet GetPooledBullet() => m_pool.Get();
 	}
 }

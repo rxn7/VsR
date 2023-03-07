@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEditor;
 
 namespace VsR.Editors {
 	public class VsRManagerCartridgesTab : VsRManagerScriptableObjectEditorTab<CartridgeData> {

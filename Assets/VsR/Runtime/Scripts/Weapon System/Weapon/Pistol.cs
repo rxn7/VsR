@@ -24,7 +24,7 @@ namespace VsR {
 				SoundPoolManager.Instance.PlaySound(s_slideStopSound, m_slide.transform.position, Random.Range(0.9f, 1.1f));
 			} else if ((m_slide).Locked) {
 				(m_slide).Locked = false;
-				m_slide.OnRelease();
+				m_slide.Release();
 
 				if (!CartridgeInChamber)
 					TryToCock();

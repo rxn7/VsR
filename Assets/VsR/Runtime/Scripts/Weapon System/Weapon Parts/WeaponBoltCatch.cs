@@ -1,31 +1,44 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.InputSystem;
 
 namespace VsR {
 	public class WeaponBoltCatch : WeaponPart {
-		[SerializeField] private WeaponBolt m_bolt;
+		[SerializeField] private AudioClip m_boltReleaseClip;
+		[SerializeField] public WeaponBolt m_bolt;
+		[SerializeField] public WeaponSlide m_slide;
 		[SerializeField] private MagazineSlot m_magSlot;
 
 		protected override void Awake() {
 			base.Awake();
-			m_weapon.onFire += OnFire;
+			m_slide.onRelease += OnSlideRelease;
 		}
 
-		protected override void OnSelectEntered(SelectEnterEventArgs args) {
-			base.OnSelectEntered(args);
-			interactionManager.SelectExit(args.interactorObject, this);
+		public override bool IsSelectableBy(IXRSelectInteractor interactor) => false;
+		public override bool IsHoverableBy(IXRHoverInteractor interactor) {
+			if (interactor is not Hand)
+				return false;
 
-			if (!m_bolt.Open) return;
+			return base.IsHoverableBy(interactor);
+		}
 
-			m_bolt.Open = false;
+		protected override void OnHoverEntered(HoverEnterEventArgs args) {
+			base.OnHoverEntered(args);
+			interactionManager.HoverExit(args.interactorObject, this);
+
+			if (!m_bolt.IsOpen) return;
+			CloseBolt();
+		}
+
+		public void CloseBolt() {
+			m_bolt.IsOpen = false;
 			m_weapon.TryToCock();
+
+			SoundPoolManager.Instance.PlaySound(m_boltReleaseClip, transform.position, Random.Range(0.9f, 1.1f));
 		}
 
-		private void OnFire() {
-			if (m_magSlot.Mag && m_magSlot.Mag.IsEmpty) {
-				m_bolt.Open = true;
-			}
+		private void OnSlideRelease() {
+			if (m_slide.Racked)
+				m_bolt.IsOpen = false;
 		}
 	}
 }

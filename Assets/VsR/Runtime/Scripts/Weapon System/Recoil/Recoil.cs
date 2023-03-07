@@ -1,4 +1,5 @@
 using UnityEngine;
+using VsR.Math;
 
 namespace VsR {
 	public class Recoil : MonoBehaviour {
@@ -30,9 +31,17 @@ namespace VsR {
 		public void AddRecoil(RecoilInfo info) {
 			m_info = info;
 
-			// TODO: Randomize
-			m_targetPosition += info.linearForce;
-			m_targetRotation *= Quaternion.Euler(info.angularForce);
+			m_targetPosition += info.force + VectorHelper.RandomVector(
+				new Math.FloatRange(-info.forceRandomness.x, info.forceRandomness.x),
+				new Math.FloatRange(-info.forceRandomness.y, info.forceRandomness.y),
+				new Math.FloatRange(-info.forceRandomness.z, info.forceRandomness.z)
+			);
+
+			m_targetRotation *= Quaternion.Euler(info.torque + VectorHelper.RandomVector(
+				new Math.FloatRange(-info.torqueRandomness.x, info.torqueRandomness.x),
+				new Math.FloatRange(-info.torqueRandomness.y, info.torqueRandomness.y),
+				new Math.FloatRange(-info.torqueRandomness.z, info.torqueRandomness.z)
+			));
 		}
 	}
 }

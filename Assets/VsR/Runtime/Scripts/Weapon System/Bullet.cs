@@ -64,7 +64,8 @@ namespace VsR {
 		}
 
 		private void Release() {
-			BulletPoolManager.Instance.ReleaseBullet(this);
+			CancelInvoke();
+			BulletPoolManager.Instance.Pool.Release(this);
 		}
 
 		public void Enable() {

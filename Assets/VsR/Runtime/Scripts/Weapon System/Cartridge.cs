@@ -1,4 +1,5 @@
 using UnityEngine;
+using VsR.Math;
 
 namespace VsR {
 	[RequireComponent(typeof(Rigidbody))]
@@ -15,9 +16,13 @@ namespace VsR {
 			m_rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
 		}
 
-		public void Eject(bool withBullet = false, float force = 1.0f) {
+		public void Eject(WeaponData weaponData, bool withBullet = false) {
+			Vector3 random = VectorHelper.RandomVector(new FloatRange(0.5f, 1.5f), new FloatRange(0.5f, 1.5f), new FloatRange(0.5f, 1.5f));
+			Vector3 randomAngular = VectorHelper.RandomVector(new FloatRange(0.5f, 1.5f), new FloatRange(0.5f, 1.5f), new FloatRange(0.5f, 1.5f));
+
 			EnablePhysics();
-			m_rb.AddForce(transform.up * force, ForceMode.Impulse);
+			m_rb.AddForce(Vector3.Scale(transform.up, random) * weaponData.cartridgeEjectForce * Random.Range(0.9f, 1.1f), ForceMode.Impulse);
+			m_rb.AddTorque(Vector3.Scale(-transform.right, randomAngular) * weaponData.cartridgeEjectTorque, ForceMode.Impulse);
 			m_bulletMeshRenderer.enabled = withBullet;
 			Destroy(gameObject, EJECT_LIFE_TIME_SECS);
 		}

@@ -1,5 +1,4 @@
 using UnityEngine;
-using VsR.Math;
 
 namespace VsR {
 	[CreateAssetMenu(menuName = "VsR/WeaponData", fileName = "weapon")]
@@ -28,6 +27,9 @@ namespace VsR {
 
 		[Tooltip("Muzzle velocity in m/s")]
 		public float muzzleVelocity = 600;
+
+		public float cartridgeEjectForce = 1;
+		public float cartridgeEjectTorque = 1;
 
 		[Tooltip("How much trigger pressure has to be applied to fire")]
 		[Range(0.0f, 1.0f)] public float fireTriggerPressure = 0.5f;

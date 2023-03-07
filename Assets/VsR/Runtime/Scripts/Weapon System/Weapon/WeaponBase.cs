@@ -86,10 +86,6 @@ namespace VsR {
 			if (m_data.shootType != WeaponData.ShootType.Automatic && !m_triggerReset)
 				return false;
 
-			// TODO:
-			// if (m_slide && m_slide.isSelected)
-			// 	return false;
-
 			if (!CartridgeInChamber)
 				return false;
 
@@ -120,8 +116,7 @@ namespace VsR {
 		private void EjectEmptyCartridge() => EjectCartridge(false);
 		public virtual void EjectCartridge(bool withBullet = false) {
 			Cartridge cartridge = Instantiate(m_data.cartridgeData.cartridgePrefab, m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.rotation);
-			float force = Random.Range(0.7f, 1.4f);
-			cartridge.Eject(withBullet, force);
+			cartridge.Eject(m_data, withBullet);
 		}
 
 		protected virtual void SetTriggerValue(float normalizedTriggerValue) {
@@ -146,7 +141,7 @@ namespace VsR {
 				return;
 			}
 
-			Bullet bullet = BulletPoolManager.Instance.GetPooledBullet();
+			Bullet bullet = BulletPoolManager.Instance.Pool.Get();
 			foreach (Collider collider in colliders)
 				Physics.IgnoreCollision(collider, bullet.Collider);
 

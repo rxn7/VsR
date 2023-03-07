@@ -1,51 +1,62 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
-using System.Collections;
 
 namespace VsR {
 	public class WeaponBolt : MonoBehaviour {
 		[SerializeField] protected WeaponBase m_weapon;
-		[SerializeField] protected Vector3 m_maxSlidePosition;
-		[SerializeField] protected float m_releaseAnimationSpeed = 0.03f;
+		[SerializeField] protected Vector3 m_maxPosition;
+		protected float m_shootAnimationDuration;
 
+		protected Transform m_parent;
 		protected Vector3 m_initPosition;
-		protected Vector3 m_startHandLocalPosition;
-		protected float m_initToMaxSlideDistance;
-		protected bool _m_boltOpen = false;
-		protected Hand m_hand;
+		protected bool m_boltFireAnimating = false;
+		protected bool m_boltRoundEjected = false;
+		protected float m_boltAlpha = 0.0f;
+		private bool _m_isOpen = false;
 
-		public bool Open {
-			get => _m_boltOpen;
+		public bool IsOpen {
+			get => _m_isOpen;
 			set {
-				_m_boltOpen = value;
-				transform.localPosition = value ? m_maxSlidePosition : m_initPosition;
+				_m_isOpen = value;
+				transform.SetParent(value ? m_weapon.transform : m_parent, false);
 			}
 		}
 
 		protected void Awake() {
 			m_initPosition = transform.localPosition;
-			m_initToMaxSlideDistance = Vector3.Distance(m_initPosition, m_maxSlidePosition);
+			m_parent = transform.parent;
 			m_weapon.onFire += OnFire;
+			m_shootAnimationDuration = m_weapon.Data.SecondsPerRound;
 		}
 
 		private void OnFire() {
 			if (!m_weapon.CartridgeInChamber) {
-				_m_boltOpen = true;
+				IsOpen = true;
+				return;
 			}
+
+			m_boltFireAnimating = true;
 		}
 
-		protected virtual void UpdateSlideMovement() {
-		}
+		private void Update() {
+			if (m_boltFireAnimating) {
+				m_boltAlpha += Time.deltaTime / m_shootAnimationDuration;
 
-		protected void Rack() {
-			SoundPoolManager.Instance.PlaySound(m_weapon.Data.rackSound, transform.position, Random.Range(0.9f, 1.1f));
-			m_weapon.TryToCock();
-			_m_boltOpen = true;
-		}
+				float alpha = Mathf.Sin(m_boltAlpha * Mathf.PI);
+				transform.localPosition = Vector3.Lerp(m_initPosition, m_maxPosition, alpha);
 
-		protected void RackBack() {
-			SoundPoolManager.Instance.PlaySound(m_weapon.Data.rackBackSound, transform.position, Random.Range(0.9f, 1.1f));
-			_m_boltOpen = false;
+				if (m_boltAlpha > 0.15f && !m_boltRoundEjected) {
+					m_boltRoundEjected = true;
+					m_weapon.EjectCartridge(false);
+				}
+
+				if (m_boltAlpha > 1.0f) {
+					m_boltRoundEjected = false;
+					m_boltFireAnimating = false;
+					m_boltAlpha = 0.0f;
+				}
+			} else {
+				transform.localPosition = IsOpen ? m_maxPosition : m_initPosition;
+			}
 		}
 	}
 }

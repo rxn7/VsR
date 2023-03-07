@@ -12,23 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744ab951e062c804884fab903b506f07, type: 3}
   m_Name: MK18
   m_EditorClassIdentifier: 
-  displayName: MK18
   shootType: 0
   shootingPhysicsType: 0
+  massKg: 1
   roundsPerMinute: 800
   muzzleVelocity: 910
-  fireTriggerValue: 0.5
-  resetTriggerValue: 0.495
-  ejectCartridgeDelaySec: 0.05
-  triggerRotationRange:
-    min: -89.98
-    max: -116.54
+  cartridgeEjectForce: 3
+  cartridgeEjectTorque: 1
+  fireTriggerPressure: 0.5
+  resetTriggerPressure: 0.495
   fireHapticFeedback:
     intensity: 0.9
     duration: 0.08
   recoilInfo:
-    angularForce: {x: -10, y: 0, z: 0}
-    linearForce: {x: 0, y: 0.02, z: -0.15}
+    force: {x: 0, y: 0.015, z: -0.16}
+    forceRandomness: {x: 0, y: 0.005, z: 0.06}
+    torque: {x: -25, y: 0, z: 0}
+    torqueRandomness: {x: 3, y: 8, z: 6}
   shootSound: {fileID: 8300000, guid: 09934114fc0b4e4409648ca4db01cf9e, type: 3}
   rackSound: {fileID: 8300000, guid: 0225ab549d631df419b6cd2e9776d8d1, type: 3}
   rackBackSound: {fileID: 8300000, guid: f7b0871af50548041a8e0c6a9e738927, type: 3}

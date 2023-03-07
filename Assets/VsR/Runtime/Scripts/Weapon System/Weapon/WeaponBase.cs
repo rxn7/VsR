@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
-	[RequireComponent(typeof(Animator))]
 	public abstract class WeaponBase : XRGrabInteractable {
 		[SerializeField] protected WeaponData m_data;
 		[SerializeField] protected MagazineSlot m_magSlot;
@@ -14,7 +13,6 @@ namespace VsR {
 		[SerializeField] protected Transform m_barrelEndPoint;
 		[SerializeField] protected Transform m_cartridgeEjectPoint;
 
-		protected Animator m_animator;
 		protected Hand m_gripHand = null;
 		protected Rigidbody m_rb;
 		private float m_fireRateTimer = 0.0f;
@@ -29,8 +27,10 @@ namespace VsR {
 		}
 
 		public WeaponData Data => m_data;
-		public Animator Animator => m_animator;
 		public Hand GripHand => m_gripHand;
+
+		public delegate void OnFire();
+		public event OnFire onFire;
 
 		protected override void Awake() {
 			base.Awake();
@@ -38,8 +38,6 @@ namespace VsR {
 			movementType = MovementType.Instantaneous;
 			m_magSlot.weapon = this;
 			m_slide.weapon = this;
-
-			m_animator = GetComponent<Animator>();
 			m_rb = GetComponent<Rigidbody>();
 
 			SetTriggerValue(0);
@@ -76,23 +74,23 @@ namespace VsR {
 			m_triggerReset = false;
 			m_fireRateTimer = 0.0f;
 
-			m_animator.SetTrigger("Shoot");
 			m_gripHand.ApplyHapticFeedback(m_data.fireHapticFeedback);
 			m_gripHand.Recoil.AddRecoil(m_data.recoilInfo);
 			SoundPoolManager.Instance.PlaySound(m_data.shootSound, transform.position, Random.Range(0.9f, 1.1f));
-			Invoke(nameof(EjectEmptyCartridge), m_data.ejectCartridgeDelaySec);
 
 			if (m_data.shootType != WeaponData.ShootType.Manual)
 				TryToCock();
 
 			FireProjectile();
+
+			onFire?.Invoke();
 		}
 
 		protected virtual bool CanFire() {
 			if (m_data.shootType != WeaponData.ShootType.Automatic && !m_triggerReset)
 				return false;
 
-			if (m_slide && m_slide.isSelected)
+			if (m_slide && (m_slide.isSelected || m_slide.Locked))
 				return false;
 
 			if (!CartridgeInChamber)
@@ -122,22 +120,22 @@ namespace VsR {
 		protected virtual void OnCocked() {
 		}
 
-		protected void EjectEmptyCartridge() => EjectCartridge(false);
-		protected virtual void EjectCartridge(bool withBullet = false) {
+		private void EjectEmptyCartridge() => EjectCartridge(false);
+		public virtual void EjectCartridge(bool withBullet = false) {
 			Cartridge cartridge = Instantiate(m_data.cartridgeData.cartridgePrefab, m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.rotation);
 			float force = Random.Range(0.7f, 1.4f);
 			cartridge.Eject(withBullet, force);
 		}
 
 		protected virtual void SetTriggerValue(float normalizedTriggerValue) {
-			if (normalizedTriggerValue >= m_data.fireTriggerValue) {
+			if (normalizedTriggerValue >= m_data.fireTriggerPressure) {
 				if (CanFire())
 					Fire();
 				else if (m_triggerReset)
 					DryFire();
 			}
 
-			if (!m_triggerReset && normalizedTriggerValue < m_data.resetTriggerValue) {
+			if (!m_triggerReset && normalizedTriggerValue < m_data.resetTriggerPressure) {
 				m_triggerReset = true;
 				GripHand.SendHapticImpulse(0.1f, 0.1f);
 			}

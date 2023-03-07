@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace VsR {
 	[RequireComponent(typeof(Rigidbody))]
@@ -20,6 +19,7 @@ namespace VsR {
 			EnablePhysics();
 			m_rb.AddForce(transform.up * force, ForceMode.Impulse);
 			m_bulletMeshRenderer.enabled = withBullet;
+			Destroy(gameObject, EJECT_LIFE_TIME_SECS);
 		}
 
 		public void DisablePhysics() {

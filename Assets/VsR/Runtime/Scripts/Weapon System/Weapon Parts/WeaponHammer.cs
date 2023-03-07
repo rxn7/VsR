@@ -5,7 +5,7 @@ namespace VsR {
 		[SerializeField] private Math.FloatRange m_range;
 
 		public void UpdateRotation(float normalizedTriggerValue, WeaponData data, bool triggerReset) {
-			float value = Mathf.Clamp01(normalizedTriggerValue / data.fireTriggerValue);
+			float value = Mathf.Clamp01(normalizedTriggerValue / data.fireTriggerPressure);
 			transform.localEulerAngles = new Vector3(Mathf.Lerp(m_range.min, m_range.max, value), 0, 0);
 		}
 	}

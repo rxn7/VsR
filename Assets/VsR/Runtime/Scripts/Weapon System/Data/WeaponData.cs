@@ -19,18 +19,22 @@ namespace VsR {
 		[Header("General")]
 		public ShootType shootType;
 		public ShootingPhysicsType shootingPhysicsType;
+
+		[Tooltip("This will overwrite rigidbody's mass")]
+		public float massKg = 1.0f;
+
+		[Tooltip("60 / shoot interval in seconds")]
 		public ushort roundsPerMinute = 100;
 
 		[Tooltip("Muzzle velocity in m/s")]
 		public float muzzleVelocity = 600;
 
-		[Range(0.0f, 1.0f)] public float fireTriggerValue = 0.5f;
-		[Range(0.0f, 1.0f)] public float resetTriggerValue = 0.495f;
+		[Tooltip("How much trigger pressure has to be applied to fire")]
+		[Range(0.0f, 1.0f)] public float fireTriggerPressure = 0.5f;
+		[Range(0.0f, 1.0f)] public float resetTriggerPressure = 0.495f;
 
 
 		[Header("Feedback")]
-		[Tooltip("Empty cartridge will get ejected on firing after this delay")]
-		public float ejectCartridgeDelaySec = 0.05f;
 		public HapticFeedback fireHapticFeedback = new HapticFeedback(0.75f, 0.05f);
 		public RecoilInfo recoilInfo;
 

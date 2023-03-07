@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using System.Collections;
 
 namespace VsR {
 	public class SoundPoolManager : SingletonBehaviour<SoundPoolManager> {
@@ -9,7 +10,11 @@ namespace VsR {
 
 		protected override void Awake() {
 			base.Awake();
-			m_pool = new ObjectPool<AudioSource>(CreatePooledObject, null, null, null, true, 20, 50);
+			m_pool = new ObjectPool<AudioSource>(CreatePooledObject,
+				(AudioSource src) => src.enabled = true,
+				(AudioSource src) => src.enabled = false,
+				(AudioSource src) => Destroy(src.gameObject),
+				true, 20, 50);
 		}
 
 		protected AudioSource CreatePooledObject() {
@@ -30,6 +35,13 @@ namespace VsR {
 			source.transform.position = position;
 			source.spatialBlend = spatialBlend;
 			source.PlayOneShot(clip, volume);
+
+			StartCoroutine(ReleaseAudioSourceAfterFinishedPlaying(source));
+		}
+
+		private IEnumerator ReleaseAudioSourceAfterFinishedPlaying(AudioSource source) {
+			yield return new WaitUntil(() => !source.isPlaying);
+			m_pool.Release(source);
 		}
 	}
 }

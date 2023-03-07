@@ -896,6 +896,7 @@ MonoBehaviour:
       m_Calls: []
   weapon: {fileID: 0}
   m_maxSlideOffset: 0.0006
+  m_releaseAnimationSpeed: 0.01
 --- !u!4 &1030902646898850640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 352ae7435f27a9b459d024cd26b42153,

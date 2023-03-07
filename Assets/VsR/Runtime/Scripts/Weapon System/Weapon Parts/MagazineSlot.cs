@@ -13,7 +13,7 @@ namespace VsR {
 			base.Awake();
 
 			showInteractableHoverMeshes = false;
-			recycleDelayTime = 0.1f;
+			recycleDelayTime = 1.0f;
 		}
 
 		public override bool CanSelect(IXRSelectInteractable interactable) {

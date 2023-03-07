@@ -15,7 +15,7 @@ namespace VsR.Editors {
 				string folderPath = "Assets/VsR/Runtime/Resources/Prefabs/Weapons";
 				Directory.CreateDirectory(folderPath);
 
-				GameObject obj = new GameObject(SelectedObject.name, typeof(SingleHandedWeapon));
+				GameObject obj = new GameObject(SelectedObject.name, typeof(WeaponBase));
 				obj.layer = LayerMask.GetMask("Grab");
 
 				SelectedObject.prefab = PrefabUtility.SaveAsPrefabAsset(obj, $"{folderPath}/{SelectedObject.name}.prefab");

@@ -11,12 +11,7 @@ namespace VsR {
 			if (m_hand == null || !Weapon.isSelected)
 				return;
 
-			Hand gripHand = Weapon.GripHand;
-			gripHand.attachTransform.rotation = GetGripRotation();
-		}
-
-		private Quaternion GetGripRotation() {
-			return Quaternion.LookRotation(m_hand.attachTransform.position - Weapon.GripHand.attachTransform.position, Weapon.GripHand.attachTransform.up);
+			Weapon.GripHand.attachTransform.rotation = Quaternion.LookRotation(m_hand.attachTransform.position - Weapon.GripHand.attachTransform.position, Weapon.GripHand.transform.up);
 		}
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {

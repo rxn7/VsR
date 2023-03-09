@@ -21,27 +21,32 @@ namespace VsR {
 			if (!m_info.HasValue)
 				return;
 
-			m_targetRotation = Quaternion.Slerp(m_targetRotation, m_initRotation, Time.deltaTime * m_returnSpeed);
-			transform.localRotation = Quaternion.Slerp(transform.localRotation, m_targetRotation, Time.deltaTime * m_snapiness);
+			m_targetRotation = Quaternion.Lerp(m_targetRotation, m_initRotation, Time.deltaTime * m_returnSpeed);
+			transform.localRotation = Quaternion.Lerp(transform.localRotation, m_targetRotation, Time.deltaTime * m_snapiness);
 
 			m_targetPosition = Vector3.Lerp(m_targetPosition, m_initPosition, Time.deltaTime * m_returnSpeed);
 			transform.localPosition = Vector3.Lerp(transform.localPosition, m_targetPosition, Time.deltaTime * m_snapiness);
 		}
 
-		public void AddRecoil(RecoilInfo info) {
-			m_info = info;
+		public void AddRecoil(Weapon weapon) {
+			m_info = weapon.Data.recoilInfo;
 
-			m_targetPosition += info.force + VectorHelper.RandomVector(
-				new Math.FloatRange(-info.forceRandomness.x, info.forceRandomness.x),
-				new Math.FloatRange(-info.forceRandomness.y, info.forceRandomness.y),
-				new Math.FloatRange(-info.forceRandomness.z, info.forceRandomness.z)
-			);
+			bool isGuardHoldHeld = weapon.GuardHand != null;
 
-			m_targetRotation *= Quaternion.Euler(info.torque + VectorHelper.RandomVector(
-				new Math.FloatRange(-info.torqueRandomness.x, info.torqueRandomness.x),
-				new Math.FloatRange(-info.torqueRandomness.y, info.torqueRandomness.y),
-				new Math.FloatRange(-info.torqueRandomness.z, info.torqueRandomness.z)
-			));
+			float forceMultiplier = isGuardHoldHeld ? 0.25f : 1.0f;
+			float torqueMultiplier = isGuardHoldHeld ? 0.3f : 1.0f;
+
+			m_targetPosition += (weapon.Data.recoilInfo.force + VectorHelper.RandomVector(
+				new Math.FloatRange(-weapon.Data.recoilInfo.forceRandomness.x, weapon.Data.recoilInfo.forceRandomness.x),
+				new Math.FloatRange(-weapon.Data.recoilInfo.forceRandomness.y, weapon.Data.recoilInfo.forceRandomness.y),
+				new Math.FloatRange(-weapon.Data.recoilInfo.forceRandomness.z, weapon.Data.recoilInfo.forceRandomness.z)
+			)) * forceMultiplier;
+
+			m_targetRotation *= Quaternion.Euler((weapon.Data.recoilInfo.torque + VectorHelper.RandomVector(
+				new Math.FloatRange(-weapon.Data.recoilInfo.torqueRandomness.x, weapon.Data.recoilInfo.torqueRandomness.x),
+				new Math.FloatRange(-weapon.Data.recoilInfo.torqueRandomness.y, weapon.Data.recoilInfo.torqueRandomness.y),
+				new Math.FloatRange(-weapon.Data.recoilInfo.torqueRandomness.z, weapon.Data.recoilInfo.torqueRandomness.z)
+			)) * torqueMultiplier);
 		}
 	}
 }

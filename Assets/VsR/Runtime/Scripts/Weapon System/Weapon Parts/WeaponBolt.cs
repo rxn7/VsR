@@ -4,6 +4,7 @@ namespace VsR {
 	public class WeaponBolt : MonoBehaviour, IWeaponPart {
 		[field: SerializeField] public Weapon Weapon { get; set; }
 		[SerializeField] protected Vector3 m_maxPosition;
+		[SerializeField] protected WeaponSlide m_slide;
 		protected float m_shootAnimationDuration;
 
 		protected Transform m_parent;
@@ -24,8 +25,10 @@ namespace VsR {
 		protected void Awake() {
 			m_initPosition = transform.localPosition;
 			m_parent = transform.parent;
-			Weapon.onFire += OnFire;
 			m_shootAnimationDuration = Weapon.Data.SecondsPerRound;
+
+			Weapon.onFire += OnFire;
+			m_slide.onRackedBack += () => IsOpen = false;
 		}
 
 		private void OnFire() {

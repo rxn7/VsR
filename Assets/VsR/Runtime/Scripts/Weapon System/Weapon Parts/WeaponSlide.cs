@@ -3,6 +3,9 @@ using System.Collections;
 
 namespace VsR {
 	public class WeaponSlide : WeaponMovingPart {
+		public event System.Action onRacked;
+		public event System.Action onRackedBack;
+
 		[SerializeField] protected float m_releaseAnimationSpeed = 0.03f;
 		protected bool m_racked = false;
 
@@ -24,14 +27,14 @@ namespace VsR {
 		}
 
 		protected void Rack() {
+			onRacked?.Invoke();
 			SoundPoolManager.Instance.PlaySound(Weapon.Data.rackSound, transform.position, Random.Range(0.9f, 1.1f));
-
 			Weapon.TryToCock();
-
 			m_racked = true;
 		}
 
 		protected void RackBack() {
+			onRackedBack?.Invoke();
 			SoundPoolManager.Instance.PlaySound(Weapon.Data.rackBackSound, transform.position, Random.Range(0.9f, 1.1f));
 			m_racked = false;
 		}

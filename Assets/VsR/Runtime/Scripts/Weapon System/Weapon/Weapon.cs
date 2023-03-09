@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -14,6 +15,7 @@ namespace VsR {
 		[SerializeField] protected Transform m_cartridgeEjectPoint;
 
 		protected Hand m_gripHand = null;
+		protected Hand m_guardHand = null;
 		private float m_fireRateTimer = 0.0f;
 		private Vector3 m_previousPosition;
 		private bool m_triggerReset = true;
@@ -29,11 +31,17 @@ namespace VsR {
 		}
 		public WeaponData Data => m_data;
 		public Hand GripHand => m_gripHand;
+		public Hand GuardHand => m_guardHand;
 		public Vector3 WorldVelocity => m_velocity;
 		public Transform CartridgeEjectPoint => m_cartridgeEjectPoint;
 
 		protected override void Awake() {
 			base.Awake();
+
+			foreach (WeaponGuardHold hold in GetComponentsInChildren<WeaponGuardHold>()) {
+				hold.selectEntered.AddListener(OnGuardHandAttached);
+				hold.selectExited.AddListener(OnGuardHandDetached);
+			}
 
 			movementType = MovementType.Instantaneous;
 
@@ -70,7 +78,7 @@ namespace VsR {
 			m_fireRateTimer = 0.0f;
 
 			m_gripHand.ApplyHapticFeedback(m_data.fireHapticFeedback);
-			m_gripHand.Recoil.AddRecoil(m_data.recoilInfo);
+			m_gripHand.Recoil.AddRecoil(this);
 			SoundPoolManager.Instance.PlaySound(m_data.shootSound, transform.position, Random.Range(0.9f, 1.1f));
 
 			if (m_data.shootType != WeaponData.ShootType.Manual)
@@ -159,6 +167,14 @@ namespace VsR {
 				m_gripHand.SlideReleaseAction.performed -= OnSlideReleasePressed;
 			}
 			m_gripHand = null;
+		}
+
+		protected void OnGuardHandAttached(SelectEnterEventArgs args) {
+			m_guardHand = (Hand)args.interactorObject;
+		}
+
+		protected void OnGuardHandDetached(SelectExitEventArgs args) {
+			m_guardHand = null;
 		}
 
 		protected virtual void OnReleaseMagPressed(InputAction.CallbackContext context) {

@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
-	public class MagazineSlot : XRSocketInteractor {
-		[SerializeField] private WeaponBase m_weapon;
+	public class MagazineSlot : XRSocketInteractor, IWeaponPart {
+		[field: SerializeField] public WeaponBase Weapon { get; set; }
 		private Magazine m_magazine;
 
 		public Magazine Mag => m_magazine;
@@ -21,7 +21,7 @@ namespace VsR {
 		public override bool CanSelect(IXRSelectInteractable interactable) {
 			bool isSelecting = IsSelecting(interactable);
 
-			if (!m_weapon.isSelected && !isSelecting)
+			if (!Weapon.isSelected && !isSelecting)
 				return false;
 
 			if (hasSelection && !isSelecting)
@@ -33,7 +33,7 @@ namespace VsR {
 			if (interactable is not Magazine mag)
 				return false;
 
-			if (!m_weapon.Data.compatibleMagazines.Contains(mag.Data))
+			if (!Weapon.Data.compatibleMagazines.Contains(mag.Data))
 				return false;
 
 			return base.CanHover((IXRHoverInteractable)interactable);
@@ -61,7 +61,7 @@ namespace VsR {
 			SoundPoolManager.Instance.PlaySound(m_magazine.Data.slideOutSound, transform.position, Random.Range(0.95f, 1.05f));
 
 			interactionManager.SelectExit(this, (IXRSelectInteractable)m_magazine);
-			m_magazine.SlideOut();
+			m_magazine.SlideOut(Weapon.WorldVelocity);
 
 			m_magazine = null;
 		}

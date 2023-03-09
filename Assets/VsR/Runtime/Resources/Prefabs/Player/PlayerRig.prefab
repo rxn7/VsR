@@ -628,7 +628,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 1181389232112662148}
+      objectReference: {fileID: 1435900444817649660}
     - target: {fileID: 1246658866163755213, guid: 6c418b8e57326644aa23ea728a4d891e,
         type: 3}
       propertyPath: m_SelectAction.m_Reference
@@ -842,9 +842,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c418b8e57326644aa23ea728a4d891e, type: 3}
---- !u!4 &1181389232112662148 stripped
+--- !u!4 &1435900444817649660 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3614439656354174039, guid: 6c418b8e57326644aa23ea728a4d891e,
+  m_CorrespondingSourceObject: {fileID: 3576250974332177711, guid: 6c418b8e57326644aa23ea728a4d891e,
     type: 3}
   m_PrefabInstance: {fileID: 2471405859286590163}
   m_PrefabAsset: {fileID: 0}

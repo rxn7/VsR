@@ -8,10 +8,8 @@ namespace VsR {
 	public class Hand : XRDirectInteractor {
 		[Header("Hand")]
 		[SerializeField] private HandType m_handType;
-		[SerializeField] private Animator m_animator;
 		[SerializeField] private Recoil m_recoil;
 
-		public Animator Animator => m_animator;
 		public HandType HandType => m_handType;
 		public Recoil Recoil => m_recoil;
 

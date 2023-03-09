@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using System.Collections;
 
 namespace VsR {
 	public class Magazine : XRGrabInteractable {
@@ -43,10 +42,10 @@ namespace VsR {
 			m_rb.detectCollisions = false;
 		}
 
-		public void SlideOut() {
+		public void SlideOut(Vector3 weaponVelocity) {
 			m_rb.isKinematic = false;
 			m_rb.detectCollisions = true;
-			m_rb.AddForce(-transform.up * 0.3f, ForceMode.Impulse);
+			m_rb.velocity = -transform.up * 0.3f + weaponVelocity;
 		}
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {

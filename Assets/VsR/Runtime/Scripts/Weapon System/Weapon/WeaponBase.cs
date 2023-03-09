@@ -46,7 +46,7 @@ namespace VsR {
 			if (!isSelected)
 				return;
 
-			m_velocity = (transform.position - m_previousPosition) / Time.deltaTime;
+			m_velocity = (transform.position - m_previousPosition) / Time.unscaledDeltaTime;
 			m_previousPosition = transform.position;
 
 			m_fireRateTimer += Time.deltaTime;

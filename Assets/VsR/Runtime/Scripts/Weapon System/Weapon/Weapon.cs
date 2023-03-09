@@ -4,8 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
 	public abstract class Weapon : XRGrabInteractable {
-		public delegate void OnFire();
-		public event OnFire onFire;
+		public event System.Action onFire;
 
 		[SerializeField] protected WeaponData m_data;
 		[SerializeField] protected MagazineSlot m_magSlot;

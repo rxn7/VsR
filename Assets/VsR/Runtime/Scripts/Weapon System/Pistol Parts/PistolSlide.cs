@@ -7,9 +7,8 @@ namespace VsR {
 		[SerializeField] private float m_shootAnimationDuration;
 		[SerializeField] protected Vector3 m_lockedSlidePosition;
 
-		public delegate void LockEvent();
-		public event LockEvent onLocked;
-		public event LockEvent onUnlocked;
+		public event System.Action onLocked;
+		public event System.Action onUnlocked;
 
 		private bool _m_locked = false;
 		public bool Locked {

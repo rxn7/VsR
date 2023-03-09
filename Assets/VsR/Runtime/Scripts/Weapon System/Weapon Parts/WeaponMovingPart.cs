@@ -5,8 +5,7 @@ namespace VsR {
 	public class WeaponMovingPart : XRBaseInteractable, IWeaponPart {
 		public enum SlideAxis { X, Y, Z, NEG_X, NEG_Y, NEG_Z }
 
-		public delegate void OnRelease();
-		public event OnRelease onRelease;
+		public event System.Action onRelease;
 
 		[field: SerializeField] public Weapon Weapon { get; set; }
 

@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace VsR {
 	public class Button : MonoBehaviour {
-		public delegate void ButtonEvent();
-		public event ButtonEvent onPressed;
+		public event System.Action onPressed;
 
 		[SerializeField] private Transform m_visualPress;
 		[SerializeField] private AudioClip m_pressSound;

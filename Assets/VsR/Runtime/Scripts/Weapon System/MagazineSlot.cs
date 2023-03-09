@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
 	public class MagazineSlot : XRSocketInteractor, IWeaponPart {
-		[field: SerializeField] public WeaponBase Weapon { get; set; }
+		[field: SerializeField] public Weapon Weapon { get; set; }
 		private Magazine m_magazine;
 
 		public Magazine Mag => m_magazine;

@@ -8,7 +8,7 @@ namespace VsR {
 		public delegate void OnRelease();
 		public event OnRelease onRelease;
 
-		[field: SerializeField] public WeaponBase Weapon { get; set; }
+		[field: SerializeField] public Weapon Weapon { get; set; }
 
 		[SerializeField] protected Vector3 m_maxSlidePosition;
 		[SerializeField] protected SlideAxis m_slideAxis = SlideAxis.Z;

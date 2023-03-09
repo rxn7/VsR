@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace VsR {
-	public class Pistol : WeaponBase {
+	public class Pistol : Weapon {
 		[SerializeField] private PistolSlide m_slide;
 		private static AudioClip s_slideStopSound;
 

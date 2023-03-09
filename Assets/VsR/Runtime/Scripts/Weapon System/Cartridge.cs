@@ -17,7 +17,7 @@ namespace VsR {
 			m_rb = GetComponent<Rigidbody>();
 		}
 
-		public void Eject(WeaponBase weapon, float force, float torque, FloatRange randomness, bool withBullet = false) {
+		public void Eject(Weapon weapon, float force, float torque, FloatRange randomness, bool withBullet = false) {
 			CancelInvoke();
 
 			m_ejected = true;

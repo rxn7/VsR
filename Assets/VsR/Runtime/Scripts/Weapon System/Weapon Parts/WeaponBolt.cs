@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace VsR {
 	public class WeaponBolt : MonoBehaviour {
-		[SerializeField] protected WeaponBase m_weapon;
+		[SerializeField] protected Weapon m_weapon;
 		[SerializeField] protected Vector3 m_maxPosition;
 		protected float m_shootAnimationDuration;
 

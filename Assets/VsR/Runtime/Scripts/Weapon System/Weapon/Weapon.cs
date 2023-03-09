@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
-	public abstract class WeaponBase : XRGrabInteractable {
+	public abstract class Weapon : XRGrabInteractable {
 		public delegate void OnFire();
 		public event OnFire onFire;
 

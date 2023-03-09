@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace VsR {
 	public class WeaponBoltCatch : MonoBehaviour, IWeaponPart {
-		[field: SerializeField] public WeaponBase Weapon { get; set; }
+		[field: SerializeField] public Weapon Weapon { get; set; }
 		[SerializeField] private AudioClip m_boltReleaseClip;
 		[SerializeField] public WeaponBolt m_bolt;
 		[SerializeField] public WeaponSlide m_slide;

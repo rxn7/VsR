@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace VsR {
 	public class WeaponHammer : MonoBehaviour, IWeaponPart {
-		[field: SerializeField] public WeaponBase Weapon { get; set; }
+		[field: SerializeField] public Weapon Weapon { get; set; }
 		[SerializeField] private Vector3 m_maxRotation;
 		private Vector3 m_initRotation;
 

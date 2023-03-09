@@ -60,3 +60,6 @@ crashlytics-build.properties
 
 .vscode
 .vsconfig
+
+*.log
+UpgradeLog.htm

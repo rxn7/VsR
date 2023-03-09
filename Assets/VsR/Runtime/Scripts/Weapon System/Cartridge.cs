@@ -30,6 +30,8 @@ namespace VsR {
 
 			transform.position = weapon.CartridgeEjectPoint.position;
 			transform.rotation = weapon.CartridgeEjectPoint.rotation;
+
+			m_rb.position = transform.position;
 			m_rb.velocity = Vector3.Scale(transform.up, random) * weapon.Data.cartridgeEjectForce + weapon.WorldVelocity;
 			m_rb.angularVelocity = Vector3.Scale(-transform.right, randomAngular) * weapon.Data.cartridgeEjectTorque;
 
@@ -56,7 +58,7 @@ namespace VsR {
 
 			float velocity = collision.relativeVelocity.magnitude * 0.2f;
 
-			float pitch = Mathf.Clamp(velocity, 0.6f, 1.4f);
+			float pitch = Mathf.Clamp(velocity, 0.5f, 1.5f);
 			float volume = Mathf.Clamp01(velocity);
 
 			SoundPoolManager.Instance.PlaySound(m_data.GetRandomCollideSound(), transform.position, pitch, volume);

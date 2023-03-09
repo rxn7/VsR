@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
 	public class PistolSlide : WeaponSlide {
-		[SerializeField] private float m_shootSlideBackAnimationDuration;
+		[SerializeField] private float m_shootAnimationDuration;
 		[SerializeField] protected Vector3 m_lockedSlidePosition;
 
 		public delegate void LockEvent();
@@ -30,24 +30,27 @@ namespace VsR {
 			onLocked += () => transform.localPosition = m_lockedSlidePosition;
 		}
 
-		private IEnumerator SlideBackAnimation() {
+		private IEnumerator ShootSequence() {
+			float segmentDuration = m_shootAnimationDuration * 0.5f;
+
 			float elapsed = 0.0f;
-			while (elapsed < m_shootSlideBackAnimationDuration) {
-				transform.localPosition = Vector3.Lerp(transform.localPosition, m_maxSlidePosition, elapsed / m_shootSlideBackAnimationDuration);
+			while (elapsed < segmentDuration) {
+				transform.localPosition = Vector3.Lerp(m_initPosition, m_maxSlidePosition, elapsed / segmentDuration);
 				elapsed += Time.deltaTime;
 				yield return null;
 			}
-		}
-
-		private IEnumerator ShootSequence() {
-			yield return StartCoroutine(SlideBackAnimation());
 
 			Weapon.EjectCartridge(false);
 
 			if (!Weapon.CartridgeInChamber) {
 				Locked = true;
 			} else {
-				yield return StartCoroutine(ReleaseAnimation());
+				elapsed = 0.0f;
+				while (elapsed < segmentDuration) {
+					transform.localPosition = Vector3.Lerp(m_maxSlidePosition, m_initPosition, elapsed / segmentDuration);
+					elapsed += Time.deltaTime;
+					yield return null;
+				}
 			}
 		}
 

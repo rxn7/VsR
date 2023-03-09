@@ -4,45 +4,36 @@ using System.Collections;
 
 namespace VsR {
 	public class SoundPoolManager : SingletonBehaviour<SoundPoolManager> {
-		private ObjectPool<AudioSource> m_pool;
+		private ObjectPool<Sound> m_pool;
 
 		protected override void Awake() {
 			base.Awake();
-			m_pool = new ObjectPool<AudioSource>(CreatePooledObject,
-				(AudioSource src) => src.enabled = true,
-				(AudioSource src) => src.enabled = false,
-				(AudioSource src) => Destroy(src.gameObject),
-				true, 20, 50);
+			m_pool = new ObjectPool<Sound>(CreateSound,
+				(Sound snd) => snd.enabled = true,
+				(Sound snd) => snd.enabled = false,
+				(Sound snd) => Destroy(snd.gameObject),
+				true, 20, 150);
 		}
 
-		protected AudioSource CreatePooledObject() {
-			AudioSource source = new GameObject($"AudioSource").AddComponent<AudioSource>();
-			source.transform.SetParent(transform);
-			source.playOnAwake = false;
-			source.loop = false;
-			source.rolloffMode = AudioRolloffMode.Linear;
-			return source;
+		protected Sound CreateSound() {
+			Sound snd = new GameObject("Sound").AddComponent<Sound>();
+			snd.transform.SetParent(transform);
+			return snd;
 		}
 
-		public void PlaySound(AudioClip clip, Vector3 position, float pitch = 1.0f, float volume = 1.0f, float spatialBlend = 1.0f, bool scaledWithTimeScale = true) {
+		public void PlaySound(AudioClip clip, Vector3 position, float pitch = 1.0f, float volume = 1.0f, float spatialBlend = 1.0f) {
 			if (!clip)
 				return;
 
-			if (scaledWithTimeScale)
-				pitch *= Time.timeScale;
+			Sound snd = m_pool.Get();
+			snd.Play(clip, position, pitch, volume, spatialBlend);
 
-			AudioSource source = m_pool.Get();
-			source.pitch = pitch;
-			source.transform.position = position;
-			source.spatialBlend = spatialBlend;
-			source.PlayOneShot(clip, volume);
-
-			StartCoroutine(ReleaseAudioSourceAfterFinishedPlaying(source, clip.length / pitch));
+			StartCoroutine(ReleaseSoundAfterFinishedPlaying(snd));
 		}
 
-		private IEnumerator ReleaseAudioSourceAfterFinishedPlaying(AudioSource source, float duration) {
-			yield return new WaitForSeconds(duration);
-			m_pool.Release(source);
+		private IEnumerator ReleaseSoundAfterFinishedPlaying(Sound snd) {
+			yield return new WaitUntil(() => !snd.IsPlaying);
+			m_pool.Release(snd);
 		}
 	}
 }

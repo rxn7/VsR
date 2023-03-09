@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5131441526399409325}
-  m_Mesh: {fileID: 3681969929301838014, guid: b8fbb4f474d49e841bee33f2f1fd9d47, type: 3}
+  m_Mesh: {fileID: 194595552132643374, guid: 79629c522763043409ab40aa28590c84, type: 3}
 --- !u!23 &6644628666449280376
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bulletMeshRenderer: {fileID: 2041265121316423117}
+  m_bulletMeshFilter: {fileID: 3137704604553458075}
   m_cartridgeMeshFilter: {fileID: 8922336579339864498}
 --- !u!136 &2819450266600163470
 CapsuleCollider:
@@ -209,7 +210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6922430428295564902}
   m_LocalRotation: {x: 0.00000005960466, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0, z: 0.024699248}
+  m_LocalPosition: {x: -0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -223,7 +224,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6922430428295564902}
-  m_Mesh: {fileID: 7926377822291610317, guid: b8fbb4f474d49e841bee33f2f1fd9d47, type: 3}
+  m_Mesh: {fileID: 6802001045530554037, guid: 79629c522763043409ab40aa28590c84, type: 3}
 --- !u!23 &2041265121316423117
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ namespace VsR {
 		public const float EJECT_LIFE_TIME_SECS = 3.0f;
 
 		[SerializeField] private MeshRenderer m_bulletMeshRenderer;
+		[SerializeField] private MeshFilter m_bulletMeshFilter;
 		[SerializeField] private MeshFilter m_cartridgeMeshFilter;
 		private Rigidbody m_rb;
 		private bool m_ejected = false;
@@ -21,7 +22,9 @@ namespace VsR {
 
 			m_ejected = true;
 			m_data = weapon.Data.cartridgeData;
+
 			m_cartridgeMeshFilter.mesh = weapon.Data.cartridgeData.cartridgeMesh;
+			m_bulletMeshFilter.mesh = weapon.Data.cartridgeData.bulletMesh;
 			m_bulletMeshRenderer.enabled = withBullet;
 
 			FloatRange randomRange = new FloatRange(0.5f, 1.5f);

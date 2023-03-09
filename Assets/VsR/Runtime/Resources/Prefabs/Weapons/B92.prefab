@@ -507,7 +507,7 @@ MonoBehaviour:
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 0.2
-  m_weapon: {fileID: 7037321874965094105}
+  <Weapon>k__BackingField: {fileID: 7037321874965094105}
 --- !u!65 &8623416916238325731
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -553,7 +553,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7765895962521512404}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.02563, z: 0.0164}
+  m_LocalPosition: {x: 0, y: 0.02563, z: 0.026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -970,6 +970,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7849425845882537698, guid: 57773467936ad024ab0809d3a75191e3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

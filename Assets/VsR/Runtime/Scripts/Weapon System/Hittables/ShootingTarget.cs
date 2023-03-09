@@ -7,7 +7,7 @@ namespace VsR {
 		[SerializeField] private AudioClip m_hitSound;
 		private Coroutine m_onHitCoroutine = null;
 
-		public void OnHit(Collision collision) {
+		public void OnHit() {
 			SoundPoolManager.Instance.PlaySound(m_hitSound, transform.position, Random.Range(0.95f, 1.05f), 10, 0.5f);
 			if (m_onHitCoroutine != null)
 				StopCoroutine(m_onHitCoroutine);

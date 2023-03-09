@@ -16,6 +16,9 @@ namespace VsR.Editors {
 
 		private void OnEnable() {
 			titleContent = new GUIContent("VsR Manager");
+
+			foreach (VsRManagerTab tab in m_tabs)
+				tab.OnEnable();
 		}
 
 		private void OnGUI() {

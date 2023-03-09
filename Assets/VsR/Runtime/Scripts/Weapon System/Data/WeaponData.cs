@@ -11,7 +11,7 @@ namespace VsR {
 
 		public enum ShootingPhysicsType : byte {
 			Projectile,
-			RaycastPhysicalBased,
+			RaycastPhysicallyBased,
 			RaycastLaser,
 		}
 

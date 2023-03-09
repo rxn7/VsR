@@ -14,25 +14,24 @@ namespace VsR {
 
 		private void Awake() {
 			m_rb = GetComponent<Rigidbody>();
-			m_rb.interpolation = RigidbodyInterpolation.Interpolate;
-			m_rb.collisionDetectionMode = CollisionDetectionMode.Discrete;
 		}
 
-		public void Eject(WeaponData weaponData, Transform ejectPoint, bool withBullet = false) {
+		public void Eject(WeaponBase weapon, bool withBullet = false) {
+			CancelInvoke();
+
 			m_ejected = true;
-			m_data = weaponData.cartridgeData;
-			m_cartridgeMeshFilter.mesh = weaponData.cartridgeData.cartridgeMesh;
+			m_data = weapon.Data.cartridgeData;
+			m_cartridgeMeshFilter.mesh = weapon.Data.cartridgeData.cartridgeMesh;
 			m_bulletMeshRenderer.enabled = withBullet;
 
-			transform.SetPositionAndRotation(ejectPoint.position, ejectPoint.rotation);
-
-			FloatRange randomRange = new FloatRange(0.75f, 1.25f);
+			FloatRange randomRange = new FloatRange(0.5f, 1.5f);
 			Vector3 random = VectorHelper.RandomVector(randomRange, randomRange, randomRange);
 			Vector3 randomAngular = VectorHelper.RandomVector(randomRange, randomRange, randomRange);
 
-			EnablePhysics();
-			m_rb.AddForce(Vector3.Scale(transform.up, random) * weaponData.cartridgeEjectForce, ForceMode.Impulse);
-			m_rb.AddTorque(Vector3.Scale(-transform.right, randomAngular) * weaponData.cartridgeEjectTorque, ForceMode.Impulse);
+			transform.position = weapon.CartridgeEjectPoint.position;
+			transform.rotation = weapon.CartridgeEjectPoint.rotation;
+			m_rb.velocity = Vector3.Scale(transform.up, random) * weapon.Data.cartridgeEjectForce + weapon.WorldVelocity;
+			m_rb.angularVelocity = Vector3.Scale(-transform.right, randomAngular) * weapon.Data.cartridgeEjectTorque;
 
 			Invoke(nameof(Release), EJECT_LIFE_TIME_SECS);
 		}
@@ -42,35 +41,25 @@ namespace VsR {
 			CartridgePoolManager.Instance.Pool.Release(this);
 		}
 
-		public void Enable() {
+		public void OnGet() {
 			gameObject.SetActive(true);
-			EnablePhysics();
 		}
 
-		public void Disable() {
+		public void OnRelease() {
 			m_ejected = false;
-			CancelInvoke();
 			gameObject.SetActive(false);
-			DisablePhysics();
-		}
-
-		public void DisablePhysics() {
-			m_rb.detectCollisions = false;
-			m_rb.isKinematic = true;
-			m_rb.useGravity = false;
-		}
-
-		public void EnablePhysics() {
-			m_rb.detectCollisions = true;
-			m_rb.isKinematic = false;
-			m_rb.useGravity = true;
 		}
 
 		private void OnCollisionEnter(Collision collision) {
 			if (!m_ejected)
 				return;
 
-			SoundPoolManager.Instance.PlaySound(m_data.GetRandomCollideSound(), transform.position, Random.Range(0.9f, 1.1f));
+			float velocity = collision.relativeVelocity.magnitude * 0.2f;
+
+			float pitch = Mathf.Clamp(velocity, 0.6f, 1.4f);
+			float volume = Mathf.Clamp01(velocity);
+
+			SoundPoolManager.Instance.PlaySound(m_data.GetRandomCollideSound(), transform.position, pitch, volume);
 		}
 	}
 }

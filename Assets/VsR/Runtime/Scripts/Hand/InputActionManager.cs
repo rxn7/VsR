@@ -4,8 +4,6 @@ using UnityEngine.InputSystem;
 
 namespace VsR {
 	public class InputActionManager : SingletonBehaviour<InputActionManager> {
-		[RuntimeInitializeOnLoadMethod] private static void _CreateInstance() => CreateInstance();
-
 		private InputActionAsset m_inputActionAsset;
 
 		public InputActionMap HeadMap { get; private set; }

@@ -20,6 +20,10 @@ namespace VsR {
 		public InputAction MagReleaseAction { get; private set; }
 		public InputAction SlideReleaseAction { get; private set; }
 
+		protected override void Awake() {
+			base.Awake();
+		}
+
 		protected override void Start() {
 			base.Start();
 			InitInputActions();

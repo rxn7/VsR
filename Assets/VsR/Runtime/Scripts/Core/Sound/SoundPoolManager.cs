@@ -4,8 +4,6 @@ using System.Collections;
 
 namespace VsR {
 	public class SoundPoolManager : SingletonBehaviour<SoundPoolManager> {
-		[RuntimeInitializeOnLoadMethod] private static void _CreateInstance() => CreateInstance();
-
 		private ObjectPool<AudioSource> m_pool;
 
 		protected override void Awake() {

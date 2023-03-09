@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: MK18
   m_EditorClassIdentifier: 
   shootType: 0
-  shootingPhysicsType: 0
+  shootingPhysicsType: 2
   massKg: 1
   roundsPerMinute: 800
   muzzleVelocity: 910
-  cartridgeEjectForce: 0.5
-  cartridgeEjectTorque: 0.33333334
+  cartridgeEjectForce: 4
+  cartridgeEjectTorque: 12
   fireTriggerPressure: 0.5
   resetTriggerPressure: 0.495
   fireHapticFeedback:

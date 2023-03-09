@@ -15,10 +15,11 @@ namespace VsR {
 		[SerializeField] protected Transform m_cartridgeEjectPoint;
 
 		protected Hand m_gripHand = null;
-		protected Rigidbody m_rb;
 		private float m_fireRateTimer = 0.0f;
+		private Vector3 m_previousPosition;
 		private bool m_triggerReset = true;
 		private bool _m_cartridgeInChamber;
+		private Vector3 m_velocity;
 
 		public bool CartridgeInChamber {
 			get => _m_cartridgeInChamber;
@@ -29,12 +30,13 @@ namespace VsR {
 		}
 		public WeaponData Data => m_data;
 		public Hand GripHand => m_gripHand;
+		public Vector3 WorldVelocity => m_velocity;
+		public Transform CartridgeEjectPoint => m_cartridgeEjectPoint;
 
 		protected override void Awake() {
 			base.Awake();
 
 			movementType = MovementType.Instantaneous;
-			m_rb = GetComponent<Rigidbody>();
 
 			SetTriggerValue(0);
 			CartridgeInChamber = false;
@@ -43,6 +45,9 @@ namespace VsR {
 		protected virtual void Update() {
 			if (!isSelected)
 				return;
+
+			m_velocity = (transform.position - m_previousPosition) / Time.deltaTime;
+			m_previousPosition = transform.position;
 
 			m_fireRateTimer += Time.deltaTime;
 			UpdateTrigger();
@@ -77,7 +82,11 @@ namespace VsR {
 			if (m_data.shootType != WeaponData.ShootType.Manual)
 				TryToCock();
 
-			FireProjectile();
+			switch (Data.shootingPhysicsType) {
+				case WeaponData.ShootingPhysicsType.RaycastLaser:
+					ShootingPhysics.Instance.LaserRaycast(m_barrelEndPoint, m_data);
+					break;
+			}
 
 			onFire?.Invoke();
 		}
@@ -89,7 +98,7 @@ namespace VsR {
 			if (!CartridgeInChamber)
 				return false;
 
-			if (m_data.shootType == WeaponData.ShootType.Automatic && m_fireRateTimer < m_data.SecondsPerRound)
+			if (m_fireRateTimer < m_data.SecondsPerRound)
 				return false;
 
 			return true;
@@ -116,7 +125,7 @@ namespace VsR {
 		private void EjectEmptyCartridge() => EjectCartridge(false);
 		public virtual void EjectCartridge(bool withBullet = false) {
 			Cartridge cartridge = CartridgePoolManager.Instance.Pool.Get();
-			cartridge.Eject(m_data, m_cartridgeEjectPoint, withBullet);
+			cartridge.Eject(this, withBullet);
 		}
 
 		protected virtual void SetTriggerValue(float normalizedTriggerValue) {
@@ -133,19 +142,6 @@ namespace VsR {
 			}
 
 			m_trigger.UpdateRotation(normalizedTriggerValue);
-		}
-
-		protected virtual void FireProjectile() {
-			if (m_data.shootingPhysicsType != WeaponData.ShootingPhysicsType.Projectile) {
-				Debug.LogWarning("Tried to fire projectile from a weapon that does not have projectile bullet physics");
-				return;
-			}
-
-			Bullet bullet = BulletPoolManager.Instance.Pool.Get();
-			foreach (Collider collider in colliders)
-				Physics.IgnoreCollision(collider, bullet.Collider);
-
-			bullet.Fire(m_barrelEndPoint, m_data);
 		}
 
 		protected virtual void OnGripHandAttached(Hand hand) {

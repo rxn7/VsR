@@ -40,15 +40,14 @@ namespace VsR {
 		}
 
 		private IEnumerator ShootSequence() {
-			StartCoroutine(SlideBackAnimation());
+			yield return StartCoroutine(SlideBackAnimation());
 
-			yield return new WaitForSeconds(m_shootSlideBackAnimationDuration);
 			Weapon.EjectCartridge(false);
 
 			if (!Weapon.CartridgeInChamber) {
 				Locked = true;
 			} else {
-				StartCoroutine(ReleaseAnimation());
+				yield return StartCoroutine(ReleaseAnimation());
 			}
 		}
 

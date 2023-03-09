@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: B92
   m_EditorClassIdentifier: 
   shootType: 1
-  shootingPhysicsType: 0
+  shootingPhysicsType: 2
   massKg: 1
-  roundsPerMinute: 120
+  roundsPerMinute: 800
   muzzleVelocity: 381
-  cartridgeEjectForce: 0.3
-  cartridgeEjectTorque: 0.005
+  cartridgeEjectForce: 2
+  cartridgeEjectTorque: 10
   fireTriggerPressure: 0.5
   resetTriggerPressure: 0.495
   fireHapticFeedback:

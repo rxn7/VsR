@@ -7,5 +7,8 @@ namespace VsR.Editors {
 
 		public override void Draw() {
 		}
+
+		public override void OnEnable() {
+		}
 	}
 }

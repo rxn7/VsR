@@ -22,5 +22,8 @@ namespace VsR.Editors {
 				AssetDatabase.OpenAsset(SelectedObject.prefab);
 			}
 		}
+
+		public override void OnEnable() {
+		}
 	}
 }

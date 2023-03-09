@@ -13,7 +13,9 @@ namespace VsR {
 			base.Awake();
 
 			showInteractableHoverMeshes = false;
-			recycleDelayTime = 1.0f;
+
+			recycleDelayTime = 0.3f;
+			TimeManager.onTimeScaleChanged += (float scale) => recycleDelayTime = 0.3f * scale;
 		}
 
 		public override bool CanSelect(IXRSelectInteractable interactable) {
@@ -53,7 +55,7 @@ namespace VsR {
 		}
 
 		public void ReleaseMagazine() {
-			if (!m_magazine)
+			if (!m_magazine || !IsSelecting(m_magazine))
 				return;
 
 			SoundPoolManager.Instance.PlaySound(m_magazine.Data.slideOutSound, transform.position, Random.Range(0.95f, 1.05f));

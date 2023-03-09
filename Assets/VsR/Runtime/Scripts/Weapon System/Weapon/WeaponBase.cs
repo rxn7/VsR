@@ -115,8 +115,8 @@ namespace VsR {
 
 		private void EjectEmptyCartridge() => EjectCartridge(false);
 		public virtual void EjectCartridge(bool withBullet = false) {
-			Cartridge cartridge = Instantiate(m_data.cartridgeData.cartridgePrefab, m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.rotation);
-			cartridge.Eject(m_data, withBullet);
+			Cartridge cartridge = CartridgePoolManager.Instance.Pool.Get();
+			cartridge.Eject(m_data, m_cartridgeEjectPoint, withBullet);
 		}
 
 		protected virtual void SetTriggerValue(float normalizedTriggerValue) {

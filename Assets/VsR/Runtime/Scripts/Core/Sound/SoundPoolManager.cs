@@ -26,9 +26,12 @@ namespace VsR {
 			return source;
 		}
 
-		public void PlaySound(AudioClip clip, Vector3 position, float pitch = 1.0f, float volume = 1.0f, float spatialBlend = 1.0f) {
+		public void PlaySound(AudioClip clip, Vector3 position, float pitch = 1.0f, float volume = 1.0f, float spatialBlend = 1.0f, bool scaledWithTimeScale = true) {
 			if (!clip)
 				return;
+
+			if (scaledWithTimeScale)
+				pitch *= Time.timeScale;
 
 			AudioSource source = m_pool.Get();
 			source.pitch = pitch;
@@ -36,11 +39,11 @@ namespace VsR {
 			source.spatialBlend = spatialBlend;
 			source.PlayOneShot(clip, volume);
 
-			StartCoroutine(ReleaseAudioSourceAfterFinishedPlaying(source));
+			StartCoroutine(ReleaseAudioSourceAfterFinishedPlaying(source, clip.length / pitch));
 		}
 
-		private IEnumerator ReleaseAudioSourceAfterFinishedPlaying(AudioSource source) {
-			yield return new WaitUntil(() => !source.isPlaying);
+		private IEnumerator ReleaseAudioSourceAfterFinishedPlaying(AudioSource source, float duration) {
+			yield return new WaitForSeconds(duration);
 			m_pool.Release(source);
 		}
 	}

@@ -2,14 +2,17 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
-	public class WeaponMovingPart : WeaponPart {
+	public class WeaponMovingPart : XRBaseInteractable, IWeaponPart {
 		public enum SlideAxis { X, Y, Z, NEG_X, NEG_Y, NEG_Z }
 
 		public delegate void OnRelease();
 		public event OnRelease onRelease;
 
+		[field: SerializeField] public WeaponBase Weapon { get; set; }
+
 		[SerializeField] protected Vector3 m_maxSlidePosition;
 		[SerializeField] protected SlideAxis m_slideAxis = SlideAxis.Z;
+		[SerializeField] protected bool m_canInteractWithoutWeaponSelected = false;
 		protected Vector3 m_initPosition;
 		protected float m_initToMaxSlideDistance;
 		protected Vector3 m_startHandLocalPosition;
@@ -28,7 +31,7 @@ namespace VsR {
 			if (interactor is not Hand)
 				return false;
 
-			if (!m_weapon.isSelected)
+			if (!m_canInteractWithoutWeaponSelected && !Weapon.isSelected)
 				return false;
 
 			return base.IsSelectableBy(interactor);
@@ -38,7 +41,7 @@ namespace VsR {
 			transform.localPosition = m_initPosition;
 
 			int axisIdx = (int)m_slideAxis % 3;
-			float handDifference = m_weapon.transform.InverseTransformDirection(transform.TransformDirection(m_startHandLocalPosition - getHandLocalPosition()))[axisIdx];
+			float handDifference = Weapon.transform.InverseTransformDirection(transform.TransformDirection(m_startHandLocalPosition - getHandLocalPosition()))[axisIdx];
 			if ((int)m_slideAxis > 2)
 				handDifference *= -1;
 

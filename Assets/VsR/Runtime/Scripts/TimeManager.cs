@@ -1,11 +1,16 @@
 using UnityEngine;
 
 namespace VsR {
-	public class TimeManager : MonoBehaviour {
-		[SerializeField] private float m_timeScale = 1.0f;
+	public static class TimeManager {
+		public delegate void TimeScaleEvent(float timeScale);
+		public static event TimeScaleEvent onTimeScaleChanged;
 
-		public void FixedUpdate() {
-			Time.timeScale = m_timeScale;
+		public static float TimeScale {
+			get => Time.timeScale;
+			set {
+				Time.timeScale = value;
+				onTimeScaleChanged?.Invoke(value);
+			}
 		}
 	}
 }

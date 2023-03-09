@@ -10,7 +10,7 @@ namespace VsR {
 		private Vector3 m_initPosition;
 		private Quaternion m_initRotation;
 		private Vector3 m_targetPosition;
-		private Quaternion m_targetRotation;
+		private Quaternion m_targetRotation = Quaternion.identity;
 
 		private void Awake() {
 			m_initPosition = transform.localPosition;

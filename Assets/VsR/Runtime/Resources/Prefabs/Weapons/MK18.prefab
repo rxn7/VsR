@@ -232,7 +232,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
@@ -964,7 +964,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -2417463526200527454, guid: 352ae7435f27a9b459d024cd26b42153,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2417550904125300417}
+      addedObject: {fileID: 4117139258311788571}
     - targetCorrespondingSourceObject: {fileID: 5457120358446017364, guid: 352ae7435f27a9b459d024cd26b42153,
         type: 3}
       insertIndex: -1
@@ -1016,7 +1016,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
@@ -1087,9 +1087,10 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_weapon: {fileID: 59810330313829379}
+  <Weapon>k__BackingField: {fileID: 59810330313829379}
   m_maxSlidePosition: {x: 0, y: -0.002539, z: 0.000223}
   m_slideAxis: 2
+  m_canInteractWithoutWeaponSelected: 0
   m_releaseAnimationSpeed: 0.01
 --- !u!4 &1030902646898850640 stripped
 Transform:
@@ -1138,12 +1139,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_Colliders:
-  - {fileID: 2417550904125300417}
+  - {fileID: 4117139258311788571}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_CustomReticle: {fileID: 0}
@@ -1214,11 +1215,12 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_weapon: {fileID: 59810330313829379}
+  <Weapon>k__BackingField: {fileID: 59810330313829379}
   m_maxSlidePosition: {x: 0, y: -0.002695, z: 0.000091}
   m_slideAxis: 5
---- !u!135 &2417550904125300417
-SphereCollider:
+  m_canInteractWithoutWeaponSelected: 1
+--- !u!65 &4117139258311788571
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1232,12 +1234,12 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.0005
-  m_Center: {x: 0, y: 0, z: -0.0003}
+  m_Size: {x: 0.00020421676, y: 0.0005997157, z: 0.0010104947}
+  m_Center: {x: 3.7824554e-18, y: -0.0002790284, z: -0.00047921803}
 --- !u!1 &6481429239208997255 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3443405924927607492, guid: 352ae7435f27a9b459d024cd26b42153,
@@ -1378,85 +1380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f72198abc8ff9448fa50c87b1700ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_Colliders:
-  - {fileID: 3106493798140719782}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 1
-  m_DistanceCalculationMode: 1
-  m_SelectMode: 0
-  m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 0
-  m_AllowGazeSelect: 0
-  m_OverrideGazeTimeToSelect: 0
-  m_GazeTimeToSelect: 0.5
-  m_OverrideTimeToAutoDeselectGaze: 0
-  m_TimeToAutoDeselectGaze: 3
-  m_AllowGazeAssistance: 0
-  m_FirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FirstSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_LastSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Activated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Deactivated:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_StartingInteractionStrengthFilters: []
-  m_OnFirstHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnLastHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectCanceled:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnActivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnDeactivate:
-    m_PersistentCalls:
-      m_Calls: []
-  m_weapon: {fileID: 59810330313829379}
+  <Weapon>k__BackingField: {fileID: 59810330313829379}
   m_boltReleaseClip: {fileID: 8300000, guid: c2f40f9f48399f4489e7ae2876754e1a, type: 3}
   m_bolt: {fileID: 7789961759378210106}
   m_slide: {fileID: 5598348750222278105}

@@ -24,15 +24,15 @@ namespace VsR {
 		}
 
 		protected void Rack() {
-			SoundPoolManager.Instance.PlaySound(m_weapon.Data.rackSound, transform.position, Random.Range(0.9f, 1.1f));
+			SoundPoolManager.Instance.PlaySound(Weapon.Data.rackSound, transform.position, Random.Range(0.9f, 1.1f));
 
-			m_weapon.TryToCock();
+			Weapon.TryToCock();
 
 			m_racked = true;
 		}
 
 		protected void RackBack() {
-			SoundPoolManager.Instance.PlaySound(m_weapon.Data.rackBackSound, transform.position, Random.Range(0.9f, 1.1f));
+			SoundPoolManager.Instance.PlaySound(Weapon.Data.rackBackSound, transform.position, Random.Range(0.9f, 1.1f));
 			m_racked = false;
 		}
 

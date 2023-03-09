@@ -12,8 +12,8 @@ namespace VsR {
 
 			TMPro.TMP_Text textMesh = GetComponent<TMPro.TMP_Text>();
 			textMesh.text = $"{m_data.name}\n" +
-							$"Muzzle vel: {m_data.muzzleVelocity}\n" +
-							$"Rounds/min: {(m_data.shootType != WeaponData.ShootType.Automatic ? "∞" : m_data.roundsPerMinute)}";
+							$"Muzzle vel: {m_data.muzzleVelocity}m/s\n" +
+							$"Rounds/min: {m_data.roundsPerMinute}";
 		}
 	}
 }

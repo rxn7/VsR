@@ -2,16 +2,18 @@ using UnityEngine;
 using System.Collections;
 
 namespace VsR {
-	public class WeaponHammer : WeaponPart {
+	public class WeaponHammer : MonoBehaviour, IWeaponPart {
+		[field: SerializeField] public WeaponBase Weapon { get; set; }
 		[SerializeField] private Vector3 m_maxRotation;
 		private Vector3 m_initRotation;
 
 		private void Start() {
 			m_initRotation = transform.localEulerAngles;
-			m_weapon.onFire += OnFire;
+			Weapon.onFire += OnFire;
 		}
 
 		private void OnFire() {
+			StopAllCoroutines();
 			StartCoroutine(HammerStrike());
 		}
 

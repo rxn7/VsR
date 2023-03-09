@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
 	public class PistolSlide : WeaponSlide {
@@ -25,7 +26,7 @@ namespace VsR {
 		protected override bool CanRelease => base.CanRelease && !Locked;
 
 		protected virtual void Start() {
-			m_weapon.onFire += OnWeaponFire;
+			Weapon.onFire += OnWeaponFire;
 			onLocked += () => transform.localPosition = m_lockedSlidePosition;
 		}
 
@@ -42,9 +43,9 @@ namespace VsR {
 			StartCoroutine(SlideBackAnimation());
 
 			yield return new WaitForSeconds(m_shootSlideBackAnimationDuration);
-			m_weapon.EjectCartridge(false);
+			Weapon.EjectCartridge(false);
 
-			if (!m_weapon.CartridgeInChamber) {
+			if (!Weapon.CartridgeInChamber) {
 				Locked = true;
 			} else {
 				StartCoroutine(ReleaseAnimation());
@@ -52,7 +53,15 @@ namespace VsR {
 		}
 
 		private void OnWeaponFire() {
+			StopAllCoroutines();
 			StartCoroutine(ShootSequence());
+		}
+
+		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
+			if (Locked)
+				return false;
+
+			return base.IsSelectableBy(interactor);
 		}
 	}
 }

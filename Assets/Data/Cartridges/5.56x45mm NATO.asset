@@ -15,7 +15,8 @@ MonoBehaviour:
   bulletMassGrams: 4
   bulletDiameterMm: 5.56
   bulletLengthMm: 9
+  cartridgeCollideSounds: []
   bulletMesh: {fileID: 7926377822291610317, guid: b8fbb4f474d49e841bee33f2f1fd9d47,
     type: 3}
-  cartridgePrefab: {fileID: 8857820581307722909, guid: a65d9ea2d77208c4088c58b3bc257032,
+  cartridgeMesh: {fileID: 3681969929301838014, guid: b8fbb4f474d49e841bee33f2f1fd9d47,
     type: 3}

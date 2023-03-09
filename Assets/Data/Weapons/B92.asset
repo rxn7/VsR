@@ -15,10 +15,10 @@ MonoBehaviour:
   shootType: 1
   shootingPhysicsType: 0
   massKg: 1
-  roundsPerMinute: 0
+  roundsPerMinute: 120
   muzzleVelocity: 381
-  cartridgeEjectForce: 1
-  cartridgeEjectTorque: 1
+  cartridgeEjectForce: 0.3
+  cartridgeEjectTorque: 0.005
   fireTriggerPressure: 0.5
   resetTriggerPressure: 0.495
   fireHapticFeedback:
@@ -28,7 +28,7 @@ MonoBehaviour:
     force: {x: 0, y: 0.015, z: -0.12}
     forceRandomness: {x: 0, y: 0.005, z: 0.04}
     torque: {x: -25, y: 0, z: 0}
-    torqueRandomness: {x: 3, y: 8, z: 6}
+    torqueRandomness: {x: 3, y: 4, z: 6}
   shootSound: {fileID: 8300000, guid: 9bd4bd0d8c64b9d4384d4216fa607ba2, type: 3}
   rackSound: {fileID: 8300000, guid: 6530995307174e1488607341642b466b, type: 3}
   rackBackSound: {fileID: 8300000, guid: def3cf0aca184b64cb8ab6f333f751f6, type: 3}

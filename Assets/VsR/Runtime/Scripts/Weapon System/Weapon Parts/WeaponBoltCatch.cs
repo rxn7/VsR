@@ -1,37 +1,30 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
-	public class WeaponBoltCatch : WeaponPart {
+	public class WeaponBoltCatch : MonoBehaviour, IWeaponPart {
+		[field: SerializeField] public WeaponBase Weapon { get; set; }
 		[SerializeField] private AudioClip m_boltReleaseClip;
 		[SerializeField] public WeaponBolt m_bolt;
 		[SerializeField] public WeaponSlide m_slide;
 		[SerializeField] private MagazineSlot m_magSlot;
 
-		protected override void Awake() {
-			base.Awake();
+		protected virtual void Awake() {
 			m_slide.onRelease += OnSlideRelease;
 		}
 
-		public override bool IsSelectableBy(IXRSelectInteractor interactor) => false;
-		public override bool IsHoverableBy(IXRHoverInteractor interactor) {
-			if (interactor is not Hand)
-				return false;
+		protected void OnTriggerEnter(Collider collider) {
+			if (!collider.gameObject.TryGetComponent<Hand>(out Hand hand) || !m_bolt.IsOpen || !Weapon.isSelected)
+				return;
 
-			return base.IsHoverableBy(interactor);
-		}
+			if (hand.interactablesSelected.Contains(Weapon))
+				return;
 
-		protected override void OnHoverEntered(HoverEnterEventArgs args) {
-			base.OnHoverEntered(args);
-			interactionManager.HoverExit(args.interactorObject, this);
-
-			if (!m_bolt.IsOpen) return;
 			CloseBolt();
 		}
 
 		public void CloseBolt() {
 			m_bolt.IsOpen = false;
-			m_weapon.TryToCock();
+			Weapon.TryToCock();
 
 			SoundPoolManager.Instance.PlaySound(m_boltReleaseClip, transform.position, Random.Range(0.9f, 1.1f));
 		}

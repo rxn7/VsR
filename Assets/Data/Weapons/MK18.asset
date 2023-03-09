@@ -17,8 +17,8 @@ MonoBehaviour:
   massKg: 1
   roundsPerMinute: 800
   muzzleVelocity: 910
-  cartridgeEjectForce: 3
-  cartridgeEjectTorque: 1
+  cartridgeEjectForce: 0.5
+  cartridgeEjectTorque: 0.33333334
   fireTriggerPressure: 0.5
   resetTriggerPressure: 0.495
   fireHapticFeedback:

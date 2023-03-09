@@ -45,7 +45,7 @@ namespace VsR {
 		private void OnCollisionEnter(Collision collision) {
 			m_collided = true;
 
-			DisableCollisions();
+			DisablePhysics();
 			Invoke(nameof(Release), LIFE_TIME_SECS);
 
 			IHIttable hittable = collision.collider.GetComponent<IHIttable>();
@@ -70,12 +70,12 @@ namespace VsR {
 
 		public void Enable() {
 			gameObject.SetActive(true);
-			EnableCollisions();
+			EnablePhysics();
 		}
 
 		public void Disable() {
 			gameObject.SetActive(false);
-			DisableCollisions();
+			DisablePhysics();
 		}
 
 		public void ReleaseIfNotCollided() {
@@ -85,13 +85,13 @@ namespace VsR {
 			Release();
 		}
 
-		public void EnableCollisions() {
+		public void EnablePhysics() {
 			m_rb.detectCollisions = true;
 			m_rb.isKinematic = false;
 			m_rb.useGravity = true;
 		}
 
-		public void DisableCollisions() {
+		public void DisablePhysics() {
 			m_rb.detectCollisions = false;
 			m_rb.isKinematic = true;
 			m_rb.useGravity = false;

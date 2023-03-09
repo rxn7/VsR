@@ -1,8 +1,8 @@
 using UnityEngine;
 
 namespace VsR {
-	public class WeaponBolt : MonoBehaviour {
-		[SerializeField] protected Weapon m_weapon;
+	public class WeaponBolt : MonoBehaviour, IWeaponPart {
+		[field: SerializeField] public Weapon Weapon { get; set; }
 		[SerializeField] protected Vector3 m_maxPosition;
 		protected float m_shootAnimationDuration;
 
@@ -17,19 +17,19 @@ namespace VsR {
 			get => _m_isOpen;
 			set {
 				_m_isOpen = value;
-				transform.SetParent(value ? m_weapon.transform : m_parent, false);
+				transform.SetParent(value ? Weapon.transform : m_parent, false);
 			}
 		}
 
 		protected void Awake() {
 			m_initPosition = transform.localPosition;
 			m_parent = transform.parent;
-			m_weapon.onFire += OnFire;
-			m_shootAnimationDuration = m_weapon.Data.SecondsPerRound;
+			Weapon.onFire += OnFire;
+			m_shootAnimationDuration = Weapon.Data.SecondsPerRound;
 		}
 
 		private void OnFire() {
-			if (!m_weapon.CartridgeInChamber) {
+			if (!Weapon.CartridgeInChamber) {
 				IsOpen = true;
 				return;
 			}
@@ -46,7 +46,7 @@ namespace VsR {
 
 				if (m_boltAlpha > 0.15f && !m_boltRoundEjected) {
 					m_boltRoundEjected = true;
-					m_weapon.EjectCartridge(false);
+					Weapon.EjectCartridge(false);
 				}
 
 				if (m_boltAlpha > 1.0f) {

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
-	public class MagazineSlot : XRSocketInteractor, IWeaponPart {
+	public class WeaponMagazineSlot : XRSocketInteractor, IWeaponPart {
 		[field: SerializeField] public Weapon Weapon { get; set; }
 		private Magazine m_magazine;
 

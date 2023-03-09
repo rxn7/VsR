@@ -49,7 +49,7 @@ namespace VsR {
 		}
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
-			if (firstInteractorSelecting is MagazineSlot && firstInteractorSelecting != interactor)
+			if (firstInteractorSelecting is WeaponMagazineSlot && firstInteractorSelecting != interactor)
 				return false;
 
 			return base.IsSelectableBy(interactor);

@@ -6,7 +6,7 @@ namespace VsR {
 		[SerializeField] private AudioClip m_boltReleaseClip;
 		[SerializeField] public WeaponBolt m_bolt;
 		[SerializeField] public WeaponSlide m_slide;
-		[SerializeField] private MagazineSlot m_magSlot;
+		[SerializeField] private WeaponMagazineSlot m_magSlot;
 
 		protected void Awake() {
 			m_slide.onRelease += OnSlideRelease;

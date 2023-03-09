@@ -3,11 +3,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
-	public abstract class Weapon : XRGrabInteractable {
+	public class Weapon : XRGrabInteractable {
 		public event System.Action onFire;
 
 		[SerializeField] protected WeaponData m_data;
-		[SerializeField] protected MagazineSlot m_magSlot;
+		[SerializeField] protected WeaponMagazineSlot m_magSlot;
 		[SerializeField] protected WeaponTrigger m_trigger;
 		[SerializeField] protected GameObject m_cartridgeInChamberObject;
 		[SerializeField] protected Transform m_barrelEndPoint;

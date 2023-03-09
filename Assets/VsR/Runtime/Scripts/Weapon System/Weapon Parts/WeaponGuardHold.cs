@@ -4,16 +4,15 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace VsR {
 	public class WeaponGuardHold : XRBaseInteractable, IWeaponPart {
 		[field: SerializeField] public Weapon Weapon { get; set; }
-		private Hand m_hand;
-		private Quaternion m_initGripRotation;
-		private Quaternion m_initRotationOffset;
+		protected Hand m_hand;
+		protected Quaternion m_initGripRotation;
 
 		private void ProcessWeaponMovement() {
 			if (m_hand == null || !Weapon.isSelected)
 				return;
 
 			Hand gripHand = Weapon.GripHand;
-			gripHand.attachTransform.rotation = GetGripRotation() * m_initRotationOffset;
+			gripHand.attachTransform.rotation = GetGripRotation();
 		}
 
 		private Quaternion GetGripRotation() {
@@ -31,7 +30,6 @@ namespace VsR {
 			base.OnSelectEntered(args);
 			m_hand = (Hand)args.interactorObject;
 			m_initGripRotation = Weapon.GripHand.attachTransform.localRotation;
-			m_initRotationOffset = Quaternion.Inverse(GetGripRotation()) * Weapon.GripHand.attachTransform.rotation;
 		}
 
 		protected override void OnSelectExited(SelectExitEventArgs args) {

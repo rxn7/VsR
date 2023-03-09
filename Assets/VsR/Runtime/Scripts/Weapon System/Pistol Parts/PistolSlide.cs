@@ -24,7 +24,7 @@ namespace VsR {
 
 		protected override bool CanRelease => base.CanRelease && !Locked;
 
-		protected virtual void Start() {
+		protected void Start() {
 			Weapon.onFire += OnWeaponFire;
 			onLocked += () => transform.localPosition = m_lockedSlidePosition;
 		}

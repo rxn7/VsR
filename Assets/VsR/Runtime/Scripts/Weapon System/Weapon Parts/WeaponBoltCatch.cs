@@ -8,7 +8,7 @@ namespace VsR {
 		[SerializeField] public WeaponSlide m_slide;
 		[SerializeField] private MagazineSlot m_magSlot;
 
-		protected virtual void Awake() {
+		protected void Awake() {
 			m_slide.onRelease += OnSlideRelease;
 		}
 

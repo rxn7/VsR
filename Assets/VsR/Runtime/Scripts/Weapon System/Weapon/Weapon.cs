@@ -43,7 +43,7 @@ namespace VsR {
 			CartridgeInChamber = false;
 		}
 
-		protected virtual void Update() {
+		protected void Update() {
 			if (!isSelected)
 				return;
 
@@ -54,7 +54,7 @@ namespace VsR {
 			UpdateTrigger();
 		}
 
-		protected virtual void OnDrawGizmos() {
+		protected void OnDrawGizmos() {
 			if (m_barrelEndPoint) {
 				Gizmos.color = Color.yellow;
 				Gizmos.DrawSphere(m_barrelEndPoint.position, 0.01f);

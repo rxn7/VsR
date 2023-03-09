@@ -10,7 +10,7 @@ namespace VsR {
 		private Vector3 m_initVisualPressPosition;
 		private bool m_pressed = false;
 
-		protected virtual void Awake() {
+		protected void Awake() {
 			m_initVisualPressPosition = m_visualPress.localPosition;
 		}
 

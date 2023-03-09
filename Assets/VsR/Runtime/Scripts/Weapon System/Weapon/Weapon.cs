@@ -13,7 +13,6 @@ namespace VsR {
 		[SerializeField] protected Transform m_barrelEndPoint;
 		[SerializeField] protected Transform m_cartridgeEjectPoint;
 
-		protected WeaponGuardHold[] m_guardHolds;
 		protected Hand m_gripHand = null;
 		private float m_fireRateTimer = 0.0f;
 		private Vector3 m_previousPosition;
@@ -36,7 +35,6 @@ namespace VsR {
 		protected override void Awake() {
 			base.Awake();
 
-			m_guardHolds = GetComponentsInChildren<WeaponGuardHold>();
 			movementType = MovementType.Instantaneous;
 
 			SetTriggerValue(0);
@@ -64,11 +62,6 @@ namespace VsR {
 				Gizmos.color = Color.cyan;
 				Gizmos.DrawLine(m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.position + m_cartridgeEjectPoint.up * 0.1f);
 			}
-		}
-
-		protected void DryFire() {
-			// SoundPoolManager.Instance.PlaySound(m_data.dryFireSound, transform.position, Random.Range(0.9f, 1.1f));
-			m_triggerReset = false;
 		}
 
 		protected void Fire() {
@@ -142,12 +135,11 @@ namespace VsR {
 				if (CanFire())
 					Fire();
 				else if (m_triggerReset)
-					DryFire();
+					m_triggerReset = false;
 			}
 
 			if (!m_triggerReset && normalizedTriggerValue < m_data.resetTriggerPressure) {
 				m_triggerReset = true;
-				GripHand.SendHapticImpulse(0.1f, 0.1f);
 			}
 
 			m_trigger.UpdateRotation(normalizedTriggerValue);
@@ -177,10 +169,6 @@ namespace VsR {
 
 		protected void UpdateTrigger() => SetTriggerValue(m_gripHand.TriggerAction.ReadValue<float>());
 
-		protected void ProcessGuardHolds() {
-
-		}
-
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
 			if (interactor is not Hand)
 				return false;
@@ -199,14 +187,6 @@ namespace VsR {
 		protected override void OnSelectExited(SelectExitEventArgs args) {
 			base.OnSelectExited(args);
 			OnGripHandDetached();
-		}
-
-		public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase) {
-			base.ProcessInteractable(updatePhase);
-
-			if (isSelected && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Late) {
-				ProcessGuardHolds();
-			}
 		}
 	}
 }

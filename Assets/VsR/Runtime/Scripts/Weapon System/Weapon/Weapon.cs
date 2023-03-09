@@ -13,6 +13,7 @@ namespace VsR {
 		[SerializeField] protected Transform m_barrelEndPoint;
 		[SerializeField] protected Transform m_cartridgeEjectPoint;
 
+		protected WeaponGuardHold[] m_guardHolds;
 		protected Hand m_gripHand = null;
 		private float m_fireRateTimer = 0.0f;
 		private Vector3 m_previousPosition;
@@ -35,6 +36,7 @@ namespace VsR {
 		protected override void Awake() {
 			base.Awake();
 
+			m_guardHolds = GetComponentsInChildren<WeaponGuardHold>();
 			movementType = MovementType.Instantaneous;
 
 			SetTriggerValue(0);
@@ -64,12 +66,12 @@ namespace VsR {
 			}
 		}
 
-		protected virtual void DryFire() {
-			SoundPoolManager.Instance.PlaySound(m_data.dryFireSound, transform.position, Random.Range(0.9f, 1.1f));
+		protected void DryFire() {
+			// SoundPoolManager.Instance.PlaySound(m_data.dryFireSound, transform.position, Random.Range(0.9f, 1.1f));
 			m_triggerReset = false;
 		}
 
-		protected virtual void Fire() {
+		protected void Fire() {
 			CartridgeInChamber = false;
 			m_triggerReset = false;
 			m_fireRateTimer = 0.0f;
@@ -103,7 +105,7 @@ namespace VsR {
 			return true;
 		}
 
-		public virtual void TryToCock() {
+		public void TryToCock() {
 			if (CartridgeInChamber) {
 				EjectCartridge(true);
 				CartridgeInChamber = false;
@@ -114,14 +116,9 @@ namespace VsR {
 
 			m_magSlot.Mag.bulletCount--;
 			CartridgeInChamber = true;
-
-			OnCocked();
 		}
 
-		protected virtual void OnCocked() {
-		}
-
-		public virtual void EjectCartridge(bool withBullet = false) {
+		public void EjectCartridge(bool withBullet = false) {
 			float force, torque;
 			Math.FloatRange randomness;
 
@@ -140,7 +137,7 @@ namespace VsR {
 			cartridge.Eject(this, force, torque, randomness, withBullet);
 		}
 
-		protected virtual void SetTriggerValue(float normalizedTriggerValue) {
+		protected void SetTriggerValue(float normalizedTriggerValue) {
 			if (normalizedTriggerValue >= m_data.fireTriggerPressure) {
 				if (CanFire())
 					Fire();
@@ -156,14 +153,14 @@ namespace VsR {
 			m_trigger.UpdateRotation(normalizedTriggerValue);
 		}
 
-		protected virtual void OnGripHandAttached(Hand hand) {
+		protected void OnGripHandAttached(Hand hand) {
 			m_gripHand = hand;
 			m_gripHand.MagReleaseAction.performed += OnReleaseMagPressed;
 			m_gripHand.SlideReleaseAction.performed += OnSlideReleasePressed;
 			m_fireRateTimer = m_data.SecondsPerRound;
 		}
 
-		protected virtual void OnGripHandDetached() {
+		protected void OnGripHandDetached() {
 			SetTriggerValue(0);
 			if (m_gripHand) {
 				m_gripHand.MagReleaseAction.performed -= OnReleaseMagPressed;
@@ -178,7 +175,11 @@ namespace VsR {
 
 		protected virtual void OnSlideReleasePressed(InputAction.CallbackContext context) { }
 
-		protected virtual void UpdateTrigger() => SetTriggerValue(m_gripHand.TriggerAction.ReadValue<float>());
+		protected void UpdateTrigger() => SetTriggerValue(m_gripHand.TriggerAction.ReadValue<float>());
+
+		protected void ProcessGuardHolds() {
+
+		}
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
 			if (interactor is not Hand)
@@ -198,6 +199,14 @@ namespace VsR {
 		protected override void OnSelectExited(SelectExitEventArgs args) {
 			base.OnSelectExited(args);
 			OnGripHandDetached();
+		}
+
+		public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase) {
+			base.ProcessInteractable(updatePhase);
+
+			if (isSelected && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Late) {
+				ProcessGuardHolds();
+			}
 		}
 	}
 }

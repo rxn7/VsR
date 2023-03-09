@@ -1,2 +1,0 @@
-Models:
-- "Oculus Hand Models" by Meta (https://developer.oculus.com/downloads/package/oculus-hand-models/) licensed by Creative Commons Attribution 4.0

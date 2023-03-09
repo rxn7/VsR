@@ -122,10 +122,23 @@ namespace VsR {
 		protected virtual void OnCocked() {
 		}
 
-		private void EjectEmptyCartridge() => EjectCartridge(false);
 		public virtual void EjectCartridge(bool withBullet = false) {
+			float force, torque;
+			Math.FloatRange randomness;
+
+			// If the cartridge has a bullet, we can assume it was ejected by manually pulling the slide instead of firing
+			if (!withBullet) {
+				force = m_data.cartridgeEjectForce;
+				torque = m_data.cartridgeEjectTorque;
+				randomness = new Math.FloatRange(0.5f, 1.5f);
+			} else {
+				force = 1.5f;
+				torque = 5.0f;
+				randomness = new Math.FloatRange(0.9f, 1.1f);
+			}
+
 			Cartridge cartridge = CartridgePoolManager.Instance.Pool.Get();
-			cartridge.Eject(this, withBullet);
+			cartridge.Eject(this, force, torque, randomness, withBullet);
 		}
 
 		protected virtual void SetTriggerValue(float normalizedTriggerValue) {

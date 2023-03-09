@@ -17,7 +17,7 @@ namespace VsR {
 			m_rb = GetComponent<Rigidbody>();
 		}
 
-		public void Eject(WeaponBase weapon, bool withBullet = false) {
+		public void Eject(WeaponBase weapon, float force, float torque, FloatRange randomness, bool withBullet = false) {
 			CancelInvoke();
 
 			m_ejected = true;
@@ -27,16 +27,15 @@ namespace VsR {
 			m_bulletMeshFilter.mesh = weapon.Data.cartridgeData.bulletMesh;
 			m_bulletMeshRenderer.enabled = withBullet;
 
-			FloatRange randomRange = new FloatRange(0.5f, 1.5f);
-			Vector3 random = VectorHelper.RandomVector(randomRange, randomRange, randomRange);
-			Vector3 randomAngular = VectorHelper.RandomVector(randomRange, randomRange, randomRange);
+			Vector3 random = VectorHelper.RandomVector(randomness, randomness, randomness);
+			Vector3 randomAngular = VectorHelper.RandomVector(randomness, randomness, randomness);
 
 			transform.position = weapon.CartridgeEjectPoint.position;
 			transform.rotation = weapon.CartridgeEjectPoint.rotation;
 
 			m_rb.position = transform.position;
-			m_rb.velocity = Vector3.Scale(transform.up, random) * weapon.Data.cartridgeEjectForce + weapon.WorldVelocity;
-			m_rb.angularVelocity = Vector3.Scale(-transform.right, randomAngular) * weapon.Data.cartridgeEjectTorque;
+			m_rb.velocity = Vector3.Scale(transform.up, random) * force + weapon.WorldVelocity;
+			m_rb.angularVelocity = Vector3.Scale(-transform.right, randomAngular) * torque;
 
 			Invoke(nameof(Release), EJECT_LIFE_TIME_SECS);
 		}

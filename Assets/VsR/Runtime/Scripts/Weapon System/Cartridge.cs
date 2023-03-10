@@ -27,8 +27,8 @@ namespace VsR {
 			m_bulletMeshFilter.mesh = weapon.Data.cartridgeData.bulletMesh;
 			m_bulletMeshRenderer.enabled = withBullet;
 
-			Vector3 random = VectorHelper.RandomVector(randomness, randomness, randomness);
-			Vector3 randomAngular = VectorHelper.RandomVector(randomness, randomness, randomness);
+			Vector3 random = new Vector3(randomness.RandomValue(), randomness.RandomValue(), randomness.RandomValue());
+			Vector3 randomAngular = new Vector3(randomness.RandomValue(), randomness.RandomValue(), randomness.RandomValue());
 
 			transform.position = weapon.CartridgeEjectPoint.position;
 			transform.rotation = weapon.CartridgeEjectPoint.rotation;

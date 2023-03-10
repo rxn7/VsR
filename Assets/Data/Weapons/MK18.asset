@@ -25,10 +25,26 @@ MonoBehaviour:
     intensity: 0.9
     duration: 0.08
   recoilInfo:
-    force: {x: 0, y: 0.015, z: -0.16}
-    forceRandomness: {x: 0, y: 0.005, z: 0.06}
-    torque: {x: -25, y: 0, z: 0}
-    torqueRandomness: {x: 3, y: 8, z: 6}
+    force:
+      x:
+        min: 0
+        max: 0
+      y:
+        min: 0.01
+        max: 0.02
+      z:
+        min: -0.2
+        max: -0.15
+    torque:
+      x:
+        min: -23
+        max: -20
+      y:
+        min: -8
+        max: 8
+      z:
+        min: -6
+        max: 6
   shootSound: {fileID: 8300000, guid: 09934114fc0b4e4409648ca4db01cf9e, type: 3}
   rackSound: {fileID: 8300000, guid: 0225ab549d631df419b6cd2e9776d8d1, type: 3}
   rackBackSound: {fileID: 8300000, guid: f7b0871af50548041a8e0c6a9e738927, type: 3}

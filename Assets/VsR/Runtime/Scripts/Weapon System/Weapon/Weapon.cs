@@ -16,6 +16,7 @@ namespace VsR {
 
 		protected Hand m_gripHand = null;
 		protected Hand m_guardHand = null;
+		protected WeaponGuardHold m_guardHold = null;
 		private float m_fireRateTimer = 0.0f;
 		private Vector3 m_previousPosition;
 		private bool m_triggerReset = true;
@@ -32,6 +33,7 @@ namespace VsR {
 		public WeaponData Data => m_data;
 		public Hand GripHand => m_gripHand;
 		public Hand GuardHand => m_guardHand;
+		public WeaponGuardHold HeldGuardHold => m_guardHold;
 		public Vector3 WorldVelocity => m_velocity;
 		public Transform CartridgeEjectPoint => m_cartridgeEjectPoint;
 
@@ -170,11 +172,13 @@ namespace VsR {
 		}
 
 		protected void OnGuardHandAttached(SelectEnterEventArgs args) {
+			m_guardHold = (WeaponGuardHold)args.interactableObject;
 			m_guardHand = (Hand)args.interactorObject;
 		}
 
 		protected void OnGuardHandDetached(SelectExitEventArgs args) {
 			m_guardHand = null;
+			m_guardHold = null;
 		}
 
 		protected virtual void OnReleaseMagPressed(InputAction.CallbackContext context) {

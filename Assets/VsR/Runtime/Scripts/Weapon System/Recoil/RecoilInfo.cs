@@ -1,11 +1,10 @@
 using UnityEngine;
+using VsR.Math;
 
 namespace VsR {
 	[System.Serializable]
 	public struct RecoilInfo {
-		public Vector3 force;
-		public Vector3 forceRandomness;
-		public Vector3 torque;
-		public Vector3 torqueRandomness;
+		public Vector3Range force;
+		public Vector3Range torque;
 	}
 }

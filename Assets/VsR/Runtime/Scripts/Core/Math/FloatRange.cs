@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace VsR.Math {
 	[System.Serializable]
 	public struct FloatRange {
@@ -8,5 +10,7 @@ namespace VsR.Math {
 			this.min = min;
 			this.max = max;
 		}
+
+		public float RandomValue() => Random.Range(min, max);
 	}
 }

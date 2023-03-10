@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3605422011744210290}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: XRController_LT_Thumbstick_Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 1246658866163755213}
   - component: {fileID: 3263748129386802285}
   - component: {fileID: 270065596273396263}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 3260066277111492768}
   - component: {fileID: 6846410398948689127}
   - component: {fileID: 6795807349811077143}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Button_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1354770619557206905}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Attach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 929759396021444721}
   - component: {fileID: 2464494074820767848}
   - component: {fileID: 7756770574547652007}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Controller_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +608,7 @@ GameObject:
   - component: {fileID: 4033980027751864118}
   - component: {fileID: 2901852725428713536}
   - component: {fileID: 583058953870203706}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Bumper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -689,7 +689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3576250974332177711}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: XRControllerLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -722,7 +722,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7492135041802898228}
   - component: {fileID: 4445710136896611900}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -777,7 +777,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6762995704643845815}
   - component: {fileID: 6872037902814858660}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Recoil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -824,7 +824,7 @@ GameObject:
   - component: {fileID: 1101706219107897377}
   - component: {fileID: 1124774702493864675}
   - component: {fileID: 8264305942798157917}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Button_B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -908,7 +908,7 @@ GameObject:
   - component: {fileID: 1040069374631520414}
   - component: {fileID: 5859863896917486647}
   - component: {fileID: 5210649394116564559}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: ThumbStick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -991,7 +991,7 @@ GameObject:
   - component: {fileID: 2964709438170234938}
   - component: {fileID: 8158913928975608300}
   - component: {fileID: 3849708938348693969}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

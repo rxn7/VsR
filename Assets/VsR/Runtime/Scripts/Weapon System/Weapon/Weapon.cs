@@ -52,20 +52,20 @@ namespace VsR {
 		}
 
 		protected void Update() {
-			if (!GripHand)
+			if (!m_gripHand)
 				return;
 
 			m_velocity = (transform.position - m_previousPosition) / Time.unscaledDeltaTime;
 			m_previousPosition = transform.position;
 
 			m_fireRateTimer += Time.deltaTime;
-			UpdateTrigger();
+			SetTriggerValue(m_gripHand.TriggerAction.ReadValue<float>());
 		}
 
 		protected void OnDrawGizmos() {
 			if (m_barrelEndPoint) {
 				Gizmos.color = Color.yellow;
-				Gizmos.DrawSphere(m_barrelEndPoint.position, 0.01f);
+				Gizmos.DrawSphere(m_barrelEndPoint.position, 0.004f);
 			}
 
 			if (m_cartridgeEjectPoint) {
@@ -93,6 +93,21 @@ namespace VsR {
 			}
 
 			onFire?.Invoke();
+		}
+
+
+		protected void SetTriggerValue(float normalizedTriggerValue) {
+			if (normalizedTriggerValue >= m_data.fireTriggerPressure) {
+				if (CanFire())
+					Fire();
+				else if (m_triggerReset)
+					m_triggerReset = false;
+			}
+
+			if (!m_triggerReset && normalizedTriggerValue < m_data.resetTriggerPressure)
+				m_triggerReset = true;
+
+			m_trigger.UpdateRotation(normalizedTriggerValue);
 		}
 
 		protected virtual bool CanFire() {
@@ -140,21 +155,6 @@ namespace VsR {
 			cartridge.Eject(this, force, torque, randomness, withBullet);
 		}
 
-		protected void SetTriggerValue(float normalizedTriggerValue) {
-			if (normalizedTriggerValue >= m_data.fireTriggerPressure) {
-				if (CanFire())
-					Fire();
-				else if (m_triggerReset)
-					m_triggerReset = false;
-			}
-
-			if (!m_triggerReset && normalizedTriggerValue < m_data.resetTriggerPressure) {
-				m_triggerReset = true;
-			}
-
-			m_trigger.UpdateRotation(normalizedTriggerValue);
-		}
-
 		protected void OnGripHandAttached(Hand hand) {
 			m_gripHand = hand;
 			m_gripHand.MagReleaseAction.performed += OnReleaseMagPressed;
@@ -187,10 +187,9 @@ namespace VsR {
 
 		protected virtual void OnSlideReleasePressed(InputAction.CallbackContext context) { }
 
-		protected void UpdateTrigger() => SetTriggerValue(m_gripHand.TriggerAction.ReadValue<float>());
-
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
-			if (GripHand && interactor != (IXRSelectInteractor)GripHand)
+			// Nothing can select the weapon if it's held by a grip hand
+			if (m_gripHand && interactor != (IXRSelectInteractor)m_gripHand)
 				return false;
 
 			return base.IsSelectableBy(interactor);

@@ -4248,7 +4248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 733555699}
   m_Layer: 0
-  m_Name: Buttons Table
+  m_Name: Button Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7411,7 +7411,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6207883966375844361}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1316152890
+--- !u!114 &1316152892
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7420,9 +7420,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1316152886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a460c7524b868dc43a4abd1bd4340fce, type: 3}
+  m_Script: {fileID: 11500000, guid: c06a17e79ffce8c4c919c61d5562288b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_slowMotionTimeScale: 0.2
+  m_normalTimeScale: 1
 --- !u!1001 &1341231796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12418,6 +12420,36 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlowMoButton
       objectReference: {fileID: 0}
+    - target: {fileID: 3616660424231724071, guid: eda7d369d39aac947824eb7762899d92,
+        type: 3}
+      propertyPath: onToggled.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616660424231724071, guid: eda7d369d39aac947824eb7762899d92,
+        type: 3}
+      propertyPath: onToggled.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1316152892}
+    - target: {fileID: 3616660424231724071, guid: eda7d369d39aac947824eb7762899d92,
+        type: 3}
+      propertyPath: onToggled.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616660424231724071, guid: eda7d369d39aac947824eb7762899d92,
+        type: 3}
+      propertyPath: onToggled.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Toggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616660424231724071, guid: eda7d369d39aac947824eb7762899d92,
+        type: 3}
+      propertyPath: onToggled.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: VsR.ToggleSlowMotion, VsR.Runtime
+      objectReference: {fileID: 0}
+    - target: {fileID: 3616660424231724071, guid: eda7d369d39aac947824eb7762899d92,
+        type: 3}
+      propertyPath: onToggled.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12425,5 +12457,5 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2394034509638461694, guid: eda7d369d39aac947824eb7762899d92,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1316152890}
+      addedObject: {fileID: 1316152892}
   m_SourcePrefab: {fileID: 100100000, guid: eda7d369d39aac947824eb7762899d92, type: 3}

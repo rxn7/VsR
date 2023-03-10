@@ -1,19 +1,22 @@
 using UnityEngine;
-using System.Linq;
+using UnityEngine.Events;
 using System.Collections.Generic;
 
 namespace VsR {
 	public class Button : MonoBehaviour {
-		public event System.Action onPressed;
+		public UnityEvent onPressed;
+		public UnityEvent<bool> onToggled;
 
 		[SerializeField] private Transform m_visualPress;
 		[SerializeField] private AudioClip m_pressSound;
 		[SerializeField] private float m_pressOffset = 0.1f;
+
 		private Vector3 m_initVisualPressPosition;
 		private bool m_pressed = false;
+		private bool m_toggled = false;
 		private List<Collider> m_pressingColliders = new List<Collider>();
 
-		protected void Awake() {
+		protected virtual void Awake() {
 			m_initVisualPressPosition = m_visualPress.localPosition;
 		}
 
@@ -25,9 +28,13 @@ namespace VsR {
 				return;
 
 			m_pressed = true;
+			onPressed?.Invoke();
+
+			m_toggled = !m_toggled;
+			onToggled?.Invoke(m_toggled);
+
 			m_visualPress.localPosition = m_initVisualPressPosition - m_visualPress.up * m_pressOffset;
 			SoundPoolManager.Instance.PlaySound(m_pressSound, transform.position, Random.Range(0.9f, 1.1f));
-			onPressed?.Invoke();
 		}
 
 		private void OnTriggerExit(Collider collider) {

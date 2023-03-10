@@ -36,11 +36,7 @@ namespace VsR {
 		}
 
 		private void AddRecoilDoubleHand(Weapon weapon) {
-			float distanceToHold = Vector3.Distance(weapon.GuardHand.attachTransform.position, weapon.HeldGuardHold.transform.position);
-
-			m_targetPosition += Vector3.forward * weapon.Data.recoilInfo.force.z.RandomValue();
-
-			// TODO: Guard hold recoil
+			m_targetPosition += transform.InverseTransformDirection(weapon.transform.forward) * weapon.Data.recoilInfo.force.z.RandomValue() * 0.4f;
 		}
 	}
 }

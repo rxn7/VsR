@@ -433,7 +433,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.02
+  m_Radius: 0.03
   m_Height: 0.2
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
@@ -520,6 +520,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <Weapon>k__BackingField: {fileID: 2036067845522238738}
+  recoilOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &4501767080689246969
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,7 +572,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.033
+  m_Radius: 0.026
   m_Height: 0.45
   m_Direction: 2
   m_Center: {x: 0, y: 0.02, z: -0.06}
@@ -714,6 +715,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <Weapon>k__BackingField: {fileID: 2036067845522238738}
+  recoilOffset: {x: 0, y: 0, z: 0}
   m_magSlot: {fileID: 124195102308309038}
 --- !u!1 &4745406180758680171
 GameObject:

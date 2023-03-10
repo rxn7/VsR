@@ -9,9 +9,6 @@ namespace VsR {
 			if (!m_magSlot.Mag)
 				return false;
 
-			if (interactor is not Hand || !Weapon.isSelected)
-				return false;
-
 			return base.IsSelectableBy(interactor);
 		}
 	}

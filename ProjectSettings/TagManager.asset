@@ -14,10 +14,10 @@ TagManager:
   - PlayerBody
   - Grab
   - Ground
-  - Bullet
+  - Hand
   - Cartridge
   - Button
-  - Hand
+  - Inventory
   - 
   - 
   - 

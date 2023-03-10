@@ -52,7 +52,7 @@ namespace VsR {
 		}
 
 		protected void Update() {
-			if (!isSelected)
+			if (!GripHand)
 				return;
 
 			m_velocity = (transform.position - m_previousPosition) / Time.unscaledDeltaTime;
@@ -190,10 +190,7 @@ namespace VsR {
 		protected void UpdateTrigger() => SetTriggerValue(m_gripHand.TriggerAction.ReadValue<float>());
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
-			if (interactor is not Hand)
-				return false;
-
-			if (isSelected && !interactorsSelecting.Contains(interactor))
+			if (GripHand && interactor != (IXRSelectInteractor)GripHand)
 				return false;
 
 			return base.IsSelectableBy(interactor);
@@ -201,12 +198,16 @@ namespace VsR {
 
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
 			base.OnSelectEntered(args);
-			OnGripHandAttached(args.interactorObject as Hand);
+
+			if (args.interactorObject is Hand hand)
+				OnGripHandAttached(hand);
 		}
 
 		protected override void OnSelectExited(SelectExitEventArgs args) {
 			base.OnSelectExited(args);
-			OnGripHandDetached();
+
+			if (args.interactorObject is Hand)
+				OnGripHandDetached();
 		}
 	}
 }

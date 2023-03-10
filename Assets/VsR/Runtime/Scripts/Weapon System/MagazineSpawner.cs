@@ -11,13 +11,6 @@ namespace VsR {
 			m_text.text = m_magazineData.name + " Spawner";
 		}
 
-		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
-			if (interactor is not Hand)
-				return false;
-
-			return base.IsSelectableBy(interactor);
-		}
-
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
 			base.OnSelectEntered(args);
 

@@ -8,7 +8,7 @@ namespace VsR {
 		[SerializeField] private WeaponMagazineSlot m_magSlot;
 
 		protected void OnTriggerEnter(Collider collider) {
-			if (!collider.gameObject.TryGetComponent<Hand>(out Hand hand) || !m_bolt.IsOpen || !Weapon.isSelected)
+			if (!collider.gameObject.TryGetComponent<Hand>(out Hand hand) || !m_bolt.IsOpen || !Weapon.GripHand)
 				return;
 
 			if (hand.interactablesSelected.Contains(Weapon))

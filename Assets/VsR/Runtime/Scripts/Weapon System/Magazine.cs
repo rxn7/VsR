@@ -48,13 +48,6 @@ namespace VsR {
 			m_rb.velocity = -transform.up * 0.3f + weaponVelocity;
 		}
 
-		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
-			if (firstInteractorSelecting is WeaponMagazineSlot && firstInteractorSelecting != interactor)
-				return false;
-
-			return base.IsSelectableBy(interactor);
-		}
-
 		protected override void Drop() {
 			base.Drop();
 			if (IsEmpty)

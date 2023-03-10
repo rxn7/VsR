@@ -7,15 +7,20 @@ namespace VsR {
 		protected Hand m_hand;
 		protected Quaternion m_initGripRotation;
 
+		protected override void Awake() {
+			base.Awake();
+			interactionLayers = InteractionLayerMask.GetMask("Hand");
+		}
+
 		private void ProcessWeaponMovement() {
-			if (m_hand == null || !Weapon.isSelected)
+			if (m_hand == null || !Weapon.GripHand)
 				return;
 
 			Weapon.GripHand.attachTransform.rotation = Quaternion.LookRotation(m_hand.attachTransform.position - Weapon.GripHand.attachTransform.position, Weapon.GripHand.transform.up);
 		}
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
-			if (interactor is not Hand || !Weapon.isSelected)
+			if (!Weapon.GripHand)
 				return false;
 
 			return base.IsSelectableBy(interactor);

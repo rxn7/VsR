@@ -21,7 +21,7 @@ namespace VsR {
 		public override bool CanSelect(IXRSelectInteractable interactable) {
 			bool isSelecting = IsSelecting(interactable);
 
-			if (!Weapon.isSelected && !isSelecting)
+			if (!Weapon.GripHand && !isSelecting)
 				return false;
 
 			if (hasSelection && !isSelecting)

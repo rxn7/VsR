@@ -24,13 +24,11 @@ namespace VsR {
 			base.Awake();
 			m_initPosition = transform.localPosition;
 			m_initToMaxSlideDistance = Vector3.Distance(m_initPosition, m_maxSlidePosition);
+			interactionLayers = InteractionLayerMask.GetMask("Hand");
 		}
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
-			if (interactor is not Hand)
-				return false;
-
-			if (!m_canInteractWithoutWeaponSelected && !Weapon.isSelected)
+			if (!m_canInteractWithoutWeaponSelected && !Weapon.GripHand)
 				return false;
 
 			return base.IsSelectableBy(interactor);

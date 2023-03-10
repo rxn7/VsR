@@ -12055,17 +12055,17 @@ PrefabInstance:
     - target: {fileID: 749989449322321608, guid: bc57e75276229f942a7703fdf75c1e9d,
         type: 3}
       propertyPath: m_text
-      value: testtesttesttesttesttesttesttest
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 749989449322321608, guid: bc57e75276229f942a7703fdf75c1e9d,
         type: 3}
       propertyPath: m_fontSize
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 749989449322321608, guid: bc57e75276229f942a7703fdf75c1e9d,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 749989449322321608, guid: bc57e75276229f942a7703fdf75c1e9d,
         type: 3}

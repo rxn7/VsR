@@ -11,6 +11,8 @@ namespace VsR.Math {
 			this.max = max;
 		}
 
+		public float Percentage(float v) => Mathf.Clamp01((v - min) / (max - min));
+
 		public float RandomValue() => Random.Range(min, max);
 	}
 }

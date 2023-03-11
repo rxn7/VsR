@@ -12222,6 +12222,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerRig
       objectReference: {fileID: 0}
+    - target: {fileID: 4311686997038121678, guid: bc57e75276229f942a7703fdf75c1e9d,
+        type: 3}
+      propertyPath: m_MoveSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311686997038121678, guid: bc57e75276229f942a7703fdf75c1e9d,
+        type: 3}
+      propertyPath: m_EnableStrafe
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4989284319017668400, guid: bc57e75276229f942a7703fdf75c1e9d,
         type: 3}
       propertyPath: m_RootOrder

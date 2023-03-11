@@ -17,12 +17,13 @@ namespace VsR {
 
 		private IEnumerator OnHitCoroutine() {
 			float elapsed = 0.0f;
-			while (elapsed < 1.0f) {
-				m_renderer.material.color = Color.Lerp(Color.red, Color.yellow, elapsed / 1.0f);
+			float duration = 0.5f;
+			while (elapsed < duration) {
+				m_renderer.material.color = Color.Lerp(Color.red, Color.white, elapsed / duration);
 				elapsed += Time.deltaTime;
 				yield return null;
 			}
-			m_renderer.material.color = Color.yellow;
+			m_renderer.material.color = Color.white;
 		}
 	}
 }

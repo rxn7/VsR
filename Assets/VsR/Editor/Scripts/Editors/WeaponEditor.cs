@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 
 namespace VsR.Editors {
-	[CustomEditor(typeof(Weapon))]
+	[CustomEditor(typeof(Weapon), true)]
 	public class WeaponEditor : Editor {
 		private SerializedProperty m_collidersProperty;
 		private SerializedProperty m_dataProperty;
@@ -12,7 +12,7 @@ namespace VsR.Editors {
 		private SerializedProperty m_barrelEndProperty;
 		private SerializedProperty m_cartridgeEjectPointProperty;
 
-		private void OnEnable() {
+		protected virtual void OnEnable() {
 			m_collidersProperty = serializedObject.FindProperty("m_Colliders");
 			m_dataProperty = serializedObject.FindProperty("m_data");
 			m_magSlotProperty = serializedObject.FindProperty("m_magSlot");
@@ -25,6 +25,12 @@ namespace VsR.Editors {
 		public override void OnInspectorGUI() {
 			serializedObject.Update();
 
+			DrawProperties();
+
+			serializedObject.ApplyModifiedProperties();
+		}
+
+		protected virtual void DrawProperties() {
 			EditorGUILayout.PropertyField(m_dataProperty);
 			EditorGUILayout.PropertyField(m_magSlotProperty);
 			EditorGUILayout.PropertyField(m_triggerProperty);
@@ -32,8 +38,6 @@ namespace VsR.Editors {
 			EditorGUILayout.PropertyField(m_barrelEndProperty);
 			EditorGUILayout.PropertyField(m_cartridgeEjectPointProperty);
 			EditorGUILayout.PropertyField(m_collidersProperty);
-
-			serializedObject.ApplyModifiedProperties();
 		}
 	}
 }

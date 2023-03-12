@@ -3743,6 +3743,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddd64e55836a07849b08b79411acf650, type: 3}
+--- !u!4 &1882752340 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6439804053178364123, guid: bc57e75276229f942a7703fdf75c1e9d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5587010574414014210}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1897396403
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4536,6 +4542,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerRig
       objectReference: {fileID: 0}
+    - target: {fileID: 2713568633417722357, guid: bc57e75276229f942a7703fdf75c1e9d,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 1882752340}
     - target: {fileID: 4311686997038121678, guid: bc57e75276229f942a7703fdf75c1e9d,
         type: 3}
       propertyPath: m_MoveSpeed

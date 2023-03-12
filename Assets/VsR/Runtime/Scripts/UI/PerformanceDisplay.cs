@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR;
 using Unity.Profiling;
 using TMPro;
 using System.Text;
@@ -10,6 +11,7 @@ namespace VsR {
 		private FloatRange m_fpsRange = new FloatRange(72, 120);
 		private TextMeshProUGUI m_text;
 		private ProfilerRecorder m_triangleCountRecorder, m_vertexCountRecorder, m_drawCallCountRecorder;
+		private InputDevice m_device;
 
 		private StringBuilder m_str;
 		private uint m_frameCount;
@@ -18,6 +20,7 @@ namespace VsR {
 		private void Awake() {
 			m_text = GetComponent<TextMeshProUGUI>();
 			m_str = new StringBuilder(500);
+			m_device = InputDevices.GetDeviceAtXRNode(XRNode.Head);
 		}
 
 		private void OnEnable() {
@@ -47,10 +50,11 @@ namespace VsR {
 			Color fpsColor = Color.Lerp(Color.red, Color.green, m_fpsRange.Percentage(fps));
 
 			m_str.Clear();
-			m_str.AppendLine($"Fps: <color=#{ColorUtility.ToHtmlStringRGB(fpsColor)}>{fps}</color>");
-			m_str.AppendLine($"Vert: {m_vertexCountRecorder.LastValue / 1000}k");
-			m_str.AppendLine($"Tris: {m_triangleCountRecorder.LastValue / 1000}k");
-			m_str.AppendLine($"Calls: {m_drawCallCountRecorder.LastValue}");
+			m_str.AppendLine($"dev: {m_device.name}");
+			m_str.AppendLine($"fps: <color=#{ColorUtility.ToHtmlStringRGB(fpsColor)}>{fps}</color>");
+			m_str.Append($"v: {m_vertexCountRecorder.LastValue / 1000}k ");
+			m_str.Append($"t: {m_triangleCountRecorder.LastValue / 1000}k ");
+			m_str.Append($"c: {m_drawCallCountRecorder.LastValue}");
 
 			m_text.text = m_str.ToString();
 		}

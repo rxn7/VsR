@@ -46,6 +46,7 @@ namespace VsR {
 			}
 
 			movementType = MovementType.Instantaneous;
+			interactionLayers = InteractionLayerMask.GetMask("Storable", "Hand");
 
 			SetTriggerValue(0);
 			CartridgeInChamber = false;

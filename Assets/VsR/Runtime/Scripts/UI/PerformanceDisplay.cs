@@ -8,7 +8,7 @@ using VsR.Math;
 namespace VsR {
 	public class PerformanceDisplay : MonoBehaviour {
 		[SerializeField] private float m_updateInterval = 0.5f;
-		private FloatRange m_fpsRange = new FloatRange(72, 120);
+		private FloatRange m_fpsRange = new FloatRange(60, 120);
 		private TextMeshProUGUI m_text;
 		private ProfilerRecorder m_triangleCountRecorder, m_vertexCountRecorder, m_drawCallCountRecorder;
 		private InputDevice m_device;

@@ -36,8 +36,8 @@ namespace VsR {
 
 			float elapsed = 0.0f;
 			while (elapsed < segmentDuration) {
-				transform.localPosition = Vector3.Lerp(m_initPosition, m_maxSlidePosition, elapsed / segmentDuration);
 				elapsed += Time.deltaTime;
+				transform.localPosition = Vector3.Lerp(m_initPosition, m_maxSlidePosition, elapsed / segmentDuration);
 				yield return null;
 			}
 
@@ -48,8 +48,8 @@ namespace VsR {
 			} else {
 				elapsed = 0.0f;
 				while (elapsed < segmentDuration) {
-					transform.localPosition = Vector3.Lerp(m_maxSlidePosition, m_initPosition, elapsed / segmentDuration);
 					elapsed += Time.deltaTime;
+					transform.localPosition = Vector3.Lerp(m_maxSlidePosition, m_initPosition, elapsed / segmentDuration);
 					yield return null;
 				}
 			}

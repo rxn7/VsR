@@ -19,8 +19,8 @@ namespace VsR {
 			float elapsed = 0.0f;
 			float duration = 0.5f;
 			while (elapsed < duration) {
-				m_renderer.material.color = Color.Lerp(Color.red, Color.white, elapsed / duration);
 				elapsed += Time.deltaTime;
+				m_renderer.material.color = Color.Lerp(Color.red, Color.white, elapsed / duration);
 				yield return null;
 			}
 			m_renderer.material.color = Color.white;

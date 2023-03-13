@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Text;
 
 namespace VsR {
 	[ExecuteInEditMode]
@@ -6,14 +7,20 @@ namespace VsR {
 	public class WeaponStatsDisplay : MonoBehaviour {
 		[SerializeField] WeaponData m_data;
 
+		private void Awake() {
+		}
+
 		private void OnEnable() {
 			if (!m_data)
 				return;
 
-			TMPro.TMP_Text textMesh = GetComponent<TMPro.TMP_Text>();
-			textMesh.text = $"{m_data.name}\n" +
-							$"Muzzle vel: {m_data.muzzleVelocity}m/s\n" +
-							$"Rounds/min: {m_data.roundsPerMinute}";
+			StringBuilder str = new StringBuilder(200);
+			str.AppendLine(m_data.name);
+			str.AppendLine($"Muzzle vel: {m_data.muzzleVelocity}");
+			str.AppendLine($"Rounds/min: {m_data.roundsPerMinute}");
+			str.AppendLine($"Cartridge: {m_data.cartridgeData.name}");
+
+			GetComponent<TMPro.TMP_Text>().text = str.ToString();
 		}
 	}
 }

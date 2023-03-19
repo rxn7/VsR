@@ -296,6 +296,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Enable Raycast",
+                    "type": "Button",
+                    "id": "91ef237a-ab8b-429a-84cf-b1f4797a0414",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -406,6 +415,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Slide Release",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d067ce1-274e-485a-95d1-be1baf1873bd",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enable Raycast",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -826,6 +846,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Enable Raycast",
+                    "type": "Button",
+                    "id": "2256dce2-1eae-453f-b721-503b6d3a6e4c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -936,6 +965,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Slide Release",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "75101e1f-8fa0-4ccb-a603-a68908e07b89",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enable Raycast",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

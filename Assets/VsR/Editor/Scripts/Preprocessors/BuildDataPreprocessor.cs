@@ -8,18 +8,16 @@ namespace VsR.Editors {
 		public int callbackOrder => 1;
 
 		public void OnPreprocessBuild(BuildReport report) {
-			Debug.Log(Path.GetDirectoryName(report.summary.outputPath));
-			SaveBuildData(Path.GetDirectoryName(report.summary.outputPath));
+			// TODO: Instead of "VsR_Data" use something more abstracted
+			SaveBuildData(Path.Combine(Path.GetDirectoryName(report.summary.outputPath), "VsR_Data"));
 		}
 
 		public static void SaveBuildData(string dataPath = "") {
 			if (dataPath == "")
 				dataPath = Application.dataPath;
 
-			string path = dataPath + "/build_data.json";
+			string path = Path.Combine(dataPath, "build_data.json");
 			BuildData data = CreateBuildData();
-
-			Debug.Log(path);
 
 			File.WriteAllText(path, JsonUtility.ToJson(data));
 		}

@@ -7,13 +7,12 @@ using UnityEditor.Callbacks;
 
 namespace VsR {
 	public class MagazineSpawner : XRSimpleInteractable {
-		[SerializeField]
-		private MagazineData _m_data;
+		[SerializeField] private MagazineData m_data;
 
 		public MagazineData Data {
-			get => _m_data;
+			get => m_data;
 			set {
-				_m_data = value;
+				m_data = value;
 				UpdateText();
 			}
 		}
@@ -24,7 +23,7 @@ namespace VsR {
 		}
 
 		private void UpdateText() {
-			GetComponentInChildren<TMPro.TextMeshPro>().text = _m_data.name;
+			GetComponentInChildren<TMPro.TextMeshPro>().text = m_data.name;
 		}
 
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
@@ -32,7 +31,7 @@ namespace VsR {
 
 			interactionManager.SelectExit(args.interactorObject, this);
 
-			Magazine mag = Instantiate(_m_data.prefab);
+			Magazine mag = Instantiate(m_data.prefab);
 			mag.transform.position = args.interactorObject.GetAttachTransform(mag).position;
 
 			interactionManager.SelectEnter(args.interactorObject, mag);

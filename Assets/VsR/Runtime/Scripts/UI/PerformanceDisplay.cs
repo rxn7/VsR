@@ -50,7 +50,11 @@ namespace VsR {
 			Color fpsColor = Color.Lerp(Color.red, Color.green, m_fpsRange.Percentage(fps));
 
 			m_str.Clear();
+#if !UNITY_EDITOR
 			m_str.AppendLine($"dev: {m_device.name}");
+#else
+			m_str.AppendLine($"dev: Unity editor");
+#endif
 			m_str.AppendLine($"fps: <color=#{ColorUtility.ToHtmlStringRGB(fpsColor)}>{fps}</color>");
 			m_str.Append($"v: {m_vertexCountRecorder.LastValue / 1000}k ");
 			m_str.Append($"t: {m_triangleCountRecorder.LastValue / 1000}k ");

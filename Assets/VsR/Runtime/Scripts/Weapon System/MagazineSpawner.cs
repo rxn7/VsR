@@ -1,14 +1,29 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+#if UNITY_EDITOR
+using UnityEditor.Callbacks;
+#endif
+
 namespace VsR {
 	public class MagazineSpawner : XRSimpleInteractable {
-		[SerializeField] private MagazineData m_magazineData;
-		[SerializeField] private TMPro.TMP_Text m_text;
+		[SerializeField] private MagazineData m_data;
+
+		public MagazineData Data {
+			get => m_data;
+			set {
+				m_data = value;
+				UpdateText();
+			}
+		}
 
 		protected override void Awake() {
 			base.Awake();
-			m_text.text = m_magazineData.name + " Spawner";
+			UpdateText();
+		}
+
+		private void UpdateText() {
+			GetComponentInChildren<TMPro.TextMeshPro>().text = m_data.name;
 		}
 
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
@@ -16,7 +31,7 @@ namespace VsR {
 
 			interactionManager.SelectExit(args.interactorObject, this);
 
-			Magazine mag = Instantiate(m_magazineData.prefab);
+			Magazine mag = Instantiate(m_data.prefab);
 			mag.transform.position = args.interactorObject.GetAttachTransform(mag).position;
 
 			interactionManager.SelectEnter(args.interactorObject, mag);

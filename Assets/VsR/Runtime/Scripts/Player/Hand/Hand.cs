@@ -28,10 +28,10 @@ namespace VsR {
 		}
 
 		private void InitInputActions() {
-			TriggerAction = InputActionManager.Instance.GetInteractionAction(m_handType, "Activate Value");
-			GrabAction = InputActionManager.Instance.GetInteractionAction(m_handType, "Select Value");
-			MagReleaseAction = InputActionManager.Instance.GetInteractionAction(m_handType, "Mag Release");
-			SlideReleaseAction = InputActionManager.Instance.GetInteractionAction(m_handType, "Slide Release");
+			TriggerAction = InputActionManager.GetInteractionAction(m_handType, "Activate Value");
+			GrabAction = InputActionManager.GetInteractionAction(m_handType, "Select Value");
+			MagReleaseAction = InputActionManager.GetInteractionAction(m_handType, "Mag Release");
+			SlideReleaseAction = InputActionManager.GetInteractionAction(m_handType, "Slide Release");
 		}
 
 		public void ApplyHapticFeedback(HapticFeedback feedback) {

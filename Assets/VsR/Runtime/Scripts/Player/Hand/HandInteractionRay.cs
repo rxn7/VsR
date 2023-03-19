@@ -27,7 +27,7 @@ namespace VsR {
 		}
 
 		private void Start() {
-			m_enableRaycastAction = InputActionManager.Instance.GetInteractionAction(m_hand.HandType, "Enable Raycast");
+			m_enableRaycastAction = InputActionManager.GetInteractionAction(m_hand.HandType, "Enable Raycast");
 		}
 
 		private void LateUpdate() {

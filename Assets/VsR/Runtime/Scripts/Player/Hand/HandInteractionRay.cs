@@ -9,10 +9,15 @@ namespace VsR {
 		[SerializeField] private float m_maxDistance = 5;
 		[SerializeField] private LayerMask m_rayLayerMask;
 
+		[Header("Haptic Feedback")]
+		[SerializeField] private HapticFeedback m_hoverEnterHapticFeedback;
+		[SerializeField] private HapticFeedback m_hoverExitHapticFeedback;
+
 		private InputAction m_enableRaycastAction;
 		private LineRenderer m_lineRenderer;
-		private Ray m_ray;
 		private XRBaseInteractable m_hoveringInteractable = null;
+		private Ray m_ray;
+		private bool m_wasHoveringLastFrame = false;
 
 		public bool IsHovering => m_hoveringInteractable != null;
 
@@ -35,6 +40,20 @@ namespace VsR {
 			m_lineRenderer.enabled = true;
 			transform.SetPositionAndRotation(m_hand.attachTransform.position, m_hand.attachTransform.rotation);
 
+			PerformRaycast();
+
+			if (m_hand.GrabAction.WasPressedThisFrame())
+				OnGrab();
+
+			if (!m_wasHoveringLastFrame && IsHovering)
+				m_hand.ApplyHapticFeedback(m_hoverEnterHapticFeedback);
+			else if (m_wasHoveringLastFrame && !IsHovering && m_hand.interactablesSelected.Count == 0)
+				m_hand.ApplyHapticFeedback(m_hoverExitHapticFeedback);
+
+			m_wasHoveringLastFrame = IsHovering;
+		}
+
+		private void PerformRaycast() {
 			m_ray.origin = transform.position;
 			m_ray.direction = transform.forward;
 
@@ -45,10 +64,11 @@ namespace VsR {
 				rayEndPoint = hit.point;
 				color = Color.green;
 
-				if (hit.transform.TryGetComponent<XRBaseInteractable>(out XRBaseInteractable interactable))
+				if (hit.transform.TryGetComponent<XRBaseInteractable>(out XRBaseInteractable interactable)) {
 					m_hoveringInteractable = interactable;
-				else
+				} else {
 					m_hoveringInteractable = null;
+				}
 			} else {
 				m_hoveringInteractable = null;
 			}
@@ -63,10 +83,6 @@ namespace VsR {
 
 			m_lineRenderer.SetPosition(0, m_hand.attachTransform.position);
 			m_lineRenderer.SetPosition(1, rayEndPoint);
-
-			if (m_hand.GrabAction.WasPressedThisFrame()) {
-				OnGrab();
-			}
 		}
 
 		private void OnGrab() {

@@ -592,6 +592,12 @@ MonoBehaviour:
   m_rayLayerMask:
     serializedVersion: 2
     m_Bits: 385
+  m_hoverEnterHapticFeedback:
+    intensity: 0.1
+    duration: 0.1
+  m_hoverExitHapticFeedback:
+    intensity: 0.05
+    duration: 0.1
 --- !u!120 &1309809610576199269
 LineRenderer:
   serializedVersion: 2

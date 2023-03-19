@@ -4318,6 +4318,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 665931858384201098, guid: eda7d369d39aac947824eb7762899d92,
+        type: 3}
+      propertyPath: m_text
+      value: "Slow Motion\n Button"
+      objectReference: {fileID: 0}
     - target: {fileID: 2394034509638461694, guid: eda7d369d39aac947824eb7762899d92,
         type: 3}
       propertyPath: m_Name
@@ -4361,4 +4366,8 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1316152892}
+    - targetCorrespondingSourceObject: {fileID: 8121414789538557494, guid: eda7d369d39aac947824eb7762899d92,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: eda7d369d39aac947824eb7762899d92, type: 3}

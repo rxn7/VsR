@@ -1,27 +1,27 @@
 using UnityEngine;
 
 namespace VsR {
-	public class ShootingPhysics : SingletonBehaviour<ShootingPhysics> {
-		private int m_layerMask;
+	public static class ShootingPhysics {
+		private static int s_layerMask;
 
-		protected override void Awake() {
-			base.Awake();
-			m_layerMask = LayerMask.GetMask("Default", "Ground", "Grab");
+		[RuntimeInitializeOnLoadMethod]
+		private static void Init() {
+			s_layerMask = LayerMask.GetMask("Default", "Ground", "Grab");
 		}
 
-		public void OnHit(Collider collider) {
+		private static void OnHit(Collider collider) {
 			if (collider.gameObject.TryGetComponent<IHIttable>(out IHIttable hittable))
 				hittable.OnHit();
 		}
 
-		public void LaserRaycast(Transform barrelEnd, WeaponData data) {
+		public static void LaserRaycast(Transform barrelEnd, WeaponData data) {
 			if (data.shootingPhysicsType != WeaponData.ShootingPhysicsType.RaycastLaser) {
 				Debug.LogWarning("Tried to fire RaycastLaser from a weapon that does not have RaycastLaser ShootingPhysicsType");
 				return;
 			}
 
 			Ray ray = new Ray(barrelEnd.position, barrelEnd.forward);
-			if (Physics.Raycast(ray, out RaycastHit hit, 500, m_layerMask))
+			if (Physics.Raycast(ray, out RaycastHit hit, 500, s_layerMask))
 				OnHit(hit.collider);
 		}
 	}

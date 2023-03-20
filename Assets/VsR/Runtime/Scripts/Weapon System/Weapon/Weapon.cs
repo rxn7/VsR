@@ -89,7 +89,7 @@ namespace VsR {
 
 			switch (Data.shootingPhysicsType) {
 				case WeaponData.ShootingPhysicsType.RaycastLaser:
-					ShootingPhysics.Instance.LaserRaycast(m_barrelEndPoint, m_data);
+					ShootingPhysics.LaserRaycast(m_barrelEndPoint, m_data);
 					break;
 			}
 

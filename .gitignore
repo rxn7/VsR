@@ -63,3 +63,6 @@ crashlytics-build.properties
 
 *.log
 UpgradeLog.htm
+
+*/build_data.json
+*/build_data.json.meta

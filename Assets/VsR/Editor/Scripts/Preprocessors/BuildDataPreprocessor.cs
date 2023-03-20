@@ -1,30 +1,17 @@
 using System.IO;
 using UnityEngine;
-using UnityEditor.Build;
-using UnityEditor.Build.Reporting;
 
 namespace VsR.Editors {
-	public class BuildDataPreprocessor : IPreprocessBuildWithReport {
-		public int callbackOrder => 1;
-
-		public void OnPreprocessBuild(BuildReport report) {
-			// TODO: Instead of "VsR_Data" use something more abstracted
-			SaveBuildData(Path.Combine(Path.GetDirectoryName(report.summary.outputPath), "VsR_Data"));
-		}
-
-		public static void SaveBuildData(string dataPath = "") {
-			if (dataPath == "")
-				dataPath = Application.dataPath;
-
-			string path = Path.Combine(dataPath, "build_data.json");
+	public class BuildDataPreprocessor {
+		[UnityEditor.Callbacks.DidReloadScripts]
+		public static void SaveBuildData() {
 			BuildData data = CreateBuildData();
 
-			File.WriteAllText(path, JsonUtility.ToJson(data));
-		}
+			string dirPath = Path.Combine(Application.dataPath, "Resources");
+			if (!Directory.Exists(dirPath))
+				Directory.CreateDirectory(dirPath);
 
-		[UnityEditor.Callbacks.DidReloadScripts]
-		private static void OnScriptsReload() {
-			SaveBuildData();
+			File.WriteAllText(Path.Combine(dirPath, "build_data.json"), JsonUtility.ToJson(data));
 		}
 
 		public static BuildData CreateBuildData() {

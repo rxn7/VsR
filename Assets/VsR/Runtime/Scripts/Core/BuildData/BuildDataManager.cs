@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace VsR {
 	public static class BuildDataManager {
@@ -7,10 +8,8 @@ namespace VsR {
 
 		[RuntimeInitializeOnLoadMethod]
 		private static void Init() {
-			string path = Path.Combine(Application.dataPath, "build_data.json");
-			string json = File.ReadAllText(path);
-
-			Data = JsonUtility.FromJson<BuildData>(json);
+			TextAsset asset = Resources.Load<TextAsset>("build_data");
+			Data = JsonUtility.FromJson<BuildData>(asset.text);
 		}
 	}
 }

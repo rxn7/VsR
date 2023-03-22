@@ -7,7 +7,7 @@ namespace VsR.Editors {
 		public static void SaveBuildData() {
 			BuildData data = CreateBuildData();
 
-			string dirPath = Path.Combine(Application.dataPath, "Resources");
+			string dirPath = Path.Combine(Application.dataPath, "VsR/Runtime/Resources");
 			if (!Directory.Exists(dirPath))
 				Directory.CreateDirectory(dirPath);
 

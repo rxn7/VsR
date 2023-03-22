@@ -5,7 +5,8 @@ using UnityEditor;
 namespace VsR.Editors {
 	public class VsRManagerWeaponsTab : VsRManagerScriptableObjectEditorTab<WeaponData> {
 		public override string Name => "Weapons";
-		protected override Object GetPrefab() => SelectedObject.prefab;
+		protected override Object Prefab => SelectedObject.prefab;
+		protected override bool DeleteWithPrefab => true;
 
 		protected override void OnObjectSelected() {
 			base.OnObjectSelected();

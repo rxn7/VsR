@@ -5,7 +5,8 @@ using System.IO;
 namespace VsR.Editors {
 	public class VsRManagerMagazinesTab : VsRManagerScriptableObjectEditorTab<MagazineData> {
 		public override string Name => "Magazines";
-		protected override Object GetPrefab() => SelectedObject.prefab;
+		protected override Object Prefab => SelectedObject.prefab;
+		protected override bool DeleteWithPrefab => true;
 
 		protected override void OnObjectSelected() {
 			base.OnObjectSelected();

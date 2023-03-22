@@ -64,5 +64,5 @@ crashlytics-build.properties
 *.log
 UpgradeLog.htm
 
-Assets/Resources/build_data.json
-Assets/Resources/build_data.json.meta
+Assets/VsR/Runtime/Resources/build_data.json
+Assets/VsR/Runtime/Resources/build_data.json.meta

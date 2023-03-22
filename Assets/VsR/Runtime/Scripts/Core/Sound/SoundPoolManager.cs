@@ -5,6 +5,7 @@ using System.Collections;
 namespace VsR {
 	public class SoundPoolManager : SingletonBehaviour<SoundPoolManager> {
 		private ObjectPool<Sound> m_pool;
+		private int m_activeAudioSourceCount = 0;
 
 		protected override void Awake() {
 			base.Awake();
@@ -28,11 +29,17 @@ namespace VsR {
 			Sound snd = m_pool.Get();
 			snd.Play(clip, position, pitch, volume, spatialBlend);
 
+			m_activeAudioSourceCount++;
+
 			StartCoroutine(ReleaseSoundAfterFinishedPlaying(snd));
 		}
 
+		public int ActiveAudioSourceCount => m_activeAudioSourceCount;
+		public int AllAudioSourceCount => m_pool.CountAll;
+
 		private IEnumerator ReleaseSoundAfterFinishedPlaying(Sound snd) {
 			yield return new WaitUntil(() => !snd.IsPlaying);
+			m_activeAudioSourceCount--;
 			m_pool.Release(snd);
 		}
 	}

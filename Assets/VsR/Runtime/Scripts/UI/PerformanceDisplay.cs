@@ -52,9 +52,10 @@ namespace VsR {
 			m_str.Clear();
 			m_str.AppendLine($"ver: {BuildDataManager.Data.version}.{BuildDataManager.Data.gitBranch}.{BuildDataManager.Data.gitCommit}");
 			m_str.AppendLine($"fps: <color=#{ColorUtility.ToHtmlStringRGB(fpsColor)}>{fps}</color>");
-			m_str.Append($"v: {m_vertexCountRecorder.LastValue / 1000}k ");
-			m_str.Append($"t: {m_triangleCountRecorder.LastValue / 1000}k ");
-			m_str.Append($"c: {m_drawCallCountRecorder.LastValue}");
+			m_str.AppendLine($"s: {SoundPoolManager.Instance.ActiveAudioSourceCount} / {SoundPoolManager.Instance.AllAudioSourceCount}");
+			m_str.AppendLine($"v: {m_vertexCountRecorder.LastValue / 1000}k");
+			m_str.AppendLine($"t: {m_triangleCountRecorder.LastValue / 1000}k");
+			m_str.AppendLine($"c: {m_drawCallCountRecorder.LastValue}");
 
 			m_text.text = m_str.ToString();
 		}

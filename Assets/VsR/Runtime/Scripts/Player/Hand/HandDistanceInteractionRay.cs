@@ -81,8 +81,7 @@ namespace VsR {
 		}
 
 		private void OnGrab() {
-			bool isHandAlreadyGrabbing = m_hand.interactablesSelected.Count > 0;
-			if (!IsHovering || isHandAlreadyGrabbing)
+			if (!IsHovering || m_hand.IsGrabbing)
 				return;
 
 			m_hand.interactionManager.SelectEnter(m_hand, (IXRSelectInteractable)m_hoveringInteractable);

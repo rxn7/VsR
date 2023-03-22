@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 8203831815356079667}
   - component: {fileID: 1309809610576199269}
   m_Layer: 9
-  m_Name: InteractionRay
+  m_Name: DistanceInteractionRay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -693,7 +693,7 @@ LineRenderer:
       m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
+    numCornerVertices: 1
     numCapVertices: 4
     alignment: 0
     textureMode: 1

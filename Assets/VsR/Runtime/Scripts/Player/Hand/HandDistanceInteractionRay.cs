@@ -47,14 +47,10 @@ namespace VsR {
 			transform.SetPositionAndRotation(m_hand.attachTransform.position, m_hand.attachTransform.rotation);
 
 			PerformRaycast();
+			PerformHapticFeedback();
 
 			if (m_hand.GrabAction.WasPressedThisFrame())
 				OnGrab();
-
-			if (JustHovered)
-				m_hand.ApplyHapticFeedback(m_hoverEnterHapticFeedback);
-			else if (JustStoppedHovering)
-				m_hand.ApplyHapticFeedback(m_hoverExitHapticFeedback);
 
 			m_wasHoveringLastFrame = IsHovering;
 		}
@@ -76,8 +72,17 @@ namespace VsR {
 			m_lineRenderer.SetPosition(1, m_hit.point);
 		}
 
+		private void PerformHapticFeedback() {
+			if (JustHovered)
+				m_hand.ApplyHapticFeedback(m_hoverEnterHapticFeedback);
+
+			else if (JustStoppedHovering)
+				m_hand.ApplyHapticFeedback(m_hoverExitHapticFeedback);
+		}
+
 		private void OnGrab() {
-			if (!IsHovering || m_hand.interactablesSelected.Count > 0)
+			bool isHandAlreadyGrabbing = m_hand.interactablesSelected.Count > 0;
+			if (!IsHovering || isHandAlreadyGrabbing)
 				return;
 
 			m_hand.interactionManager.SelectEnter(m_hand, (IXRSelectInteractable)m_hoveringInteractable);

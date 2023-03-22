@@ -10,6 +10,9 @@ namespace VsR {
 		}
 
 		private static void OnHit(Ray ray, RaycastHit hit, WeaponData data) {
+			if (hit.transform.gameObject.isStatic)
+				BulletDecalPoolManager.Spawn(hit.point, hit.normal);
+
 			if (hit.transform.TryGetComponent<IHIttable>(out IHIttable hittable))
 				hittable.OnHit(hit.point);
 

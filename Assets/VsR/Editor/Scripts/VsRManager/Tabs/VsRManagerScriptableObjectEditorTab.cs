@@ -27,7 +27,8 @@ namespace VsR.Editors {
 		}
 
 		public override System.Type DataType => typeof(T);
-		protected abstract Object GetPrefab();
+		protected abstract Object Prefab { get; }
+		protected abstract bool DeleteWithPrefab { get; }
 		protected virtual void OnObjectSelected() { }
 		protected Vector2 m_inspectorScrollPos;
 
@@ -73,7 +74,7 @@ namespace VsR.Editors {
 
 		protected virtual void BeforeDrawInspector() {
 			if (GUILayout.Button("Open prefab"))
-				AssetDatabase.OpenAsset(GetPrefab());
+				AssetDatabase.OpenAsset(Prefab);
 		}
 
 		public void DrawList() {
@@ -111,6 +112,10 @@ namespace VsR.Editors {
 
 		protected virtual void DeleteSelectedObject() {
 			AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(SelectedObject));
+
+			if (DeleteWithPrefab && Prefab)
+				AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(Prefab));
+
 			SelectedObject = null;
 		}
 	}

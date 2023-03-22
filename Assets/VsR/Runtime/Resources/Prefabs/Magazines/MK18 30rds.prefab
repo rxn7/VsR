@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5779347682350064500}
   - component: {fileID: 6018417597287245989}
   - component: {fileID: 5032140468343636255}
+  - component: {fileID: 5792237323953842722}
   m_Layer: 7
   m_Name: MK18 30rds
   m_TagString: Untagged
@@ -191,6 +192,20 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   m_data: {fileID: 11400000, guid: 27faa42994def4f49a37e590e90b6daa, type: 2}
   m_bulletObject: {fileID: 917975569230060409}
+--- !u!114 &5792237323953842722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51990846807593846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c9d7023d19d634fa90e8c092251180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_collisionSounds:
+  - {fileID: 8300000, guid: f1aab4eb38499494f91ce3c0e226f9cd, type: 3}
 --- !u!1 &1757978342313629088
 GameObject:
   m_ObjectHideFlags: 0

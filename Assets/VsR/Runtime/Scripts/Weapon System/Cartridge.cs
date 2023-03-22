@@ -3,6 +3,7 @@ using VsR.Math;
 
 namespace VsR {
 	[RequireComponent(typeof(Rigidbody))]
+	[RequireComponent(typeof(CollisionSound))]
 	public class Cartridge : MonoBehaviour {
 		public const float EJECT_LIFE_TIME_SECS = 3.0f;
 
@@ -10,18 +11,18 @@ namespace VsR {
 		[SerializeField] private MeshFilter m_bulletMeshFilter;
 		[SerializeField] private MeshFilter m_cartridgeMeshFilter;
 		private Rigidbody m_rb;
-		private bool m_ejected = false;
+		private CollisionSound m_collisionSound;
 		private CartridgeData m_data;
 
 		private void Awake() {
 			m_rb = GetComponent<Rigidbody>();
+			m_collisionSound = GetComponent<CollisionSound>();
 		}
 
 		public void Eject(Weapon weapon, float force, float torque, FloatRange randomness, bool withBullet = false) {
 			CancelInvoke();
-
-			m_ejected = true;
 			m_data = weapon.Data.cartridgeData;
+			m_collisionSound.m_collisionSounds = m_data.cartridgeCollisionSounds;
 
 			m_cartridgeMeshFilter.mesh = weapon.Data.cartridgeData.cartridgeMesh;
 			m_bulletMeshFilter.mesh = weapon.Data.cartridgeData.bulletMesh;
@@ -50,20 +51,7 @@ namespace VsR {
 		}
 
 		public void OnRelease() {
-			m_ejected = false;
 			gameObject.SetActive(false);
-		}
-
-		private void OnCollisionEnter(Collision collision) {
-			if (!m_ejected)
-				return;
-
-			float velocity = collision.relativeVelocity.magnitude * 0.2f;
-
-			float pitch = Mathf.Clamp(velocity, 0.5f, 1.5f);
-			float volume = Mathf.Clamp01(velocity);
-
-			SoundPoolManager.Instance.PlaySound(m_data.GetRandomCollideSound(), transform.position, pitch, volume);
 		}
 	}
 }

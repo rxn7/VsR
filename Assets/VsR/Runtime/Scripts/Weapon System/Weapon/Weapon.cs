@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
+	[RequireComponent(typeof(CollisionSound))]
 	public class Weapon : XRGrabInteractable {
 		public event System.Action onFire;
 

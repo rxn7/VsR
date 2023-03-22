@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 6745959369024340039}
   - component: {fileID: 7037321874965094105}
   - component: {fileID: 4859675326844741718}
+  - component: {fileID: 6771486195823568789}
   m_Layer: 7
   m_Name: B92
   m_TagString: Untagged
@@ -318,6 +319,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6771486195823568789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3488656155505292568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c9d7023d19d634fa90e8c092251180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_collisionSounds:
+  - {fileID: 8300000, guid: f1aab4eb38499494f91ce3c0e226f9cd, type: 3}
 --- !u!1 &4078420885586286336
 GameObject:
   m_ObjectHideFlags: 0

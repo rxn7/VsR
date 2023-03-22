@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
+	[RequireComponent(typeof(CollisionSound))]
 	public class Magazine : XRGrabInteractable {
 		public const float EMPTY_MAG_DROP_DESTROY_DELAY_SECS = 10.0f;
 

@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 1069431708082765216}
   - component: {fileID: 906230580152286239}
   - component: {fileID: 3097854662961251402}
+  - component: {fileID: 9156132340372920822}
   m_Layer: 7
   m_Name: MK18
   m_TagString: Untagged
@@ -234,6 +235,20 @@ MonoBehaviour:
   m_cartridgeInChamberObject: {fileID: 199090767399181876}
   m_barrelEndPoint: {fileID: 3374633785705858935}
   m_cartridgeEjectPoint: {fileID: 3040836308663084857}
+--- !u!114 &9156132340372920822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008297031408051084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c9d7023d19d634fa90e8c092251180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_collisionSounds:
+  - {fileID: 8300000, guid: f1aab4eb38499494f91ce3c0e226f9cd, type: 3}
 --- !u!1 &2258847104882032399
 GameObject:
   m_ObjectHideFlags: 0

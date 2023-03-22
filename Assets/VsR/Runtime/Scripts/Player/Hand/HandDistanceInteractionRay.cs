@@ -20,10 +20,12 @@ namespace VsR {
 		private LineRenderer m_lineRenderer;
 		private XRBaseInteractable m_hoveringInteractable = null;
 		private Ray m_ray;
-		private bool m_wasHoveringLastFrame = false;
 		private RaycastHit m_hit;
+		private bool m_wasHoveringLastFrame = false;
 
 		public bool IsHovering => m_hoveringInteractable != null;
+		public bool JustHovered => !m_wasHoveringLastFrame && IsHovering;
+		public bool JustStoppedHovering => m_wasHoveringLastFrame && !IsHovering && m_hand.interactablesSelected.Count == 0;
 
 		private void Awake() {
 			m_lineRenderer = GetComponent<LineRenderer>();
@@ -49,9 +51,9 @@ namespace VsR {
 			if (m_hand.GrabAction.WasPressedThisFrame())
 				OnGrab();
 
-			if (!m_wasHoveringLastFrame && IsHovering)
+			if (JustHovered)
 				m_hand.ApplyHapticFeedback(m_hoverEnterHapticFeedback);
-			else if (m_wasHoveringLastFrame && !IsHovering && m_hand.interactablesSelected.Count == 0)
+			else if (JustStoppedHovering)
 				m_hand.ApplyHapticFeedback(m_hoverExitHapticFeedback);
 
 			m_wasHoveringLastFrame = IsHovering;
@@ -62,21 +64,13 @@ namespace VsR {
 			m_ray.direction = transform.forward;
 
 			if (Physics.Raycast(m_ray, out m_hit, m_maxDistance, m_rayLayerMask)) {
-				m_lineRenderer.material.color = m_hoveredColor;
-
-				if (m_hit.transform.TryGetComponent<XRBaseInteractable>(out XRBaseInteractable interactable))
-					m_hoveringInteractable = interactable;
-				else
-					m_hoveringInteractable = null;
+				m_hit.transform.TryGetComponent<XRBaseInteractable>(out m_hoveringInteractable);
 			} else {
 				m_hoveringInteractable = null;
+				m_hit.point = transform.position + m_ray.direction * m_maxDistance;
 			}
 
-			if (!IsHovering) {
-				m_hoveringInteractable = null;
-				m_hit.point = transform.position + m_ray.direction * m_maxDistance;
-				m_lineRenderer.material.color = m_defaultColor;
-			}
+			m_lineRenderer.material.color = IsHovering ? m_hoveredColor : m_defaultColor;
 
 			m_lineRenderer.SetPosition(0, m_hand.attachTransform.position);
 			m_lineRenderer.SetPosition(1, m_hit.point);

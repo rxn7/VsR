@@ -10,13 +10,14 @@ namespace VsR {
 		[SerializeField] private HandType m_handType;
 		[SerializeField] private Recoil m_recoil;
 
-		public HandType HandType => m_handType;
-		public Recoil Recoil => m_recoil;
-
 		public InputAction TriggerAction { get; private set; }
 		public InputAction GrabAction { get; private set; }
 		public InputAction MagReleaseAction { get; private set; }
 		public InputAction SlideReleaseAction { get; private set; }
+
+		public HandType HandType => m_handType;
+		public Recoil Recoil => m_recoil;
+		public bool IsGrabbing => interactablesSelected.Count > 0;
 
 		protected override void Awake() {
 			base.Awake();

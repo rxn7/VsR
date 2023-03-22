@@ -5,21 +5,27 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace VsR {
 	[RequireComponent(typeof(LineRenderer))]
 	public class HandInteractionRay : MonoBehaviour {
-		[SerializeField] private Hand m_hand;
+		[Header("Settings")]
 		[SerializeField] private float m_maxDistance = 5;
 		[SerializeField] private LayerMask m_rayLayerMask;
-
-		[Header("Haptic Feedback")]
+		[SerializeField] private Color m_defaultColor = Color.red;
+		[SerializeField] private Color m_hoveredColor = Color.green;
 		[SerializeField] private HapticFeedback m_hoverEnterHapticFeedback;
 		[SerializeField] private HapticFeedback m_hoverExitHapticFeedback;
+
+		[Header("References")]
+		[SerializeField] private Hand m_hand;
 
 		private InputAction m_enableRaycastAction;
 		private LineRenderer m_lineRenderer;
 		private XRBaseInteractable m_hoveringInteractable = null;
 		private Ray m_ray;
+		private RaycastHit m_hit;
 		private bool m_wasHoveringLastFrame = false;
 
 		public bool IsHovering => m_hoveringInteractable != null;
+		public bool JustHovered => !m_wasHoveringLastFrame && IsHovering;
+		public bool JustStoppedHovering => m_wasHoveringLastFrame && !IsHovering && m_hand.interactablesSelected.Count == 0;
 
 		private void Awake() {
 			m_lineRenderer = GetComponent<LineRenderer>();
@@ -41,14 +47,10 @@ namespace VsR {
 			transform.SetPositionAndRotation(m_hand.attachTransform.position, m_hand.attachTransform.rotation);
 
 			PerformRaycast();
+			PerformHapticFeedback();
 
 			if (m_hand.GrabAction.WasPressedThisFrame())
 				OnGrab();
-
-			if (!m_wasHoveringLastFrame && IsHovering)
-				m_hand.ApplyHapticFeedback(m_hoverEnterHapticFeedback);
-			else if (m_wasHoveringLastFrame && !IsHovering && m_hand.interactablesSelected.Count == 0)
-				m_hand.ApplyHapticFeedback(m_hoverExitHapticFeedback);
 
 			m_wasHoveringLastFrame = IsHovering;
 		}
@@ -57,36 +59,29 @@ namespace VsR {
 			m_ray.origin = transform.position;
 			m_ray.direction = transform.forward;
 
-			Color color = Color.clear;
-			Vector3 rayEndPoint = Vector3.zero;
-
-			if (Physics.Raycast(m_ray, out RaycastHit hit, m_maxDistance, m_rayLayerMask)) {
-				rayEndPoint = hit.point;
-				color = Color.green;
-
-				if (hit.transform.TryGetComponent<XRBaseInteractable>(out XRBaseInteractable interactable)) {
-					m_hoveringInteractable = interactable;
-				} else {
-					m_hoveringInteractable = null;
-				}
+			if (Physics.Raycast(m_ray, out m_hit, m_maxDistance, m_rayLayerMask)) {
+				m_hit.transform.TryGetComponent<XRBaseInteractable>(out m_hoveringInteractable);
 			} else {
 				m_hoveringInteractable = null;
+				m_hit.point = transform.position + m_ray.direction * m_maxDistance;
 			}
 
-			if (!IsHovering) {
-				m_hoveringInteractable = null;
-				rayEndPoint = transform.position + m_ray.direction * m_maxDistance;
-				color = Color.red;
-			}
-
-			m_lineRenderer.material.color = color;
+			m_lineRenderer.material.color = IsHovering ? m_hoveredColor : m_defaultColor;
 
 			m_lineRenderer.SetPosition(0, m_hand.attachTransform.position);
-			m_lineRenderer.SetPosition(1, rayEndPoint);
+			m_lineRenderer.SetPosition(1, m_hit.point);
+		}
+
+		private void PerformHapticFeedback() {
+			if (JustHovered)
+				m_hand.ApplyHapticFeedback(m_hoverEnterHapticFeedback);
+
+			else if (JustStoppedHovering)
+				m_hand.ApplyHapticFeedback(m_hoverExitHapticFeedback);
 		}
 
 		private void OnGrab() {
-			if (!IsHovering || m_hand.interactablesSelected.Count > 0)
+			if (!IsHovering || m_hand.IsGrabbing)
 				return;
 
 			m_hand.interactionManager.SelectEnter(m_hand, (IXRSelectInteractable)m_hoveringInteractable);

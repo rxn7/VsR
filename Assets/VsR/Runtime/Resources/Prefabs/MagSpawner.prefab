@@ -292,8 +292,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_magazineData: {fileID: 11400000, guid: d4a9b70f5e82f1c4dbc074a75e8f5d48, type: 2}
-  m_text: {fileID: 5228681680117712352}
+  m_data: {fileID: 0}
 --- !u!65 &5228681680411947684
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -420,6 +419,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 06c2e57772925cc42bae500d3547bf74,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9caab1d071d0f8f4a8337a291383608b, type: 2}
     - target: {fileID: 919132149155446097, guid: 06c2e57772925cc42bae500d3547bf74,
         type: 3}
       propertyPath: m_Name

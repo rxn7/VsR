@@ -11,7 +11,7 @@ namespace VsR {
 
 		private static void OnHit(Ray ray, RaycastHit hit, WeaponData data) {
 			if (hit.transform.TryGetComponent<IHIttable>(out IHIttable hittable))
-				hittable.OnHit();
+				hittable.OnHit(hit.point);
 
 			if (hit.rigidbody != null)
 				hit.rigidbody.AddForceAtPosition(ray.direction * data.cartridgeData.BulletMassKg * data.muzzleVelocity, hit.point, ForceMode.Impulse);

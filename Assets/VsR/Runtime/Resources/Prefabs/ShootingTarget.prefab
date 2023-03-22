@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4695074222122217930}
-  - component: {fileID: 2293364806516971208}
+  - component: {fileID: 8136433124179849296}
   - component: {fileID: 5734406415238155791}
   - component: {fileID: 8643989551560797956}
   - component: {fileID: 7768762020891028577}
@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 126
   m_IsActive: 1
 --- !u!4 &4695074222122217930
 Transform:
@@ -29,13 +29,13 @@ Transform:
   m_GameObject: {fileID: 396436306922397883}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 50, z: 50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2293364806516971208
+--- !u!33 &8136433124179849296
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,8 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78151064d0bdff94dac8c23da11d0e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_renderer: {fileID: 5734406415238155791}
   m_hitSound: {fileID: 8300000, guid: 7f35c026746eeb9478f3a69c5203915f, type: 3}
+  m_scoreRange:
+    min: 5
+    max: 10
 --- !u!64 &7768762020891028577
 MeshCollider:
   m_ObjectHideFlags: 0

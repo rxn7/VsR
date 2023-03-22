@@ -1,29 +1,28 @@
 using UnityEngine;
-using System.Collections;
 
 namespace VsR {
 	public class ShootingTarget : MonoBehaviour, IHIttable {
-		[SerializeField] private MeshRenderer m_renderer;
 		[SerializeField] private AudioClip m_hitSound;
-		private Coroutine m_onHitCoroutine = null;
+		[SerializeField] private Math.FloatRange m_scoreRange = new Math.FloatRange(5, 10);
+		private MeshFilter m_meshFilter;
 
-		public void OnHit() {
-			SoundPoolManager.Instance.PlaySound(m_hitSound, transform.position, Random.Range(0.95f, 1.05f), 10, 0.5f);
-			if (m_onHitCoroutine != null)
-				StopCoroutine(m_onHitCoroutine);
+		private float m_size;
 
-			m_onHitCoroutine = StartCoroutine(OnHitCoroutine());
+		private void Awake() {
+			m_meshFilter = GetComponent<MeshFilter>();
+			m_size = m_meshFilter.mesh.bounds.extents.x * transform.lossyScale.x;
 		}
 
-		private IEnumerator OnHitCoroutine() {
-			float elapsed = 0.0f;
-			float duration = 0.5f;
-			while (elapsed < duration) {
-				elapsed += Time.deltaTime;
-				m_renderer.material.color = Color.Lerp(Color.red, Color.white, elapsed / duration);
-				yield return null;
-			}
-			m_renderer.material.color = Color.white;
+		public void OnHit(Vector3 point) {
+			SoundPoolManager.Instance.PlaySound(m_hitSound, transform.position, Random.Range(0.95f, 1.05f), 10, 0.5f);
+
+			Vector3 distanceVector = transform.InverseTransformDirection(point - transform.position);
+			distanceVector.z = 0.0f;
+
+			float distance = distanceVector.magnitude;
+			int score = Mathf.CeilToInt(Mathf.Lerp(m_scoreRange.min, m_scoreRange.max, (m_size - distance) / m_size));
+
+			Debug.Log($"d: {distance}, s: {score}");
 		}
 	}
 }

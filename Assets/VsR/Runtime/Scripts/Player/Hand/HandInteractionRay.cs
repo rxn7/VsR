@@ -5,19 +5,23 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace VsR {
 	[RequireComponent(typeof(LineRenderer))]
 	public class HandInteractionRay : MonoBehaviour {
-		[SerializeField] private Hand m_hand;
+		[Header("Settings")]
 		[SerializeField] private float m_maxDistance = 5;
 		[SerializeField] private LayerMask m_rayLayerMask;
-
-		[Header("Haptic Feedback")]
+		[SerializeField] private Color m_defaultColor = Color.red;
+		[SerializeField] private Color m_hoveredColor = Color.green;
 		[SerializeField] private HapticFeedback m_hoverEnterHapticFeedback;
 		[SerializeField] private HapticFeedback m_hoverExitHapticFeedback;
+
+		[Header("References")]
+		[SerializeField] private Hand m_hand;
 
 		private InputAction m_enableRaycastAction;
 		private LineRenderer m_lineRenderer;
 		private XRBaseInteractable m_hoveringInteractable = null;
 		private Ray m_ray;
 		private bool m_wasHoveringLastFrame = false;
+		private RaycastHit m_hit;
 
 		public bool IsHovering => m_hoveringInteractable != null;
 
@@ -57,32 +61,25 @@ namespace VsR {
 			m_ray.origin = transform.position;
 			m_ray.direction = transform.forward;
 
-			Color color = Color.clear;
-			Vector3 rayEndPoint = Vector3.zero;
+			if (Physics.Raycast(m_ray, out m_hit, m_maxDistance, m_rayLayerMask)) {
+				m_lineRenderer.material.color = m_hoveredColor;
 
-			if (Physics.Raycast(m_ray, out RaycastHit hit, m_maxDistance, m_rayLayerMask)) {
-				rayEndPoint = hit.point;
-				color = Color.green;
-
-				if (hit.transform.TryGetComponent<XRBaseInteractable>(out XRBaseInteractable interactable)) {
+				if (m_hit.transform.TryGetComponent<XRBaseInteractable>(out XRBaseInteractable interactable))
 					m_hoveringInteractable = interactable;
-				} else {
+				else
 					m_hoveringInteractable = null;
-				}
 			} else {
 				m_hoveringInteractable = null;
 			}
 
 			if (!IsHovering) {
 				m_hoveringInteractable = null;
-				rayEndPoint = transform.position + m_ray.direction * m_maxDistance;
-				color = Color.red;
+				m_hit.point = transform.position + m_ray.direction * m_maxDistance;
+				m_lineRenderer.material.color = m_defaultColor;
 			}
 
-			m_lineRenderer.material.color = color;
-
 			m_lineRenderer.SetPosition(0, m_hand.attachTransform.position);
-			m_lineRenderer.SetPosition(1, rayEndPoint);
+			m_lineRenderer.SetPosition(1, m_hit.point);
 		}
 
 		private void OnGrab() {

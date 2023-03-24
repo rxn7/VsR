@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744ab951e062c804884fab903b506f07, type: 3}
   m_Name: B92
   m_EditorClassIdentifier: 
+  creditsData:
+    modelCreator: pichuliru.itch.io
+    soundCreators:
+    - freesound.org
   shootType: 1
   shootingPhysicsType: 2
-  massKg: 1
+  massKg: 0.97
   roundsPerMinute: 800
   muzzleVelocity: 381
   cartridgeEjectForce: 2

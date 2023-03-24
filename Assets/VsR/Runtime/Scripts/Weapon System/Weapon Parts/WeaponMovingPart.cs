@@ -22,6 +22,7 @@ namespace VsR {
 
 		protected override void Awake() {
 			base.Awake();
+			IWeaponPart.Validate(this);
 			m_initPosition = transform.localPosition;
 			m_initToMaxSlideDistance = Vector3.Distance(m_initPosition, m_maxSlidePosition);
 			interactionLayers = InteractionLayerMask.GetMask("Hand");

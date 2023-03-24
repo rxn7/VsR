@@ -5,6 +5,7 @@ namespace VsR {
 	[System.Serializable]
 	public class MagazineData : ScriptableObject {
 		[Header("General")]
+		public CreditsData creditsData;
 		public uint capacity;
 
 		[Header("Audio")]

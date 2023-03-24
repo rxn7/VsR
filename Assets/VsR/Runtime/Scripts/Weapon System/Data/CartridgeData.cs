@@ -4,6 +4,7 @@ namespace VsR {
 	[CreateAssetMenu(menuName = "VsR/BulletData", fileName = "bullet")]
 	public class CartridgeData : ScriptableObject {
 		[Header("General")]
+		public CreditsData creditsData;
 		public float bulletMassGrams = 7;
 		public float bulletDiameterMm = 9;
 		public float bulletLengthMm = 19;

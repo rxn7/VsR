@@ -6,24 +6,27 @@ namespace VsR {
 		public event System.Action onRacked;
 		public event System.Action onRackedBack;
 
-		[SerializeField] protected float m_releaseAnimationSpeed = 0.03f;
+		[SerializeField] protected float m_releaseAnimationSpeed = 0.01f;
 		protected bool m_racked = false;
+		private float m_slidePercentage;
 
 		public bool Racked => m_racked;
+		public bool IsMoving => transform.localPosition != m_initPosition;
+		public float SlidePercentage => m_slidePercentage;
 
 		protected override void Awake() {
 			base.Awake();
 		}
 
 		protected override float UpdateSlideMovement() {
-			float slidePercentage = base.UpdateSlideMovement();
+			m_slidePercentage = base.UpdateSlideMovement();
 
-			if (m_racked && slidePercentage < 0.6f)
+			if (m_racked && m_slidePercentage < 0.6f)
 				RackBack();
-			else if (!m_racked && slidePercentage >= 0.99f)
+			else if (!m_racked && m_slidePercentage >= 0.99f)
 				Rack();
 
-			return slidePercentage;
+			return m_slidePercentage;
 		}
 
 		protected void Rack() {
@@ -40,8 +43,10 @@ namespace VsR {
 		}
 
 		protected IEnumerator ReleaseAnimation() {
-			while (Vector3.Distance(transform.localPosition, m_initPosition) != 0) {
+			float distance;
+			while ((distance = Vector3.Distance(transform.localPosition, m_initPosition)) != 0) {
 				transform.localPosition = Vector3.MoveTowards(transform.localPosition, m_initPosition, m_releaseAnimationSpeed * Time.deltaTime);
+				m_slidePercentage = distance / m_initToMaxSlideDistance;
 				yield return null;
 			}
 		}

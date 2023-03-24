@@ -11,6 +11,7 @@ namespace VsR.Editors {
 		private SerializedProperty m_cartridgeInChamberProperty;
 		private SerializedProperty m_barrelEndProperty;
 		private SerializedProperty m_cartridgeEjectPointProperty;
+		private SerializedProperty m_attachTransformProperty;
 
 		protected virtual void OnEnable() {
 			m_collidersProperty = serializedObject.FindProperty("m_Colliders");
@@ -20,6 +21,7 @@ namespace VsR.Editors {
 			m_cartridgeInChamberProperty = serializedObject.FindProperty("m_cartridgeInChamberObject");
 			m_barrelEndProperty = serializedObject.FindProperty("m_barrelEndPoint");
 			m_cartridgeEjectPointProperty = serializedObject.FindProperty("m_cartridgeEjectPoint");
+			m_attachTransformProperty = serializedObject.FindProperty("m_AttachTransform");
 		}
 
 		public override void OnInspectorGUI() {
@@ -38,6 +40,7 @@ namespace VsR.Editors {
 			EditorGUILayout.PropertyField(m_barrelEndProperty);
 			EditorGUILayout.PropertyField(m_cartridgeEjectPointProperty);
 			EditorGUILayout.PropertyField(m_collidersProperty);
+			EditorGUILayout.PropertyField(m_attachTransformProperty);
 		}
 	}
 }

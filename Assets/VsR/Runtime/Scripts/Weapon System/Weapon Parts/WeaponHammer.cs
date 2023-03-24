@@ -7,6 +7,10 @@ namespace VsR {
 		[SerializeField] private Vector3 m_maxRotation;
 		private Vector3 m_initRotation;
 
+		private void Awake() {
+			IWeaponPart.Validate(this);
+		}
+
 		private void Start() {
 			m_initRotation = transform.localEulerAngles;
 			Weapon.onFire += OnFire;

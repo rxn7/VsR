@@ -9,6 +9,7 @@ namespace VsR {
 
 		protected override void Awake() {
 			base.Awake();
+			IWeaponPart.Validate(this);
 			interactionLayers = InteractionLayerMask.GetMask("Hand");
 		}
 

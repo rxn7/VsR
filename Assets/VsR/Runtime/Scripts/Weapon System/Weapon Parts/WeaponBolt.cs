@@ -12,17 +12,11 @@ namespace VsR {
 		protected bool m_boltFireAnimating = false;
 		protected bool m_boltRoundEjected = false;
 		protected float m_boltAlpha = 0.0f;
-		private bool _m_isOpen = false;
-
-		public bool IsOpen {
-			get => _m_isOpen;
-			set {
-				_m_isOpen = value;
-				transform.SetParent(value ? Weapon.transform : m_parent, false);
-			}
-		}
+		public bool IsOpen = false;
 
 		protected void Awake() {
+			IWeaponPart.Validate(this);
+
 			m_initPosition = transform.localPosition;
 			m_parent = transform.parent;
 			m_shootAnimationDuration = Weapon.Data.SecondsPerRound;
@@ -57,9 +51,10 @@ namespace VsR {
 					m_boltFireAnimating = false;
 					m_boltAlpha = 0.0f;
 				}
-			} else {
+			} else if (!IsOpen && m_slide.IsMoving)
+				transform.localPosition = Vector3.Lerp(m_initPosition, m_maxPosition, m_slide.SlidePercentage);
+			else
 				transform.localPosition = IsOpen ? m_maxPosition : m_initPosition;
-			}
 		}
 	}
 }

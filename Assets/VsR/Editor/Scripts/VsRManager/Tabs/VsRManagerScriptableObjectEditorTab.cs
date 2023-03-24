@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 namespace VsR.Editors {
 	public abstract class VsRManagerScriptableObjectEditorTabBase : VsRManagerTab {
@@ -27,8 +28,9 @@ namespace VsR.Editors {
 		}
 
 		public override System.Type DataType => typeof(T);
-		protected abstract Object Prefab { get; }
+		protected abstract Object Prefab { get; set; }
 		protected abstract bool DeleteWithPrefab { get; }
+		protected abstract string PrefabPath { get; }
 		protected virtual void OnObjectSelected() { }
 		protected Vector2 m_inspectorScrollPos;
 
@@ -73,8 +75,13 @@ namespace VsR.Editors {
 		}
 
 		protected virtual void BeforeDrawInspector() {
-			if (GUILayout.Button("Open prefab"))
-				AssetDatabase.OpenAsset(Prefab);
+			if (Prefab) {
+				if (GUILayout.Button("Open prefab"))
+					AssetDatabase.OpenAsset(Prefab);
+			} else {
+				if (GUILayout.Button("Create prefab"))
+					CreatePrefab();
+			}
 		}
 
 		public void DrawList() {
@@ -117,6 +124,16 @@ namespace VsR.Editors {
 				AssetDatabase.DeleteAsset(AssetDatabase.GetAssetPath(Prefab));
 
 			SelectedObject = null;
+		}
+
+		protected void CreatePrefab() {
+			if (!Directory.Exists(PrefabPath))
+				Directory.CreateDirectory(PrefabPath);
+
+			GameObject obj = new GameObject(SelectedObject.name);
+
+			Prefab = PrefabUtility.SaveAsPrefabAsset(obj, $"{PrefabPath}/{SelectedObject.name}.prefab");
+			AssetDatabase.OpenAsset(Prefab);
 		}
 	}
 }

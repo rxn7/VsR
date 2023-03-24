@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88a2eba519e2ab40ace55482df837a3, type: 3}
   m_Name: 5.56x45mm NATO
   m_EditorClassIdentifier: 
+  creditsData:
+    modelCreator: pichuliru.itch.io
+    soundCreators:
+    - freesound.org
   bulletMassGrams: 4
   bulletDiameterMm: 5.56
   bulletLengthMm: 9

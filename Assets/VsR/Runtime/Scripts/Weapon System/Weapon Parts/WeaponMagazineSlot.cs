@@ -11,6 +11,7 @@ namespace VsR {
 
 		protected override void Awake() {
 			base.Awake();
+			IWeaponPart.Validate(this);
 
 			showInteractableHoverMeshes = false;
 
@@ -20,9 +21,6 @@ namespace VsR {
 
 		public override bool CanSelect(IXRSelectInteractable interactable) {
 			bool isSelecting = IsSelecting(interactable);
-
-			if (!Weapon.GripHand && !isSelecting)
-				return false;
 
 			if (hasSelection && !isSelecting)
 				return false;

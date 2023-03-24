@@ -5,7 +5,13 @@ using System.IO;
 namespace VsR.Editors {
 	public class VsRManagerMagazinesTab : VsRManagerScriptableObjectEditorTab<MagazineData> {
 		public override string Name => "Magazines";
-		protected override Object Prefab => SelectedObject.prefab;
+
+		protected override Object Prefab {
+			get => SelectedObject.prefab;
+			set => SelectedObject.prefab = (Magazine)value;
+		}
+
+		protected override string PrefabPath => "Assets/VsR/Runtime/Resources/Prefabs/Magazines";
 		protected override bool DeleteWithPrefab => true;
 
 		protected override void OnObjectSelected() {
@@ -14,13 +20,6 @@ namespace VsR.Editors {
 			if (SelectedObject.prefab) {
 				AssetDatabase.OpenAsset(SelectedObject.prefab);
 			} else {
-				string folderPath = "Assets/VsR/Runtime/Resources/Prefabs/Magazines";
-				Directory.CreateDirectory(folderPath);
-
-				GameObject obj = new GameObject(SelectedObject.name, typeof(Magazine));
-
-				SelectedObject.prefab = PrefabUtility.SaveAsPrefabAsset(obj, $"{folderPath}/{SelectedObject.name}.prefab").GetComponent<Magazine>();
-				AssetDatabase.OpenAsset(SelectedObject.prefab);
 			}
 		}
 

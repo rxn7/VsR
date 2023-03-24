@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8830601961d52de41ad2e0e29acdd658, type: 3}
-  m_Name: MK18 30 rds
+  m_Name: STANAG 30rds
   m_EditorClassIdentifier: 
-  displayName: MK18 30 rds
+  creditsData:
+    modelCreator: notcplkerry
+    soundCreators:
+    - freesound.org
   capacity: 30
   slideInSound: {fileID: 8300000, guid: a1796899b90ca3e48aaec45cbef93cfc, type: 3}
   slideOutSound: {fileID: 8300000, guid: 87921e9c51d53a64388d4e1f85753f4c, type: 3}

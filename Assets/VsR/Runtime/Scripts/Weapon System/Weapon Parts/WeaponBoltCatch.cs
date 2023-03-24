@@ -5,10 +5,13 @@ namespace VsR {
 		[field: SerializeField] public Weapon Weapon { get; set; }
 		[SerializeField] private AudioClip m_boltReleaseClip;
 		[SerializeField] public WeaponBolt m_bolt;
-		[SerializeField] private WeaponMagazineSlot m_magSlot;
+
+		private void Awake() {
+			IWeaponPart.Validate(this);
+		}
 
 		protected void OnTriggerEnter(Collider collider) {
-			if (!collider.gameObject.TryGetComponent<Hand>(out Hand hand) || !m_bolt.IsOpen || !Weapon.GripHand)
+			if (!collider.gameObject.TryGetComponent<Hand>(out Hand hand) || !m_bolt.IsOpen)
 				return;
 
 			if (hand.interactablesSelected.Contains(Weapon))

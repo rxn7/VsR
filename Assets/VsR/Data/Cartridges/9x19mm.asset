@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d88a2eba519e2ab40ace55482df837a3, type: 3}
   m_Name: 9x19mm
   m_EditorClassIdentifier: 
+  creditsData:
+    modelCreator: pichuliru.itch.io
+    soundCreators:
+    - freesound.org
   bulletMassGrams: 7
   bulletDiameterMm: 9
   bulletLengthMm: 7.5

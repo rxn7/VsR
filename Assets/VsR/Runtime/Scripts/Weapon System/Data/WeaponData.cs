@@ -16,6 +16,7 @@ namespace VsR {
 		}
 
 		[Header("General")]
+		public CreditsData creditsData;
 		public ShootType shootType;
 		public ShootingPhysicsType shootingPhysicsType;
 

@@ -13,7 +13,7 @@ namespace VsR {
 		public AudioClip slideOutSound;
 
 		[Header("References")]
-		public Magazine prefab;
+		public GameObject prefab;
 		public CartridgeData cartridgeData;
 	}
 }

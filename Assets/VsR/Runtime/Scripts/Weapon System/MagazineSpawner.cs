@@ -27,7 +27,7 @@ namespace VsR {
 
 			interactionManager.SelectExit(args.interactorObject, this);
 
-			Magazine mag = Instantiate(m_data.prefab);
+			Magazine mag = Instantiate(m_data.prefab).GetComponent<Magazine>();
 			mag.transform.position = args.interactorObject.GetAttachTransform(mag).position;
 
 			interactionManager.SelectEnter(args.interactorObject, mag);

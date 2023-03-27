@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 
 namespace VsR.Editors {
 	public class VsRManagerCartridgesTab : VsRManagerScriptableObjectEditorTab<CartridgeData> {
@@ -14,6 +15,12 @@ namespace VsR.Editors {
 		public override void OnEnable() {
 			if (!s_prefab)
 				s_prefab = Resources.Load<GameObject>("Prefabs/Cartridge");
+		}
+
+		protected override void OnObjectSelected() {
+			base.OnObjectSelected();
+			Prefab.GetComponent<Cartridge>().Setup(SelectedObject, true);
+			AssetDatabase.SaveAssets();
 		}
 	}
 }

@@ -73,6 +73,7 @@ namespace VsR.Editors {
 			if (Prefab)
 				AssetDatabase.OpenAsset(Prefab);
 		}
+
 		public override void Open(Object obj) {
 			SelectedObject = (T)obj;
 		}

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 744ab951e062c804884fab903b506f07, type: 3}
-  m_Name: B92
+  m_Name: M1911
   m_EditorClassIdentifier: 
   creditsData:
-    modelCreator: pichuliru.itch.io
+    modelCreator: sketchfab.com/notcplkerry
     soundCreators:
-    - freesound.org
+    - 
   shootType: 1
   shootingPhysicsType: 2
-  massKg: 0.97
-  roundsPerMinute: 800
-  muzzleVelocity: 381
-  cartridgeEjectForce: 2
+  massKg: 1
+  roundsPerMinute: 1400
+  muzzleVelocity: 253
+  cartridgeEjectForce: 3
   cartridgeEjectTorque: 10
   fireTriggerPressure: 0.5
   resetTriggerPressure: 0.495
@@ -34,26 +34,25 @@ MonoBehaviour:
         min: 0
         max: 0
       y:
-        min: 0.01
-        max: 0.02
+        min: 0.04
+        max: 0.06
       z:
         min: -0.2
         max: -0.15
     torque:
       x:
-        min: -28
-        max: -22
+        min: -30
+        max: -26
       y:
         min: -8
         max: 8
       z:
         min: -6
         max: 6
-  shootSound: {fileID: 8300000, guid: 9bd4bd0d8c64b9d4384d4216fa607ba2, type: 3}
-  rackSound: {fileID: 8300000, guid: 6530995307174e1488607341642b466b, type: 3}
-  rackBackSound: {fileID: 8300000, guid: def3cf0aca184b64cb8ab6f333f751f6, type: 3}
+  shootSound: {fileID: 8300000, guid: 0dba2f4ee13b73947bb2f5db2b5331d7, type: 3}
+  rackSound: {fileID: 8300000, guid: 31d40cb4073edf94ba393f83cc5c8975, type: 3}
+  rackBackSound: {fileID: 8300000, guid: 88396b2cbc629a848bc5b550a451343d, type: 3}
   dryFireSound: {fileID: 8300000, guid: 43004afb21f215347b7c5fe7b13df0d1, type: 3}
-  prefab: {fileID: 3488656155505292568, guid: ddd64e55836a07849b08b79411acf650, type: 3}
-  cartridgeData: {fileID: 11400000, guid: 91622ac69047347459f9645ba0cfeb8f, type: 2}
-  compatibleMagazines:
-  - {fileID: 11400000, guid: d4a9b70f5e82f1c4dbc074a75e8f5d48, type: 2}
+  prefab: {fileID: 8146458927595324848, guid: 89813f151ffcd8249ba3818ecd6e068d, type: 3}
+  cartridgeData: {fileID: 0}
+  compatibleMagazines: []

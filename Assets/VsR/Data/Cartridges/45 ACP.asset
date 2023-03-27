@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d88a2eba519e2ab40ace55482df837a3, type: 3}
-  m_Name: 5.56x45mm NATO
+  m_Name: 45 ACP
   m_EditorClassIdentifier: 
   creditsData:
-    modelCreator: pichuliru.itch.io
-    soundCreators:
-    - freesound.org
-  bulletMassGrams: 4
-  bulletLengthMm: 19
-  bulletDiameterMm: 5.56
-  cartridgeLengthMm: 45
-  cartridgeRadiusMm: 6.5
+    modelCreator: sketchfab.com/notcplkerry
+    soundCreators: []
+  bulletMassGrams: 15
+  bulletLengthMm: 10
+  bulletDiameterMm: 11.5
+  cartridgeLengthMm: 22.8
+  cartridgeRadiusMm: 12
   cartridgeCollisionSounds:
   - {fileID: 8300000, guid: 394b4b79c53936440b29a934c07b0307, type: 3}
   - {fileID: 8300000, guid: a765b47d7517db641a4089a6d4ad3228, type: 3}
-  bulletMesh: {fileID: -8552577248873865910, guid: b8fbb4f474d49e841bee33f2f1fd9d47,
+  bulletMesh: {fileID: 3760993939556405975, guid: 7eb0f32c229f3494399be7b183e2b7c7,
     type: 3}
-  cartridgeMesh: {fileID: 5182817865348278607, guid: b8fbb4f474d49e841bee33f2f1fd9d47,
+  cartridgeMesh: {fileID: 6917300318798997743, guid: 7eb0f32c229f3494399be7b183e2b7c7,
     type: 3}

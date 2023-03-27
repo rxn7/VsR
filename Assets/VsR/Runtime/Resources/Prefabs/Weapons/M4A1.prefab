@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525732924726802031}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00075, y: 0.016, z: 0.0989}
+  m_LocalPosition: {x: -0.00075, y: 0.016, z: 0.0889}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1005,6 +1005,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: -3313178690269062153, guid: 19bbf366d0b8cf243b8185200bbccf04,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.27725032
+      objectReference: {fileID: 0}
+    - target: {fileID: -3313178690269062153, guid: 19bbf366d0b8cf243b8185200bbccf04,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.022105584
+      objectReference: {fileID: 0}
     - target: {fileID: -2423087450981106509, guid: 19bbf366d0b8cf243b8185200bbccf04,
         type: 3}
       propertyPath: m_Layer
@@ -1206,9 +1216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d9fdca2a01dde48ae740cc70207d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_range:
-    min: -18
-    max: 3
+  m_type: 0
+  m_axis: 0
+  m_maxValue: 18
 --- !u!1 &403912171426834025 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5246285270716806726, guid: 19bbf366d0b8cf243b8185200bbccf04,
@@ -1230,6 +1240,7 @@ MonoBehaviour:
   <Weapon>k__BackingField: {fileID: 6405731358179444490}
   m_maxPosition: {x: 0.002993006, y: 0.114, z: 0.0047}
   m_slide: {fileID: 6879464563080191609}
+  IsOpen: 0
 --- !u!1 &3407842389201179183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7070477462218523136, guid: 19bbf366d0b8cf243b8185200bbccf04,
@@ -1319,8 +1330,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <Weapon>k__BackingField: {fileID: 6405731358179444490}
-  m_maxSlidePosition: {x: -0.00088416773, y: 0.3722, z: -0.022105584}
+  m_maxSlideValue: 0.04
   m_slideAxis: 2
+  m_axisNegative: 0
   m_canInteractWithoutWeaponSelected: 1
 --- !u!136 &7890279465040573260
 CapsuleCollider:
@@ -1440,8 +1452,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <Weapon>k__BackingField: {fileID: 6405731358179444490}
-  m_maxSlidePosition: {x: -0.0045175203, y: 0.1694, z: 0.020843515}
+  m_maxSlideValue: 0.075
   m_slideAxis: 2
+  m_axisNegative: 0
   m_canInteractWithoutWeaponSelected: 1
   m_releaseAnimationSpeed: 1
 --- !u!136 &5523611642571025227
@@ -1535,6 +1548,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9caab1d071d0f8f4a8337a291383608b, type: 2}
+    - target: {fileID: 792591049895531527, guid: b8fbb4f474d49e841bee33f2f1fd9d47,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dacdea221f83b8445a9b1e8a01a981e5, type: 2}
     - target: {fileID: 919132149155446097, guid: b8fbb4f474d49e841bee33f2f1fd9d47,
         type: 3}
       propertyPath: m_Name

@@ -4,7 +4,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
 	public class PistolSlide : WeaponSlide {
-		[SerializeField] protected Vector3 m_lockedSlidePosition;
 		private float m_shootAnimationDuration;
 
 		public event System.Action onLocked;
@@ -28,7 +27,7 @@ namespace VsR {
 			base.Awake();
 			m_shootAnimationDuration = Weapon.Data.SecondsPerRound;
 			Weapon.onFire += OnWeaponFire;
-			onLocked += () => transform.localPosition = m_lockedSlidePosition;
+			onLocked += () => transform.localPosition = Vector3.Lerp(m_initPosition, m_maxSlidePosition, 0.95f);
 		}
 
 		private IEnumerator ShootSequence() {

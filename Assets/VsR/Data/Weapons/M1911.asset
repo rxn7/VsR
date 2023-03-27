@@ -54,5 +54,6 @@ MonoBehaviour:
   rackBackSound: {fileID: 8300000, guid: 88396b2cbc629a848bc5b550a451343d, type: 3}
   dryFireSound: {fileID: 8300000, guid: 43004afb21f215347b7c5fe7b13df0d1, type: 3}
   prefab: {fileID: 8146458927595324848, guid: 89813f151ffcd8249ba3818ecd6e068d, type: 3}
-  cartridgeData: {fileID: 0}
-  compatibleMagazines: []
+  cartridgeData: {fileID: 11400000, guid: 88cfa1bcead47a8438470274f0251dd3, type: 2}
+  compatibleMagazines:
+  - {fileID: 11400000, guid: 3c201ee1221436c4cb3c830eff61fc16, type: 2}

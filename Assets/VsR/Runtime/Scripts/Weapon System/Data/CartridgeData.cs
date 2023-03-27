@@ -7,7 +7,7 @@ namespace VsR {
 		public CreditsData creditsData;
 		public float bulletMassGrams = 7;
 		public float bulletLengthMm = 10;
-		public float bulletRadiusMm = 9;
+		public float bulletDiameterMm = 9;
 		public float cartridgeLengthMm = 19;
 		public float cartridgeRadiusMm = 10;
 

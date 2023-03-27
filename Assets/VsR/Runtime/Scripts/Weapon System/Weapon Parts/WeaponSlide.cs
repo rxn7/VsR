@@ -46,7 +46,7 @@ namespace VsR {
 			float distance;
 			while ((distance = Vector3.Distance(transform.localPosition, m_initPosition)) != 0) {
 				transform.localPosition = Vector3.MoveTowards(transform.localPosition, m_initPosition, m_releaseAnimationSpeed * Time.deltaTime);
-				m_slidePercentage = distance / m_initToMaxSlideDistance;
+				m_slidePercentage = distance / m_maxSlideValue;
 				yield return null;
 			}
 		}

@@ -28,10 +28,9 @@ namespace VsR.Editors {
 		}
 
 		public override System.Type DataType => typeof(T);
-		protected abstract Object Prefab { get; set; }
+		protected abstract GameObject Prefab { get; set; }
 		protected abstract bool DeleteWithPrefab { get; }
 		protected abstract string PrefabPath { get; }
-		protected virtual void OnObjectSelected() { }
 		protected Vector2 m_inspectorScrollPos;
 
 		public override void Draw() {
@@ -70,6 +69,10 @@ namespace VsR.Editors {
 			EditorGUILayout.EndHorizontal();
 		}
 
+		protected virtual void OnObjectSelected() {
+			if (Prefab)
+				AssetDatabase.OpenAsset(Prefab);
+		}
 		public override void Open(Object obj) {
 			SelectedObject = (T)obj;
 		}

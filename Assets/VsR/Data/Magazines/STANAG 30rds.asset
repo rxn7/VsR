@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: STANAG 30rds
   m_EditorClassIdentifier: 
   creditsData:
-    modelCreator: notcplkerry
+    modelCreator: sketchfab.com/notcplkerry
     soundCreators:
     - freesound.org
   capacity: 30

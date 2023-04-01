@@ -3,17 +3,16 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
 	public class WeaponMovingPart : XRBaseInteractable, IWeaponPart {
-		public enum SlideAxis { X, Y, Z, NEG_X, NEG_Y, NEG_Z }
-
 		public event System.Action onRelease;
 
 		[field: SerializeField] public Weapon Weapon { get; set; }
 
 		[SerializeField] protected Vector3 m_maxSlidePosition;
-		[SerializeField] protected SlideAxis m_slideAxis = SlideAxis.Z;
+		[SerializeField] protected Math.Axis m_slideAxis = Math.Axis.Z;
+		[SerializeField] protected bool m_axisNegative = false;
 		[SerializeField] protected bool m_canInteractWithoutWeaponSelected = false;
+		protected float m_maxSlideValue;
 		protected Vector3 m_initPosition;
-		protected float m_initToMaxSlideDistance;
 		protected Vector3 m_startHandLocalPosition;
 		protected Hand m_hand;
 
@@ -23,8 +22,9 @@ namespace VsR {
 		protected override void Awake() {
 			base.Awake();
 			IWeaponPart.Validate(this);
+
 			m_initPosition = transform.localPosition;
-			m_initToMaxSlideDistance = Vector3.Distance(m_initPosition, m_maxSlidePosition);
+			m_maxSlideValue = Vector3.Distance(m_initPosition, m_maxSlidePosition);
 			interactionLayers = InteractionLayerMask.GetMask("Hand");
 		}
 
@@ -38,12 +38,12 @@ namespace VsR {
 		protected virtual float UpdateSlideMovement() {
 			transform.localPosition = m_initPosition;
 
-			int axisIdx = (int)m_slideAxis % 3;
+			int axisIdx = (int)m_slideAxis;
 			float handDifference = Weapon.transform.InverseTransformDirection(transform.TransformDirection(m_startHandLocalPosition - getHandLocalPosition()))[axisIdx];
-			if ((int)m_slideAxis > 2)
+			if (m_axisNegative)
 				handDifference *= -1;
 
-			float slidePercentage = Mathf.Clamp01(handDifference / m_initToMaxSlideDistance);
+			float slidePercentage = Mathf.Clamp01(handDifference / m_maxSlideValue);
 
 			transform.localPosition = Vector3.Lerp(m_initPosition, m_maxSlidePosition, slidePercentage);
 

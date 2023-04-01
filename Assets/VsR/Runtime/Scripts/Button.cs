@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using System.Collections.Generic;
 
 namespace VsR {
-	public class Button : MonoBehaviour {
+	public class PhysicalButton : MonoBehaviour {
 		public UnityEvent onPressed;
 		public UnityEvent<bool> onToggled;
 

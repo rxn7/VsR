@@ -2,18 +2,19 @@ using UnityEngine;
 using UnityEngine.Pool;
 
 namespace VsR {
-	public class CartridgePoolManager : SingletonBehaviour<CartridgePoolManager> {
-		private GameObject m_prefab;
-		public ObjectPool<Cartridge> Pool { get; private set; }
+	public static class CartridgePoolManager {
+		private const string PREFAB_PATH = "Prefabs/Pooled/Cartridge";
+		private static GameObject s_prefab;
+		public static ObjectPool<Cartridge> Pool { get; private set; }
 
-		protected override void Awake() {
-			base.Awake();
-			m_prefab = (GameObject)Resources.Load("Prefabs/Cartridge");
-			Pool = new ObjectPool<Cartridge>(CreatePooledCartridge, (Cartridge b) => b.OnGet(), (Cartridge b) => b.OnRelease(), (Cartridge b) => Destroy(b), true, 30, 100);
+		[RuntimeInitializeOnLoadMethod()]
+		private static void Init() {
+			s_prefab = (GameObject)Resources.Load(PREFAB_PATH);
+			Pool = new ObjectPool<Cartridge>(CreatePooledCartridge, (Cartridge b) => b.OnGet(), (Cartridge b) => b.OnRelease(), (Cartridge b) => GameObject.Destroy(b), true, 30, 100);
 		}
 
-		private Cartridge CreatePooledCartridge() {
-			Cartridge b = Instantiate(m_prefab, transform, false).GetComponent<Cartridge>();
+		private static Cartridge CreatePooledCartridge() {
+			Cartridge b = GameObject.Instantiate(s_prefab).GetComponent<Cartridge>();
 			b.gameObject.SetActive(false);
 			return b;
 		}

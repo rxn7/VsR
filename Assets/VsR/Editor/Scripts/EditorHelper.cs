@@ -5,6 +5,8 @@ using System.IO;
 namespace VsR.Editors {
 	public static class EditorHelper {
 		public static void CreateAssetSafe(Object asset, string path) {
+			path = AssetDatabase.GenerateUniqueAssetPath(path);
+
 			Directory.CreateDirectory(Path.GetDirectoryName(path));
 
 			if (File.Exists(path))

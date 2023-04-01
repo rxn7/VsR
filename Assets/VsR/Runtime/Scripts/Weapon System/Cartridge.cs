@@ -30,7 +30,7 @@ namespace VsR {
 
 			m_collider.height = data.cartridgeLengthMm * 0.001f;
 			m_collider.radius = data.cartridgeRadiusMm * 0.0005f;
-			m_collider.center = Vector3.back * (m_collider.height + data.bulletLengthMm * 0.0005f) * 0.5f;
+			m_collider.center = Vector3.back * m_collider.height * 0.5f;
 		}
 
 		public void Eject(Weapon weapon, float force, float torque, FloatRange randomness, bool withBullet = false) {
@@ -53,7 +53,7 @@ namespace VsR {
 
 		private void Release() {
 			CancelInvoke();
-			CartridgePoolManager.Instance.Pool.Release(this);
+			CartridgePoolManager.Pool.Release(this);
 		}
 
 		public void OnGet() {

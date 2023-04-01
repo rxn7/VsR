@@ -11,8 +11,8 @@ namespace VsR {
 		private Quaternion m_targetRotation = Quaternion.identity;
 
 		private void Awake() {
-			m_initPosition = transform.localPosition;
-			m_initRotation = transform.localRotation;
+			m_targetPosition = m_initPosition = transform.localPosition;
+			m_targetRotation = m_initRotation = transform.localRotation;
 		}
 
 		private void Update() {

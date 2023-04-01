@@ -7,11 +7,11 @@ namespace VsR {
 
 		[field: SerializeField] public Weapon Weapon { get; set; }
 
-		[SerializeField] protected float m_maxSlideValue;
+		[SerializeField] protected Vector3 m_maxSlidePosition;
 		[SerializeField] protected Math.Axis m_slideAxis = Math.Axis.Z;
 		[SerializeField] protected bool m_axisNegative = false;
 		[SerializeField] protected bool m_canInteractWithoutWeaponSelected = false;
-		protected Vector3 m_maxSlidePosition;
+		protected float m_maxSlideValue;
 		protected Vector3 m_initPosition;
 		protected Vector3 m_startHandLocalPosition;
 		protected Hand m_hand;
@@ -24,12 +24,7 @@ namespace VsR {
 			IWeaponPart.Validate(this);
 
 			m_initPosition = transform.localPosition;
-
-			if (m_axisNegative)
-				m_maxSlidePosition = transform.localPosition - transform.InverseTransformDirection(Math.AxisHelper.DirectionFromAxis(m_slideAxis)) * m_maxSlideValue;
-			else
-				m_maxSlidePosition = transform.localPosition + transform.InverseTransformDirection(Math.AxisHelper.DirectionFromAxis(m_slideAxis)) * m_maxSlideValue;
-
+			m_maxSlideValue = Vector3.Distance(m_initPosition, m_maxSlidePosition);
 			interactionLayers = InteractionLayerMask.GetMask("Hand");
 		}
 

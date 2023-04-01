@@ -1005,16 +1005,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: -3313178690269062153, guid: 19bbf366d0b8cf243b8185200bbccf04,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.27725032
-      objectReference: {fileID: 0}
-    - target: {fileID: -3313178690269062153, guid: 19bbf366d0b8cf243b8185200bbccf04,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.022105584
-      objectReference: {fileID: 0}
     - target: {fileID: -2423087450981106509, guid: 19bbf366d0b8cf243b8185200bbccf04,
         type: 3}
       propertyPath: m_Layer
@@ -1330,7 +1320,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <Weapon>k__BackingField: {fileID: 6405731358179444490}
-  m_maxSlideValue: 0.04
+  m_maxSlidePosition: {x: -0.00088416773, y: 0.38, z: -0.0221}
   m_slideAxis: 2
   m_axisNegative: 0
   m_canInteractWithoutWeaponSelected: 1
@@ -1452,7 +1442,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <Weapon>k__BackingField: {fileID: 6405731358179444490}
-  m_maxSlideValue: 0.075
+  m_maxSlidePosition: {x: -0.0045175203, y: 0.17009455, z: 0.020843515}
   m_slideAxis: 2
   m_axisNegative: 0
   m_canInteractWithoutWeaponSelected: 1

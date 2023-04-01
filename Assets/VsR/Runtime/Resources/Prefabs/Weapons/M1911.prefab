@@ -978,7 +978,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   <Weapon>k__BackingField: {fileID: 5380868241761828711}
-  m_maxSlideValue: 0.05
+  m_maxSlidePosition: {x: -1.4014006e-17, y: 0, z: 0.052}
   m_slideAxis: 2
   m_axisNegative: 0
   m_canInteractWithoutWeaponSelected: 0

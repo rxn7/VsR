@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace VsR {
 	public static class BulletDecalPoolManager {
+		private const string PREFAB_PATH = "Prefabs/Pooled/BulletDecal";
 		public const int POOL_SIZE = 100;
 		private static Decal s_prefab;
 		private static Decal[] s_pool;
@@ -9,7 +10,7 @@ namespace VsR {
 
 		[RuntimeInitializeOnLoadMethod]
 		private static void Init() {
-			s_prefab = Resources.Load<Decal>("Prefabs/BulletDecal");
+			s_prefab = Resources.Load<Decal>(PREFAB_PATH);
 			s_pool = new Decal[POOL_SIZE];
 			for (int i = 0; i < POOL_SIZE; ++i) {
 				Decal decal = s_pool[i] = GameObject.Instantiate<Decal>(s_prefab);

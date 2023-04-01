@@ -153,7 +153,7 @@ namespace VsR {
 				randomness = new Math.FloatRange(0.9f, 1.1f);
 			}
 
-			Cartridge cartridge = CartridgePoolManager.Instance.Pool.Get();
+			Cartridge cartridge = CartridgePoolManager.Pool.Get();
 			cartridge.Eject(this, force, torque, randomness, withBullet);
 		}
 

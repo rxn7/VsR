@@ -53,7 +53,7 @@ namespace VsR {
 
 		private void Release() {
 			CancelInvoke();
-			CartridgePoolManager.Instance.Pool.Release(this);
+			CartridgePoolManager.Pool.Release(this);
 		}
 
 		public void OnGet() {

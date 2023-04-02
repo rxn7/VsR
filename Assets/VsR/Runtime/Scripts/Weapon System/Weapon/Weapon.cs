@@ -83,6 +83,7 @@ namespace VsR {
 			m_fireRateTimer = 0.0f;
 
 			m_gripHand.ApplyHapticFeedback(m_data.fireHapticFeedback);
+			m_guardHand?.ApplyHapticFeedback(m_data.fireHapticFeedback);
 			m_gripHand.Recoil.AddRecoil(this);
 			SoundPoolManager.Instance.PlaySound(m_data.shootSound, transform.position, Random.Range(0.9f, 1.1f));
 

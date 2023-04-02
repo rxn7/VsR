@@ -1165,8 +1165,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Weapon>k__BackingField: {fileID: 6405731358179444490}
-  m_boltReleaseClip: {fileID: 8300000, guid: c2f40f9f48399f4489e7ae2876754e1a, type: 3}
-  m_bolt: {fileID: 0}
+  m_sound: {fileID: 8300000, guid: c2f40f9f48399f4489e7ae2876754e1a, type: 3}
+  m_feedback:
+    intensity: 0.3
+    duration: 0.1
+  m_bolt: {fileID: 3225069898584435344}
+  m_magSlot: {fileID: 7548284808012777819}
 --- !u!135 &6772800348617375854
 SphereCollider:
   m_ObjectHideFlags: 0

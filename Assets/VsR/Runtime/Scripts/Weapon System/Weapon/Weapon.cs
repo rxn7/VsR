@@ -48,6 +48,7 @@ namespace VsR {
 
 			movementType = MovementType.Instantaneous;
 			interactionLayers = InteractionLayerMask.GetMask("Storable", "Hand");
+			GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.Interpolate;
 
 			SetTriggerValue(0);
 			CartridgeInChamber = false;

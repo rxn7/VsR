@@ -18,6 +18,7 @@ namespace VsR {
 
 		private void OnEnable() {
 			m_rb = GetComponent<Rigidbody>();
+			m_rb.interpolation = RigidbodyInterpolation.Interpolate;
 			m_collisionSound = GetComponent<CollisionSound>();
 		}
 

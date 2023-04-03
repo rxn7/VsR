@@ -3,7 +3,7 @@ using UnityEngine;
 namespace VsR {
 	[CreateAssetMenu(menuName = "VsR/MagazineData", fileName = "magazine")]
 	[System.Serializable]
-	public class MagazineData : ScriptableObject {
+	public class MagazineData : Item {
 		[Header("General")]
 		public CreditsData creditsData;
 		public uint capacity;
@@ -13,7 +13,6 @@ namespace VsR {
 		public AudioClip slideOutSound;
 
 		[Header("References")]
-		public GameObject prefab;
 		public CartridgeData cartridgeData;
 	}
 }

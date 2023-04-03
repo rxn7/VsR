@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744ab951e062c804884fab903b506f07, type: 3}
+  m_Name: M1911
+  m_EditorClassIdentifier: 
+  displayName: M1911
+  icon: {fileID: 0}
+  prefab: {fileID: 8146458927595324848, guid: 89813f151ffcd8249ba3818ecd6e068d, type: 3}
+  creditsData:
+    modelCreator: sketchfab.com/notcplkerry
+    soundCreators:
+    - 
+  shootType: 1
+  shootingPhysicsType: 2
+  cartridgeData: {fileID: 11400000, guid: 88cfa1bcead47a8438470274f0251dd3, type: 2}
+  massKg: 1
+  roundsPerMinute: 1400
+  muzzleVelocity: 253
+  cartridgeEjectForce: 3
+  cartridgeEjectTorque: 10
+  fireTriggerPressure: 0.5
+  resetTriggerPressure: 0.495
+  fireHapticFeedback:
+    intensity: 0.75
+    duration: 0.05
+  recoilInfo:
+    force:
+      x:
+        min: 0
+        max: 0
+      y:
+        min: 0.04
+        max: 0.06
+      z:
+        min: -0.2
+        max: -0.15
+    torque:
+      x:
+        min: -30
+        max: -26
+      y:
+        min: -8
+        max: 8
+      z:
+        min: -6
+        max: 6
+  shootSound: {fileID: 8300000, guid: 0dba2f4ee13b73947bb2f5db2b5331d7, type: 3}
+  rackSound: {fileID: 8300000, guid: 31d40cb4073edf94ba393f83cc5c8975, type: 3}
+  rackBackSound: {fileID: 8300000, guid: 88396b2cbc629a848bc5b550a451343d, type: 3}
+  dryFireSound: {fileID: 8300000, guid: 43004afb21f215347b7c5fe7b13df0d1, type: 3}
+  compatibleMagazines:
+  - {fileID: 11400000, guid: 3c201ee1221436c4cb3c830eff61fc16, type: 2}

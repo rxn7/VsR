@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 744ab951e062c804884fab903b506f07, type: 3}
+  m_Name: M4A1
+  m_EditorClassIdentifier: 
+  displayName: M4A1
+  icon: {fileID: 0}
+  prefab: {fileID: 6080107739982148992, guid: 78b742b0ae71a8844a6c33159d2f8bef, type: 3}
+  creditsData:
+    modelCreator: sketchfab.com/TastyTony
+    soundCreators:
+    - fresound.org (CC0)
+  shootType: 0
+  shootingPhysicsType: 2
+  cartridgeData: {fileID: 11400000, guid: 7f0410c85b53736488f523cb2f4d59a3, type: 2}
+  massKg: 2.9
+  roundsPerMinute: 741
+  muzzleVelocity: 910
+  cartridgeEjectForce: 4
+  cartridgeEjectTorque: 12
+  fireTriggerPressure: 0.5
+  resetTriggerPressure: 0.495
+  fireHapticFeedback:
+    intensity: 0.9
+    duration: 0.08
+  recoilInfo:
+    force:
+      x:
+        min: 0
+        max: 0
+      y:
+        min: 0.01
+        max: 0.02
+      z:
+        min: -0.2
+        max: -0.15
+    torque:
+      x:
+        min: -23
+        max: -20
+      y:
+        min: -8
+        max: 8
+      z:
+        min: -6
+        max: 6
+  shootSound: {fileID: 8300000, guid: 09934114fc0b4e4409648ca4db01cf9e, type: 3}
+  rackSound: {fileID: 8300000, guid: 0225ab549d631df419b6cd2e9776d8d1, type: 3}
+  rackBackSound: {fileID: 8300000, guid: f7b0871af50548041a8e0c6a9e738927, type: 3}
+  dryFireSound: {fileID: 8300000, guid: 43004afb21f215347b7c5fe7b13df0d1, type: 3}
+  compatibleMagazines:
+  - {fileID: 11400000, guid: 27faa42994def4f49a37e590e90b6daa, type: 2}

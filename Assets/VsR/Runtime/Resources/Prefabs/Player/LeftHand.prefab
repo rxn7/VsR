@@ -590,7 +590,7 @@ MonoBehaviour:
   m_maxDistance: 5
   m_rayLayerMask:
     serializedVersion: 2
-    m_Bits: 385
+    m_Bits: 417
   m_defaultColor: {r: 1, g: 0, b: 0, a: 1}
   m_hoveredColor: {r: 0, g: 1, b: 0, a: 1}
   m_hoverEnterHapticFeedback:
@@ -703,7 +703,7 @@ LineRenderer:
   m_MaskInteraction: 0
   m_UseWorldSpace: 1
   m_Loop: 0
-  m_ApplyActiveColorSpace: 1
+  m_ApplyActiveColorSpace: 0
 --- !u!1001 &7652164691491624456
 PrefabInstance:
   m_ObjectHideFlags: 0

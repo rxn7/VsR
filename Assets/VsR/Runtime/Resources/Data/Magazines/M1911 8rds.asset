@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8830601961d52de41ad2e0e29acdd658, type: 3}
+  m_Name: M1911 8rds
+  m_EditorClassIdentifier: 
+  displayName: M1911 8rds
+  icon: {fileID: 0}
+  prefab: {fileID: 8348140606352565853, guid: f2120b59add7a37448a43c79d51c3746, type: 3}
+  creditsData:
+    modelCreator: sketchfab.com/notcplkerry
+    soundCreators: []
+  capacity: 8
+  slideInSound: {fileID: 8300000, guid: 8ab8872f34d30e64e8d227d6159bf2f5, type: 3}
+  slideOutSound: {fileID: 8300000, guid: af39c39ed4a973f4c8e610963a751da7, type: 3}
+  cartridgeData: {fileID: 11400000, guid: 88cfa1bcead47a8438470274f0251dd3, type: 2}

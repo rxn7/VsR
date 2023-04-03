@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8830601961d52de41ad2e0e29acdd658, type: 3}
+  m_Name: STANAG 30rds
+  m_EditorClassIdentifier: 
+  displayName: STANAG 30rds
+  icon: {fileID: 0}
+  prefab: {fileID: 51990846807593846, guid: 51fd05e212b6696448988c19ee5a2778, type: 3}
+  creditsData:
+    modelCreator: sketchfab.com/notcplkerry
+    soundCreators:
+    - freesound.org
+  capacity: 30
+  slideInSound: {fileID: 8300000, guid: a1796899b90ca3e48aaec45cbef93cfc, type: 3}
+  slideOutSound: {fileID: 8300000, guid: 87921e9c51d53a64388d4e1f85753f4c, type: 3}
+  cartridgeData: {fileID: 11400000, guid: 7f0410c85b53736488f523cb2f4d59a3, type: 2}

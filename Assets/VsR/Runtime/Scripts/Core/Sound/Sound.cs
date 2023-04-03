@@ -13,7 +13,7 @@ namespace VsR {
 			m_source = gameObject.AddComponent<AudioSource>();
 			m_source.playOnAwake = false;
 			m_source.loop = false;
-			m_source.rolloffMode = AudioRolloffMode.Linear;
+			m_source.rolloffMode = AudioRolloffMode.Logarithmic;
 
 			TimeManager.onTimeScaleChanged += (float scale) => m_source.pitch = m_initPitch * scale;
 		}

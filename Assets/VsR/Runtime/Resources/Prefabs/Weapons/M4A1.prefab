@@ -606,7 +606,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_collisionSounds:
-  - {fileID: 8300000, guid: f1aab4eb38499494f91ce3c0e226f9cd, type: 3}
+  - {fileID: 8300000, guid: 76ab5b4e751a8ef4e88aad4cf2645b79, type: 3}
+  - {fileID: 8300000, guid: 08bc30684ecb7c64e97b41a7673146ad, type: 3}
+  - {fileID: 8300000, guid: 85574ae226d57ca4d877abe85e3e2626, type: 3}
+  m_minTimeBetweenSounds: 0.15
+  m_pitchRange:
+    min: 0.9
+    max: 1.2
+  m_volumeRange:
+    min: 0.2
+    max: 1
+  m_volumeMultiplier: 0.2
+  m_pitchMultiplier: 1
 --- !u!54 &6187757729347454411
 Rigidbody:
   m_ObjectHideFlags: 0

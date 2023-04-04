@@ -86,6 +86,7 @@ namespace VsR {
 			m_guardHand?.ApplyHapticFeedback(m_data.fireHapticFeedback);
 			m_gripHand.Recoil.AddRecoil(this);
 			SoundPoolManager.Instance.PlaySound(m_data.shootSound, transform.position, Random.Range(0.9f, 1.1f));
+			MuzzleFlashPoolManager.Spawn(m_barrelEndPoint);
 
 			if (m_data.shootType != WeaponData.ShootType.Manual)
 				TryToCock();

@@ -14,10 +14,6 @@ namespace VsR {
 		public bool IsMoving => transform.localPosition != m_initPosition;
 		public float SlidePercentage => m_slidePercentage;
 
-		protected override void Awake() {
-			base.Awake();
-		}
-
 		protected override float UpdateSlideMovement() {
 			m_slidePercentage = base.UpdateSlideMovement();
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 namespace VsR {
 	public class WeaponBoltCatch : MonoBehaviour, IWeaponPart {
@@ -19,7 +20,7 @@ namespace VsR {
 			if (!collider.transform.parent.TryGetComponent<Hand>(out Hand hand))
 				return;
 
-			if (hand.Interactor && Weapon.IsSelected(hand.Interactor))
+			if (hand.Interactor && (Weapon.IsSelected(hand.Interactor) || hand.Interactor.interactablesSelected.Any(i => i is WeaponGuardHold)))
 				return;
 
 			CloseBolt();

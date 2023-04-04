@@ -40,9 +40,6 @@ namespace VsR {
 		}
 
 		private void LateUpdate() {
-			if (PerformUIRaycast())
-				return;
-
 			if (!m_enableRaycastAction.IsPressed() || m_hand.interactablesSelected.Count > 0) {
 				m_lineRenderer.enabled = false;
 				m_hoveringInteractable = null;
@@ -59,12 +56,6 @@ namespace VsR {
 				OnGrab();
 
 			m_wasHoveringLastFrame = IsHovering;
-		}
-
-		private bool PerformUIRaycast() {
-			PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
-
-			return false;
 		}
 
 		private void PerformRaycast() {

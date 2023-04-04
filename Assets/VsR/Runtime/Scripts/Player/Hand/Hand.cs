@@ -46,6 +46,7 @@ namespace VsR {
 		private void LateUpdate() {
 			m_rayInteractorVisual.enabled = m_rayInteractorRenderer.enabled = EnableRayInteractionAction.inProgress && m_rayInteractor.interactablesSelected.Count == 0;
 			m_rayInteractor.gameObject.SetActive(EnableRayInteractionAction.inProgress || m_rayInteractor.interactablesSelected.Count != 0);
+			m_rayInteractor.enableUIInteraction = m_rayInteractor.interactablesSelected.Count == 0;
 		}
 
 		private void InitInputActions() {

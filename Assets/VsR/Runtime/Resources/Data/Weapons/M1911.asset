@@ -21,7 +21,6 @@ MonoBehaviour:
     - 
   shootType: 1
   shootingPhysicsType: 2
-  cartridgeData: {fileID: 11400000, guid: 88cfa1bcead47a8438470274f0251dd3, type: 2}
   massKg: 1
   roundsPerMinute: 1400
   muzzleVelocity: 253
@@ -53,9 +52,12 @@ MonoBehaviour:
       z:
         min: -6
         max: 6
+  muzzleFlashData:
+    scale: 0.4
   shootSound: {fileID: 8300000, guid: 0dba2f4ee13b73947bb2f5db2b5331d7, type: 3}
   rackSound: {fileID: 8300000, guid: 31d40cb4073edf94ba393f83cc5c8975, type: 3}
   rackBackSound: {fileID: 8300000, guid: 88396b2cbc629a848bc5b550a451343d, type: 3}
   dryFireSound: {fileID: 8300000, guid: 43004afb21f215347b7c5fe7b13df0d1, type: 3}
+  cartridgeData: {fileID: 11400000, guid: 88cfa1bcead47a8438470274f0251dd3, type: 2}
   compatibleMagazines:
   - {fileID: 11400000, guid: 3c201ee1221436c4cb3c830eff61fc16, type: 2}

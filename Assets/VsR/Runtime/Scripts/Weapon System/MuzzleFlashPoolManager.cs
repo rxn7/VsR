@@ -15,12 +15,14 @@ namespace VsR {
 			Pool = new ObjectPool<MuzzleFlash>(CreatePooledMuzzleFlash, null, null, (MuzzleFlash p) => GameObject.Destroy(p.gameObject), true, DEFAULT_SIZE, MAX_SIZE);
 		}
 
-		public static void Spawn(Transform barrelEndPoint) {
+		public static void Spawn(Transform barrelEndPoint, WeaponData data) {
 			MuzzleFlash muzzleFlash = Pool.Get();
 			muzzleFlash.gameObject.SetActive(true);
 
 			muzzleFlash.transform.position = barrelEndPoint.position;
 			muzzleFlash.transform.forward = barrelEndPoint.forward;
+			muzzleFlash.transform.localScale = Vector3.one * data.muzzleFlashData.scale;
+
 			muzzleFlash.m_particleSystem.Play();
 		}
 

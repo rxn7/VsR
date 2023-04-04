@@ -40,6 +40,7 @@ namespace VsR {
 		[Header("Feedback")]
 		public HapticFeedback fireHapticFeedback = new HapticFeedback(0.75f, 0.05f);
 		public RecoilInfo recoilInfo;
+		public MuzzleFlashData muzzleFlashData = new MuzzleFlashData { scale = 0.5f };
 
 		[Header("Audio")]
 		public AudioClip shootSound;

@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 namespace VsR {
 	public class SpawnMenuItem : MonoBehaviour {
-		public SpawnMenu m_menu;
 		private Button m_btn;
 		private TMPro.TextMeshProUGUI m_btnText;
 		private Item _m_item;
@@ -24,7 +23,7 @@ namespace VsR {
 		}
 
 		private void OnClick() {
-			GameObject obj = Instantiate(Item.prefab, m_menu.m_spawnPoint.position, Quaternion.identity);
+			GameObject obj = Instantiate(Item.prefab, transform.position + Vector3.up, Quaternion.identity);
 		}
 	}
 }

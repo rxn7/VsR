@@ -6,7 +6,7 @@ namespace VsR {
 
 		[RuntimeInitializeOnLoadMethod]
 		private static void Init() {
-			s_layerMask = LayerMask.GetMask("Default", "Ground", "Grab");
+			s_layerMask = LayerMask.GetMask("Default", "Ground", "Grab", "Cartridge");
 		}
 
 		private static void OnHit(Ray ray, RaycastHit hit, WeaponData data) {

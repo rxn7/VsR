@@ -56,7 +56,7 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -115,6 +115,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_collisionSounds: []
+  m_minTimeBetweenSounds: 0.05
+  m_pitchRange:
+    min: 0.5
+    max: 1.5
+  m_volumeRange:
+    min: 0.2
+    max: 1
+  m_volumeMultiplier: 0.2
+  m_pitchMultiplier: 1
 --- !u!1 &4149101210873273337
 GameObject:
   m_ObjectHideFlags: 0

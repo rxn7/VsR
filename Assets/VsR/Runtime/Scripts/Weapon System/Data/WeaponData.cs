@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace VsR {
 	[CreateAssetMenu(menuName = "VsR/WeaponData", fileName = "weapon")]
-	public class WeaponData : ScriptableObject {
+	public class WeaponData : Item {
 		public enum ShootType : byte {
 			Automatic,
 			SemiAutomatic,
@@ -48,8 +48,6 @@ namespace VsR {
 		public AudioClip dryFireSound;
 
 		[Header("Referenes")]
-		public GameObject prefab;
-
 		public CartridgeData cartridgeData;
 
 		[SerializeField] public MagazineData[] compatibleMagazines;

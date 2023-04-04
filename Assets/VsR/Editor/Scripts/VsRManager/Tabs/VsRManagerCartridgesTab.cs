@@ -14,7 +14,7 @@ namespace VsR.Editors {
 
 		public override void OnEnable() {
 			if (!s_prefab)
-				s_prefab = Resources.Load<GameObject>("Prefabs/Cartridge");
+				s_prefab = Resources.Load<GameObject>("Prefabs/Pooled/Cartridge");
 		}
 
 		protected override void OnObjectSelected() {

@@ -310,7 +310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3583147776895482966}
   m_LocalRotation: {x: -0, y: -0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 0.003, y: 0.0053, z: -0.0279}
+  m_LocalPosition: {x: 0.003, y: 0.0053, z: -0.0218}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -434,7 +434,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_collisionSounds:
-  - {fileID: 8300000, guid: f1aab4eb38499494f91ce3c0e226f9cd, type: 3}
+  - {fileID: 8300000, guid: b5a570753211e4f45aaf34d403a562ee, type: 3}
+  - {fileID: 8300000, guid: 1aafcbd441ccf9e41b11be11442299ad, type: 3}
+  - {fileID: 8300000, guid: 00d5b275df25c66409f6194417fd7f3d, type: 3}
+  m_minTimeBetweenSounds: 0.15
+  m_pitchRange:
+    min: 0.9
+    max: 1.2
+  m_volumeRange:
+    min: 0.2
+    max: 1
+  m_volumeMultiplier: 0.2
+  m_pitchMultiplier: 1
 --- !u!54 &5653989023242853653
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -620,7 +631,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9001354649242433835}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.1302}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1268}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

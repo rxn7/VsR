@@ -177,7 +177,7 @@ namespace VsR {
 
 		protected void OnGuardHandAttached(SelectEnterEventArgs args) {
 			m_guardHold = (WeaponGuardHold)args.interactableObject;
-			m_guardHand = (Hand)args.interactorObject;
+			m_guardHand = args.interactorObject.transform.GetComponentInParent<Hand>();
 		}
 
 		protected void OnGuardHandDetached(SelectExitEventArgs args) {
@@ -193,7 +193,7 @@ namespace VsR {
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
 			// Nothing can select the weapon if it's held by a grip hand
-			if (m_gripHand && interactor != (IXRSelectInteractor)m_gripHand)
+			if (m_gripHand && interactor != (IXRSelectInteractor)m_gripHand.Interactor)
 				return false;
 
 			return base.IsSelectableBy(interactor);
@@ -202,14 +202,14 @@ namespace VsR {
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
 			base.OnSelectEntered(args);
 
-			if (args.interactorObject is Hand hand)
+			if (args.interactorObject.transform.parent.TryGetComponent<Hand>(out Hand hand))
 				OnGripHandAttached(hand);
 		}
 
 		protected override void OnSelectExited(SelectExitEventArgs args) {
 			base.OnSelectExited(args);
 
-			if (args.interactorObject is Hand)
+			if (args.interactorObject.transform.GetComponentInParent<Hand>())
 				OnGripHandDetached();
 		}
 	}

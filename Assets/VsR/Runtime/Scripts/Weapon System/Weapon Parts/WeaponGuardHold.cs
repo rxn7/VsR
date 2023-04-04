@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace VsR {
 	public class WeaponGuardHold : XRBaseInteractable, IWeaponPart {
 		[field: SerializeField] public Weapon Weapon { get; set; }
-		protected Hand m_hand;
+		protected HandInteractor m_hand;
 		protected Quaternion m_initGripRotation;
 
 		protected override void Awake() {
@@ -29,7 +29,7 @@ namespace VsR {
 
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
 			base.OnSelectEntered(args);
-			m_hand = (Hand)args.interactorObject;
+			m_hand = (HandInteractor)args.interactorObject;
 			m_initGripRotation = Weapon.GripHand.attachTransform.localRotation;
 		}
 

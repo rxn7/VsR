@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 3452310513576029760}
   - component: {fileID: 1843797748468330625}
   - component: {fileID: 9125432373189288728}
-  - component: {fileID: 8278455030738635887}
+  - component: {fileID: 360195495300489202}
   m_Layer: 5
   m_Name: SpawnMenu
   m_TagString: Untagged
@@ -234,7 +234,7 @@ RectTransform:
   - {fileID: 4387057861432447984}
   - {fileID: 4399842774414888627}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &1843797748468330625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +319,7 @@ MonoBehaviour:
   m_itemPrefab: {fileID: 5815316853177125234, guid: 6d1b11d3624acc243937027b7622ca1c,
     type: 3}
   m_spawnPoint: {fileID: 3464243601259709058}
---- !u!114 &8278455030738635887
+--- !u!114 &360195495300489202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -336,5 +336,5 @@ MonoBehaviour:
   m_CheckFor3DOcclusion: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 32
+    m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1

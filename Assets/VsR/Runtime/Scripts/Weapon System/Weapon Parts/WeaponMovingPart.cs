@@ -14,7 +14,7 @@ namespace VsR {
 		protected float m_maxSlideValue;
 		protected Vector3 m_initPosition;
 		protected Vector3 m_startHandLocalPosition;
-		protected Hand m_hand;
+		protected HandInteractor m_hand;
 
 		protected Vector3 getHandLocalPosition() => transform.InverseTransformPoint(m_hand.attachTransform.position);
 		protected virtual bool CanRelease => true;
@@ -56,7 +56,7 @@ namespace VsR {
 
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
 			base.OnSelectEntered(args);
-			m_hand = (Hand)args.interactorObject;
+			m_hand = (HandInteractor)args.interactorObject;
 
 			m_startHandLocalPosition = getHandLocalPosition();
 		}

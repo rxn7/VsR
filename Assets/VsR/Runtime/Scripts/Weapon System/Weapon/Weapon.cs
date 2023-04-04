@@ -15,8 +15,8 @@ namespace VsR {
 		[SerializeField] protected Transform m_barrelEndPoint;
 		[SerializeField] protected Transform m_cartridgeEjectPoint;
 
-		protected Hand m_gripHand = null;
-		protected Hand m_guardHand = null;
+		protected HandInteractor m_gripHand = null;
+		protected HandInteractor m_guardHand = null;
 		protected WeaponGuardHold m_guardHold = null;
 		private float m_fireRateTimer = 0.0f;
 		private Vector3 m_previousPosition;
@@ -32,8 +32,8 @@ namespace VsR {
 			}
 		}
 		public WeaponData Data => m_data;
-		public Hand GripHand => m_gripHand;
-		public Hand GuardHand => m_guardHand;
+		public HandInteractor GripHand => m_gripHand;
+		public HandInteractor GuardHand => m_guardHand;
 		public WeaponGuardHold HeldGuardHold => m_guardHold;
 		public Vector3 WorldVelocity => m_velocity;
 		public Transform CartridgeEjectPoint => m_cartridgeEjectPoint;
@@ -159,7 +159,7 @@ namespace VsR {
 			cartridge.Eject(this, force, torque, randomness, withBullet);
 		}
 
-		protected void OnGripHandAttached(Hand hand) {
+		protected void OnGripHandAttached(HandInteractor hand) {
 			m_gripHand = hand;
 			m_gripHand.MagReleaseAction.performed += OnReleaseMagPressed;
 			m_gripHand.SlideReleaseAction.performed += OnSlideReleasePressed;
@@ -177,7 +177,7 @@ namespace VsR {
 
 		protected void OnGuardHandAttached(SelectEnterEventArgs args) {
 			m_guardHold = (WeaponGuardHold)args.interactableObject;
-			m_guardHand = (Hand)args.interactorObject;
+			m_guardHand = (HandInteractor)args.interactorObject;
 		}
 
 		protected void OnGuardHandDetached(SelectExitEventArgs args) {
@@ -202,14 +202,14 @@ namespace VsR {
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
 			base.OnSelectEntered(args);
 
-			if (args.interactorObject is Hand hand)
+			if (args.interactorObject is HandInteractor hand)
 				OnGripHandAttached(hand);
 		}
 
 		protected override void OnSelectExited(SelectExitEventArgs args) {
 			base.OnSelectExited(args);
 
-			if (args.interactorObject is Hand)
+			if (args.interactorObject is HandInteractor)
 				OnGripHandDetached();
 		}
 	}

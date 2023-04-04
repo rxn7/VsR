@@ -16,7 +16,7 @@ namespace VsR {
 		[SerializeField] private HapticFeedback m_hoverExitHapticFeedback;
 
 		[Header("References")]
-		[SerializeField] private Hand m_hand;
+		[SerializeField] private HandInteractor m_hand;
 
 		private InputAction m_enableRaycastAction;
 		private LineRenderer m_lineRenderer;

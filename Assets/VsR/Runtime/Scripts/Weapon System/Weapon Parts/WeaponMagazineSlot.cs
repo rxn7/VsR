@@ -25,7 +25,7 @@ namespace VsR {
 			if (hasSelection && !isSelecting)
 				return false;
 
-			if (!isSelecting && interactable.firstInteractorSelecting is not Hand)
+			if (!isSelecting && interactable.firstInteractorSelecting is not HandInteractor)
 				return false;
 
 			if (interactable is not Magazine mag)

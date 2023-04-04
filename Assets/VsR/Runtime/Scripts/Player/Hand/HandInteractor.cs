@@ -5,7 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace VsR {
 	public enum HandType : byte { Left = 0, Right }
 
-	public class Hand : XRDirectInteractor {
+	public class HandInteractor : XRDirectInteractor {
 		[Header("Hand")]
 		[SerializeField] private HandType m_handType;
 		[SerializeField] private Recoil m_recoil;

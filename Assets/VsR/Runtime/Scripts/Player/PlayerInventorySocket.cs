@@ -29,7 +29,7 @@ namespace VsR {
 		}
 
 		public override bool CanSelect(IXRSelectInteractable interactable) {
-			if (!IsSelecting(interactable) && !interactable.interactorsSelecting.Any(i => i is HandInteractor))
+			if (!IsSelecting(interactable) && !interactable.interactorsSelecting.Any(i => i is Hand))
 				return false;
 
 			return base.CanSelect(interactable);

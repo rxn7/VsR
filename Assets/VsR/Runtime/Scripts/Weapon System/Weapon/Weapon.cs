@@ -15,8 +15,8 @@ namespace VsR {
 		[SerializeField] protected Transform m_barrelEndPoint;
 		[SerializeField] protected Transform m_cartridgeEjectPoint;
 
-		protected HandInteractor m_gripHand = null;
-		protected HandInteractor m_guardHand = null;
+		protected Hand m_gripHand = null;
+		protected Hand m_guardHand = null;
 		protected WeaponGuardHold m_guardHold = null;
 		private float m_fireRateTimer = 0.0f;
 		private Vector3 m_previousPosition;
@@ -32,8 +32,8 @@ namespace VsR {
 			}
 		}
 		public WeaponData Data => m_data;
-		public HandInteractor GripHand => m_gripHand;
-		public HandInteractor GuardHand => m_guardHand;
+		public Hand GripHand => m_gripHand;
+		public Hand GuardHand => m_guardHand;
 		public WeaponGuardHold HeldGuardHold => m_guardHold;
 		public Vector3 WorldVelocity => m_velocity;
 		public Transform CartridgeEjectPoint => m_cartridgeEjectPoint;
@@ -159,7 +159,7 @@ namespace VsR {
 			cartridge.Eject(this, force, torque, randomness, withBullet);
 		}
 
-		protected void OnGripHandAttached(HandInteractor hand) {
+		protected void OnGripHandAttached(Hand hand) {
 			m_gripHand = hand;
 			m_gripHand.MagReleaseAction.performed += OnReleaseMagPressed;
 			m_gripHand.SlideReleaseAction.performed += OnSlideReleasePressed;
@@ -177,7 +177,7 @@ namespace VsR {
 
 		protected void OnGuardHandAttached(SelectEnterEventArgs args) {
 			m_guardHold = (WeaponGuardHold)args.interactableObject;
-			m_guardHand = (HandInteractor)args.interactorObject;
+			m_guardHand = args.interactorObject.transform.GetComponentInParent<Hand>();
 		}
 
 		protected void OnGuardHandDetached(SelectExitEventArgs args) {
@@ -193,7 +193,7 @@ namespace VsR {
 
 		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
 			// Nothing can select the weapon if it's held by a grip hand
-			if (m_gripHand && interactor != (IXRSelectInteractor)m_gripHand)
+			if (m_gripHand && interactor != (IXRSelectInteractor)m_gripHand.Interactor)
 				return false;
 
 			return base.IsSelectableBy(interactor);
@@ -202,14 +202,14 @@ namespace VsR {
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
 			base.OnSelectEntered(args);
 
-			if (args.interactorObject is HandInteractor hand)
+			if (args.interactorObject.transform.parent.TryGetComponent<Hand>(out Hand hand))
 				OnGripHandAttached(hand);
 		}
 
 		protected override void OnSelectExited(SelectExitEventArgs args) {
 			base.OnSelectExited(args);
 
-			if (args.interactorObject is HandInteractor)
+			if (args.interactorObject.transform.GetComponentInParent<Hand>())
 				OnGripHandDetached();
 		}
 	}

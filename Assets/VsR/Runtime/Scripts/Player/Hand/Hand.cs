@@ -5,26 +5,31 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace VsR {
 	public enum HandType : byte { Left = 0, Right }
 
-	public class HandInteractor : XRDirectInteractor {
+	[RequireComponent(typeof(ActionBasedController))]
+	[RequireComponent(typeof(XRInteractionGroup))]
+	public class Hand : MonoBehaviour {
 		[Header("Hand")]
 		[SerializeField] private HandType m_handType;
 		[SerializeField] private Recoil m_recoil;
+		private ActionBasedController m_controller;
+		private XRInteractionGroup m_group;
 
 		public InputAction TriggerAction { get; private set; }
 		public InputAction GrabAction { get; private set; }
 		public InputAction MagReleaseAction { get; private set; }
 		public InputAction SlideReleaseAction { get; private set; }
 
+		public XRBaseInteractor Interactor => m_group.activeInteractor as XRBaseInteractor;
+		public bool IsGrabbing => (m_group.activeInteractor as XRBaseInteractor)?.interactablesSelected.Count > 0;
 		public HandType HandType => m_handType;
 		public Recoil Recoil => m_recoil;
-		public bool IsGrabbing => interactablesSelected.Count > 0;
 
-		protected override void Awake() {
-			base.Awake();
+		private void Awake() {
+			m_controller = GetComponent<ActionBasedController>();
+			m_group = GetComponent<XRInteractionGroup>();
 		}
 
-		protected override void Start() {
-			base.Start();
+		private void Start() {
 			InitInputActions();
 		}
 
@@ -36,7 +41,7 @@ namespace VsR {
 		}
 
 		public void ApplyHapticFeedback(HapticFeedback feedback) {
-			SendHapticImpulse(feedback.intensity, feedback.duration);
+			m_controller.SendHapticImpulse(feedback.intensity, feedback.duration);
 		}
 	}
 }

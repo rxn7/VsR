@@ -13,10 +13,13 @@ namespace VsR {
 		}
 
 		protected void OnTriggerEnter(Collider collider) {
-			if (!collider.gameObject.TryGetComponent<HandInteractor>(out HandInteractor hand) || !m_bolt.IsOpen || !Weapon.GripHand)
+			if (!m_bolt.IsOpen)
 				return;
 
-			if (hand.interactablesSelected.Contains(Weapon))
+			if (!collider.transform.parent.TryGetComponent<Hand>(out Hand hand))
+				return;
+
+			if (hand.Interactor && Weapon.IsSelected(hand.Interactor))
 				return;
 
 			CloseBolt();

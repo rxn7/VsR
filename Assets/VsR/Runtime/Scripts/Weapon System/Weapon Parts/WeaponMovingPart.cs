@@ -14,9 +14,9 @@ namespace VsR {
 		protected float m_maxSlideValue;
 		protected Vector3 m_initPosition;
 		protected Vector3 m_startHandLocalPosition;
-		protected HandInteractor m_hand;
+		protected XRBaseControllerInteractor m_interactor;
 
-		protected Vector3 getHandLocalPosition() => transform.InverseTransformPoint(m_hand.attachTransform.position);
+		protected Vector3 GetHandLocalPosition() => transform.InverseTransformPoint(m_interactor.attachTransform.position);
 		protected virtual bool CanRelease => true;
 
 		protected override void Awake() {
@@ -32,6 +32,9 @@ namespace VsR {
 			if (!m_canInteractWithoutWeaponSelected && !Weapon.GripHand)
 				return false;
 
+			if (interactor is not XRBaseControllerInteractor)
+				return false;
+
 			return base.IsSelectableBy(interactor);
 		}
 
@@ -39,7 +42,7 @@ namespace VsR {
 			transform.localPosition = m_initPosition;
 
 			int axisIdx = (int)m_slideAxis;
-			float handDifference = Weapon.transform.InverseTransformDirection(transform.TransformDirection(m_startHandLocalPosition - getHandLocalPosition()))[axisIdx];
+			float handDifference = Weapon.transform.InverseTransformDirection(transform.TransformDirection(m_startHandLocalPosition - GetHandLocalPosition()))[axisIdx];
 			if (m_axisNegative)
 				handDifference *= -1;
 
@@ -56,14 +59,13 @@ namespace VsR {
 
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
 			base.OnSelectEntered(args);
-			m_hand = (HandInteractor)args.interactorObject;
-
-			m_startHandLocalPosition = getHandLocalPosition();
+			m_interactor = args.interactorObject as XRBaseControllerInteractor;
+			m_startHandLocalPosition = GetHandLocalPosition();
 		}
 
 		protected override void OnSelectExiting(SelectExitEventArgs args) {
 			base.OnSelectExiting(args);
-			m_hand = null;
+			m_interactor = null;
 
 			if (CanRelease)
 				Release();

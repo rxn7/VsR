@@ -10,11 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8830601961d52de41ad2e0e29acdd658, type: 3}
-  m_Name: MK18 30 rds
+  m_Name: MK18 30rds
   m_EditorClassIdentifier: 
-  displayName: MK18 30 rds
   capacity: 30
   slideInSound: {fileID: 8300000, guid: a1796899b90ca3e48aaec45cbef93cfc, type: 3}
   slideOutSound: {fileID: 8300000, guid: 87921e9c51d53a64388d4e1f85753f4c, type: 3}
+  stackingOrigin: {x: 0.004, y: 0.07, z: 0.021}
+  stackingRotationOrigin: {x: 0, y: 0, z: 0}
+  stackingOffset: {x: -0.004, y: -0.0045, z: 0.0007}
+  offsetZStackStartIdx: 18
+  offsetZStackEndIdx: -1
+  stackingRotationOffset: {x: -1.5, y: 0, z: 0}
+  rotateStackStartIdx: 18
+  rotateStackEndIdx: -1
+  isDoubleStack: 1
+  isPistolMag: 0
   prefab: {fileID: 5032140468343636255, guid: 51fd05e212b6696448988c19ee5a2778, type: 3}
-  cartridgeData: {fileID: 11400000, guid: 7f0410c85b53736488f523cb2f4d59a3, type: 2}
+  defaultCartridgeData: {fileID: 11400000, guid: 7f0410c85b53736488f523cb2f4d59a3,
+    type: 2}

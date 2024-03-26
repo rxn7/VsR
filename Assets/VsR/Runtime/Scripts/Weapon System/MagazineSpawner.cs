@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
-	public class MagazineSpawner : XRSimpleInteractable {
+	public class MagazineSpawner : UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable {
 		[SerializeField] private MagazineData m_data;
 
 		public MagazineData Data {

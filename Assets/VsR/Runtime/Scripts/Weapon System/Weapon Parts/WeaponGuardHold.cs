@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace VsR {
-	public class WeaponGuardHold : XRBaseInteractable, IWeaponPart {
+	public class WeaponGuardHold : UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable, IWeaponPart {
 		[field: SerializeField] public Weapon Weapon { get; set; }
 		protected Hand m_hand;
 		protected Quaternion m_initGripRotation;
@@ -19,7 +19,7 @@ namespace VsR {
 			Weapon.GripHand.attachTransform.rotation = Quaternion.LookRotation(m_hand.attachTransform.position - Weapon.GripHand.attachTransform.position, Weapon.GripHand.transform.up);
 		}
 
-		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
+		public override bool IsSelectableBy(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor) {
 			if (!Weapon.GripHand)
 				return false;
 

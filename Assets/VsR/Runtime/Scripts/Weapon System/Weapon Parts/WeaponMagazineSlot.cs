@@ -1,6 +1,8 @@
 using System.Linq;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace VsR {
 	public class WeaponMagazineSlot : XRSocketInteractor, IWeaponPart {
@@ -36,7 +38,7 @@ namespace VsR {
 			if (!Weapon.Data.compatibleMagazines.Contains(mag.Data))
 				return false;
 
-			return base.CanHover((IXRHoverInteractable)interactable);
+			return base.CanHover((UnityEngine.XR.Interaction.Toolkit.Interactables.IXRHoverInteractable)interactable);
 		}
 
 		protected override void OnSelectEntered(SelectEnterEventArgs args) {
@@ -60,8 +62,8 @@ namespace VsR {
 
 			SoundPoolManager.Instance.PlaySound(m_magazine.Data.slideOutSound, transform.position, Random.Range(0.95f, 1.05f));
 
-			interactionManager.SelectExit(this, (IXRSelectInteractable)m_magazine);
-			m_magazine.SlideOut(Weapon.WorldVelocity);
+			interactionManager.SelectExit(this, (UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable)m_magazine);
+			m_magazine.SlideOut(Weapon.VelocityTracker.velocity);
 
 			m_magazine = null;
 		}

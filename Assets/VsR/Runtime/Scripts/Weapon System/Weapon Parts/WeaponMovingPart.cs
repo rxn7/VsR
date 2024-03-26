@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace VsR {
 	public class WeaponMovingPart : XRBaseInteractable, IWeaponPart {
@@ -27,7 +28,7 @@ namespace VsR {
 			interactionLayers = InteractionLayerMask.GetMask("Hand");
 		}
 
-		public override bool IsSelectableBy(IXRSelectInteractor interactor) {
+		public override bool IsSelectableBy(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRSelectInteractor interactor) {
 			if (!m_canInteractWithoutWeaponSelected && !Weapon.GripHand)
 				return false;
 

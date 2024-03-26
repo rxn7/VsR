@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace VsR {
 	[RequireComponent(typeof(LineRenderer))]
@@ -18,7 +18,7 @@ namespace VsR {
 
 		private InputAction m_enableRaycastAction;
 		private LineRenderer m_lineRenderer;
-		private XRBaseInteractable m_hoveringInteractable = null;
+		private UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable m_hoveringInteractable = null;
 		private Ray m_ray;
 		private RaycastHit m_hit;
 		private bool m_wasHoveringLastFrame = false;
@@ -60,7 +60,7 @@ namespace VsR {
 			m_ray.direction = transform.forward;
 
 			if (Physics.Raycast(m_ray, out m_hit, m_maxDistance, m_rayLayerMask)) {
-				m_hit.transform.TryGetComponent<XRBaseInteractable>(out m_hoveringInteractable);
+				m_hit.transform.TryGetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable>(out m_hoveringInteractable);
 			} else {
 				m_hoveringInteractable = null;
 				m_hit.point = transform.position + m_ray.direction * m_maxDistance;
@@ -84,7 +84,7 @@ namespace VsR {
 			if (!IsHovering || m_hand.IsGrabbing)
 				return;
 
-			m_hand.interactionManager.SelectEnter(m_hand, (IXRSelectInteractable)m_hoveringInteractable);
+			m_hand.interactionManager.SelectEnter(m_hand, (UnityEngine.XR.Interaction.Toolkit.Interactables.IXRSelectInteractable)m_hoveringInteractable);
 			m_hoveringInteractable = null;
 		}
 	}

@@ -1,41 +1,45 @@
-using System.Linq;
+using TriInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace VsR {
+    [RequireComponent(typeof(VelocityTracker))]
 	public class Weapon : XRGrabInteractable {
 		public event System.Action onFire;
+        public VelocityTracker VelocityTracker { get; private set; }
 
-		[SerializeField] protected WeaponData m_data;
-		[SerializeField] protected WeaponMagazineSlot m_magSlot;
-		[SerializeField] protected WeaponTrigger m_trigger;
-		[SerializeField] protected GameObject m_cartridgeInChamberObject;
-		[SerializeField] protected Transform m_barrelEndPoint;
-		[SerializeField] protected Transform m_cartridgeEjectPoint;
+		[Required] [SerializeField] protected WeaponData m_data;
+		[Required] [SerializeField] protected WeaponMagazineSlot m_magSlot;
+		[Required] [SerializeField] protected WeaponTrigger m_trigger;
+		[Required] [SerializeField] protected Transform m_chamberedCartridgeSlot;
+		[Required] [SerializeField] protected Transform m_barrelEndPoint;
 
 		protected Hand m_gripHand = null;
 		protected Hand m_guardHand = null;
 		protected WeaponGuardHold m_guardHold = null;
 		private float m_fireRateTimer = 0.0f;
-		private Vector3 m_previousPosition;
 		private bool m_triggerReset = true;
-		private bool _m_cartridgeInChamber;
-		private Vector3 m_velocity;
+		private Cartridge _m_chamberedCartridge;
 
-		public bool CartridgeInChamber {
-			get => _m_cartridgeInChamber;
-			set {
-				_m_cartridgeInChamber = value;
-				m_cartridgeInChamberObject.SetActive(value);
-			}
-		}
+        public Cartridge chamberedCartridge {
+            get => _m_chamberedCartridge;
+            set {
+                _m_chamberedCartridge = value;
+                if(value != null) {
+                    _m_chamberedCartridge.transform.SetParent(m_chamberedCartridgeSlot, true);
+                    _m_chamberedCartridge.transform.localPosition = Vector3.zero;
+                    _m_chamberedCartridge.transform.localEulerAngles = Vector3.zero;
+                }
+            }
+        }
+
 		public WeaponData Data => m_data;
 		public Hand GripHand => m_gripHand;
 		public Hand GuardHand => m_guardHand;
 		public WeaponGuardHold HeldGuardHold => m_guardHold;
-		public Vector3 WorldVelocity => m_velocity;
-		public Transform CartridgeEjectPoint => m_cartridgeEjectPoint;
 
 		protected override void Awake() {
 			base.Awake();
@@ -45,19 +49,17 @@ namespace VsR {
 				hold.selectExited.AddListener(OnGuardHandDetached);
 			}
 
+            VelocityTracker = GetComponent<VelocityTracker>();
 			movementType = MovementType.Instantaneous;
 			interactionLayers = InteractionLayerMask.GetMask("Storable", "Hand");
 
 			SetTriggerValue(0);
-			CartridgeInChamber = false;
+			chamberedCartridge = null;
 		}
 
 		protected void Update() {
-			if (!m_gripHand)
+			if (m_gripHand == null)
 				return;
-
-			m_velocity = (transform.position - m_previousPosition) / Time.unscaledDeltaTime;
-			m_previousPosition = transform.position;
 
 			m_fireRateTimer += Time.deltaTime;
 			SetTriggerValue(m_gripHand.TriggerAction.ReadValue<float>());
@@ -68,24 +70,16 @@ namespace VsR {
 				Gizmos.color = Color.yellow;
 				Gizmos.DrawSphere(m_barrelEndPoint.position, 0.004f);
 			}
-
-			if (m_cartridgeEjectPoint) {
-				Gizmos.color = Color.cyan;
-				Gizmos.DrawLine(m_cartridgeEjectPoint.position, m_cartridgeEjectPoint.position + m_cartridgeEjectPoint.up * 0.1f);
-			}
 		}
 
 		protected void Fire() {
-			CartridgeInChamber = false;
+			chamberedCartridge.hasBullet = false;
 			m_triggerReset = false;
 			m_fireRateTimer = 0.0f;
 
 			m_gripHand.ApplyHapticFeedback(m_data.fireHapticFeedback);
 			m_gripHand.Recoil.AddRecoil(this);
 			SoundPoolManager.Instance.PlaySound(m_data.shootSound, transform.position, Random.Range(0.9f, 1.1f));
-
-			if (m_data.shootType != WeaponData.ShootType.Manual)
-				TryToCock();
 
 			switch (Data.shootingPhysicsType) {
 				case WeaponData.ShootingPhysicsType.RaycastLaser:
@@ -115,7 +109,7 @@ namespace VsR {
 			if (m_data.shootType != WeaponData.ShootType.Automatic && !m_triggerReset)
 				return false;
 
-			if (!CartridgeInChamber)
+			if (!chamberedCartridge)
 				return false;
 
 			if (m_fireRateTimer < m_data.SecondsPerRound)
@@ -124,36 +118,32 @@ namespace VsR {
 			return true;
 		}
 
-		public void TryToCock() {
-			if (CartridgeInChamber) {
-				EjectCartridge(true);
-				CartridgeInChamber = false;
-			}
-
-			if (!m_magSlot.Mag || m_magSlot.Mag.IsEmpty)
+		public void Rack() {
+			if (chamberedCartridge != null || m_magSlot.Mag == null || m_magSlot.Mag.IsEmpty)
 				return;
 
-			m_magSlot.Mag.bulletCount--;
-			CartridgeInChamber = true;
+			chamberedCartridge = m_magSlot.Mag.PopCartridge();
 		}
 
-		public void EjectCartridge(bool withBullet = false) {
+		public void EjectChamberedCartridge(bool manually) {
+            if(chamberedCartridge == null)
+                return;
+
 			float force, torque;
 			Math.FloatRange randomness;
 
-			// If the cartridge has a bullet, we can assume it was ejected by manually pulling the slide instead of firing
-			if (!withBullet) {
-				force = m_data.cartridgeEjectForce;
-				torque = m_data.cartridgeEjectTorque;
-				randomness = new Math.FloatRange(0.5f, 1.5f);
-			} else {
+			if (manually) {
 				force = 1.5f;
 				torque = 5.0f;
 				randomness = new Math.FloatRange(0.9f, 1.1f);
+			} else {
+				force = m_data.cartridgeEjectForce;
+				torque = m_data.cartridgeEjectTorque;
+				randomness = new Math.FloatRange(0.5f, 1.5f);
 			}
 
-			Cartridge cartridge = CartridgePoolManager.Instance.Pool.Get();
-			cartridge.Eject(this, force, torque, randomness, withBullet);
+			chamberedCartridge.Eject(VelocityTracker.velocity, chamberedCartridge.transform, force, torque, randomness);
+            chamberedCartridge = null;
 		}
 
 		protected void OnGripHandAttached(Hand hand) {

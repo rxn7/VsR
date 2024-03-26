@@ -19,7 +19,7 @@ namespace VsR {
 
 		public void CloseBolt() {
 			m_bolt.IsOpen = false;
-			Weapon.TryToCock();
+			Weapon.Rack();
 
 			SoundPoolManager.Instance.PlaySound(m_boltReleaseClip, transform.position, Random.Range(0.9f, 1.1f));
 		}

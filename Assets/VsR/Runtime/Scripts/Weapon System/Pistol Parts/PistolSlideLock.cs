@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace VsR {
 	public class PistolSlideLock : MonoBehaviour {
-		[SerializeField] private PistolSlide m_slide;
+		[SerializeField] private WeaponSlide m_slide;
 		[SerializeField] private Vector3 m_lockedPosition;
 		[SerializeField] private Vector3 m_lockedRotation;
 
@@ -12,8 +12,8 @@ namespace VsR {
 			m_initPosition = transform.localPosition;
 			m_initRotation = transform.localEulerAngles;
 
-			m_slide.onLocked += Lock;
-			m_slide.onUnlocked += Unlock;
+			m_slide.Bolt.onOpen += Lock;
+			m_slide.Bolt.onRelease += Unlock;
 		}
 
 		private void Lock() {

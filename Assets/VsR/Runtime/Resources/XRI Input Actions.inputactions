@@ -211,7 +211,7 @@
                     "name": "Select",
                     "type": "Button",
                     "id": "33754c03-48ec-46ef-9bc6-22ed6bfdd8e8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -302,6 +302,15 @@
                     "type": "Button",
                     "id": "91ef237a-ab8b-429a-84cf-b1f4797a0414",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Mag Pop Cartridge",
+                    "type": "Button",
+                    "id": "31ba8811-dce8-4a64-8cf9-e9833bcbf263",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -426,6 +435,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Enable Raycast",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "987accdd-3554-4331-9ed8-9c285c288739",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mag Pop Cartridge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -761,7 +781,7 @@
                     "name": "Select",
                     "type": "Button",
                     "id": "ac96c10b-c955-4a46-8e67-bf16bc069b53",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -852,6 +872,15 @@
                     "type": "Button",
                     "id": "2256dce2-1eae-453f-b721-503b6d3a6e4c",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Mag Pop Cartridge",
+                    "type": "Button",
+                    "id": "0aee4a8f-66fa-474f-b02f-dab985bff50b",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -976,6 +1005,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Enable Raycast",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8a64cd35-b953-43c3-975f-4b89f458af86",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mag Pop Cartridge",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

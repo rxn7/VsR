@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace VsR {
 	public enum HandType : byte { Left = 0, Right }
 
-	public class Hand : XRDirectInteractor {
+	public class Hand : UnityEngine.XR.Interaction.Toolkit.Interactors.XRDirectInteractor {
 		[Header("Hand")]
 		[SerializeField] private HandType m_handType;
 		[SerializeField] private Recoil m_recoil;
@@ -14,6 +14,7 @@ namespace VsR {
 		public InputAction GrabAction { get; private set; }
 		public InputAction MagReleaseAction { get; private set; }
 		public InputAction SlideReleaseAction { get; private set; }
+		public InputAction MagPopCartridgeAction { get; private set; }
 
 		public HandType HandType => m_handType;
 		public Recoil Recoil => m_recoil;
@@ -33,6 +34,7 @@ namespace VsR {
 			GrabAction = InputActionManager.GetInteractionAction(m_handType, "Select Value");
 			MagReleaseAction = InputActionManager.GetInteractionAction(m_handType, "Mag Release");
 			SlideReleaseAction = InputActionManager.GetInteractionAction(m_handType, "Slide Release");
+            MagPopCartridgeAction = InputActionManager.GetInteractionAction(m_handType, "Mag Pop Cartridge");
 		}
 
 		public void ApplyHapticFeedback(HapticFeedback feedback) {
